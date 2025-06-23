@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SGPA Circuit Welcome</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(ellipse at center, #141e30, #243b55);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 215, 0, 0.2);
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+      animation: floatParticle 10s infinite ease-in-out alternate;
+    }
+
+    .particle:nth-child(1) { width: 25px; height: 25px; top: 20%; left: 10%; animation-duration: 8s; }
+    .particle:nth-child(2) { width: 15px; height: 15px; top: 80%; left: 20%; animation-duration: 12s; }
+    .particle:nth-child(3) { width: 20px; height: 20px; top: 50%; left: 85%; animation-duration: 7s; }
+    .particle:nth-child(4) { width: 18px; height: 18px; top: 10%; left: 70%; animation-duration: 10s; }
+    .particle:nth-child(5) { width: 30px; height: 30px; top: 65%; left: 45%; animation-duration: 11s; }
+
+    @keyframes floatParticle {
+      0% { transform: translateY(0) scale(1); opacity: 0.6; }
+      100% { transform: translateY(-30px) scale(1.2); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 6vw;
+      background: linear-gradient(90deg, #ffeb3b, #ffc107, #ff9800, #ffc107, #ffeb3b);
+      background-size: 400% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: animateText 5s linear infinite, floatText 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(255, 200, 0, 0.6));
+      z-index: 1;
+      margin: 0;
+    }
+
+    .button {
+      margin-top: 5vh;
+      padding: 12px 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 40px;
+      backdrop-filter: blur(10px);
+      font-size: 1.2em;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      animation: fadeInUp 2s ease-in-out 0s forwards;
+      z-index: 1;
+    }
+
+    .button:hover {
+      background: rgba(255, 215, 0, 0.2);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px gold;
+    }
+
+    .credit {
+      margin-top: 3vh;
+      font-size: 2.8vw;
+      font-weight: bold;
+      background: linear-gradient(90deg, #fffacd, #ffdf00, #fffacd);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: floatCredit 4s ease-in-out infinite, animateText 6s linear infinite;
+      text-shadow: 0 0 8px rgba(255, 255, 150, 0.6), 0 0 12px rgba(255, 223, 0, 0.3);
+      z-index: 1;
+    }
+
+    @keyframes animateText {
+      0% { background-position: 0% center; }
+      100% { background-position: 100% center; }
+    }
+
+    @keyframes floatText {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes floatCredit {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatComponent {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+
+    #circuit-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    .circuit-element {
+      stroke: gold;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 5px gold);
+      animation: floatComponent 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Glowing Particles -->
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+
+  <!-- SVG Components Spread -->
+  <svg id="circuit-svg" viewBox="0 0 1500 800" preserveAspectRatio="none">
+    <!-- Spread Components at different positions -->
+
+    <!-- Diode -->
+    <polygon class="circuit-element" points="100,100 120,90 120,110" />
+    <line class="circuit-element" x1="120" y1="90" x2="140" y2="90" />
+    <line class="circuit-element" x1="120" y1="110" x2="140" y2="110" />
+
+    <!-- Amplifier -->
+    <polygon class="circuit-element" points="300,600 330,620 300,640" />
+    <line class="circuit-element" x1="270" y1="620" x2="300" y2="620" />
+    <line class="circuit-element" x1="330" y1="620" x2="360" y2="620" />
+
+    <!-- Capacitor -->
+    <line class="circuit-element" x1="500" y1="200" x2="500" y2="240" />
+    <line class="circuit-element" x1="520" y1="200" x2="520" y2="240" />
+
+    <!-- Resistor -->
+    <polyline class="circuit-element" points="700,400 710,390 720,410 730,390 740,410 750,390 760,410" />
+
+    <!-- Inductor -->
+    <path class="circuit-element" d="M 900 100 q 10 -20 20 0 q 10 -20 20 0 q 10 -20 20 0" />
+
+    <!-- Battery -->
+    <line class="circuit-element" x1="1100" y1="300" x2="1100" y2="340" />
+    <line class="circuit-element" x1="1115" y1="290" x2="1115" y2="350" />
+
+    <!-- Ground -->
+    <line class="circuit-element" x1="200" y1="700" x2="200" y2="720" />
+    <line class="circuit-element" x1="190" y1="720" x2="210" y2="720" />
+    <line class="circuit-element" x1="192" y1="730" x2="208" y2="730" />
+    <line class="circuit-element" x1="194" y1="740" x2="206" y2="740" />
+
+    <!-- Transistor -->
+    <circle class="circuit-element" cx="400" cy="100" r="10" />
+    <line class="circuit-element" x1="400" y1="110" x2="400" y2="140" />
+    <line class="circuit-element" x1="390" y1="90" x2="360" y2="60" />
+    <line class="circuit-element" x1="410" y1="90" x2="440" y2="60" />
+
+    <!-- Op-Amp -->
+    <polygon class="circuit-element" points="800,700 830,720 800,740" />
+    <line class="circuit-element" x1="770" y1="720" x2="800" y2="720" />
+    <line class="circuit-element" x1="830" y1="720" x2="860" y2="720" />
+
+    <!-- AND Gate -->
+    <path class="circuit-element" d="M 1200 500 L1220 500 A 30 30 0 0 1 1220 560 L1200 560 Z" />
+    <line class="circuit-element" x1="1180" y1="510" x2="1200" y2="510" />
+    <line class="circuit-element" x1="1180" y1="550" x2="1200" y2="550" />
+    <line class="circuit-element" x1="1220" y1="530" x2="1250" y2="530" />
+
+    <!-- LED -->
+    <polygon class="circuit-element" points="1300,100 1320,90 1320,110" />
+    <line class="circuit-element" x1="1320" y1="90" x2="1340" y2="90" />
+    <line class="circuit-element" x1="1320" y1="110" x2="1340" y2="110" />
+    <line class="circuit-element" x1="1340" y1="90" x2="1350" y2="80" />
+    <line class="circuit-element" x1="1340" y1="110" x2="1350" y2="100" />
+  </svg>
+
+  <!-- Main UI Content -->
+  <h1>SGPA CALCULATING WEBSITE</h1>
+  <a href="abhisgpa.html" class="button">Enter to Website</a>
+  <div class="credit">This Web is Created by ABHISHEK BAGEWADI</div>
+
+</body>
+</html>

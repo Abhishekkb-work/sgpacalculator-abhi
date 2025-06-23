@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SGPA Calculator</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    :root {
+      --primary: #1e90ff;
+      --secondary: #f0f2f5;
+      --text-dark: #1a1a1a;
+      --text-light: #555;
+      --border-color: #ccc;
+      --background: #ffffff;
+      --highlight: #f9f9f9;
+    }
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: var(--secondary);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 10px;
+    }
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: 20px;
+      color: var(--text-dark);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 4px;
+      margin-bottom: 16px;
+    }
+    .small-text {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.6;
+      margin-bottom: 20px;
+    }
+    .footer-text {
+      text-align: center;
+      font-size: 10px;
+      color: #999;
+      margin-top: 20px;
+    }
+    label {
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 4px;
+      color: var(--text-dark);
+    }
+    input[type="text"], input[type="number"], select {
+      padding: 6px 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background-color: var(--background);
+      width: 180px;
+      font-size: 12px;
+      margin-right: 8px;
+    }
+    .section {
+      background: var(--highlight);
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 14px;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.05);
+      display: none;
+    }
+    .subject-row {
+      margin-bottom: 24px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    #result {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 20px;
+      white-space: pre-line;
+      background-color: #e8f0ff;
+      border: 1px solid var(--primary);
+      padding: 14px;
+      border-radius: 8px;
+      color: #003366;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .action-buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .action-buttons button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .action-buttons button:hover {
+      background-color: #006ad4;
+    }
+    #initial-form,
+    #cycleSelection,
+    #eeeCycleSelection {
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.06);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #feedbackButton {
+      position: fixed;
+      bottom: 40px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      background-color: #1e90ff;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      font-size: 15px;
+      text-decoration: none;
+      z-index: 999;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+    #feedbackButton:hover {
+      background-color: #006ad4;
+    }
+
+    /* PRINT VIEW STYLES */
+    @media print {
+      body {
+        zoom: 55%;
+        margin: 0;
+        padding: 0;
+        font-size: 10px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .action-buttons,
+      #feedbackButton {
+        display: none !important;
+      }
+
+      .subject-row {
+        border: 1px solid #aaa;
+        margin-bottom: 12px;
+        padding: 6px;
+        box-shadow: none;
+      }
+
+      .line {
+        gap: 6px;
+        margin-bottom: 6px;
+      }
+
+      input, select {
+        font-size: 10px;
+        padding: 4px;
+        width: 160px;
+      }
+
+      #result {
+        max-width: 100%;
+        font-size: 12px;
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 20px;
+        margin-bottom: 4px;
+      }
+
+      h2 {
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      .footer-text {
+        font-size: 9px;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>SGPA CALCULATOR</h1>
+  <div class="small-text">CREATED BY ABHISHEK _ BAGEWADI</div>
+
+  <div id="initial-form">
+    <label>Enter Full Name: <input type="text" id="fullName" oninput="this.value = this.value.toUpperCase()" /></label><br><br>
+    <label>Select Stream:
+      <select id="streamSelect" onchange="handleStreamSelection()">
+        <option value="">--Select--</option>
+        <option value="cse">CSE Stream</option>
+        <option value="eee">EEE Stream</option>
+        <option value="other">Other</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="cycleSelection" class="section">
+    <label>Select Cycle:
+      <select id="cycleSelect" onchange="handleCycleSelection()">
+        <option value="">--Select--</option>
+        <option value="physics">Physics Cycle</option>
+        <option value="chemistry">Chemistry Cycle</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="eeeCycleSelection" class="section">
+    <label>Select Cycle:
+      <select id="eeeCycleSelect" onchange="handleEEECycleSelection()">
+        <option value="">--Select--</option>
+        <option value="eeePhysics">Physics Cycle</option>
+        <option value="eeeChemistry">Chemistry Cycle</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="eeeSubjects" class="section">
+    <h2>EEE Subjects</h2>
+    <div id="eeeInputs"></div>
+  </div>
+
+  <div id="cseSubjects" class="section">
+    <h2>CSE Subjects</h2>
+    <div id="cseInputs"></div>
+  </div>
+
+  <div id="otherSubjects" class="section">
+    <h2>Custom Subjects</h2>
+    <div id="otherInputs"></div>
+  </div>
+
+  <div class="action-buttons">
+    <button onclick="calculateSGPA()">Calculate SGPA</button>
+    <button onclick="printPage()">Print or Save</button>
+    <button onclick="sharePage()">Share</button>
+  </div>
+
+  <div id="result"></div>
+  <div class="footer-text">CREATED BY : A B H I S H E K _ B A G E W A D I</div>
+
+  <a href="abhisgpa.html" id="feedbackButton">Click here to submit your feedback</a>
+
+  <script>
+    const eeePhysicsCycleData = [
+      ["Mathematics -  for EEE Stream", "BMATEX01", 4],
+      ["Applied Physics for EEE Stream", "BPHYEX02", 4],
+      ["Basic Electronics", "BEEEX03", 3],
+      ["Introduction to C Programming", "BESCKx04x", 3],
+      ["Global Climate Change", "BETCKx05x / BPLCKx05x", 3],
+      ["Professional Writing Skills in English", "BENGKx06/BPWSKx06", 1],
+      ["Samskrutika Kannada / Balake Kannada", "BKSKKx07/BKBKKx07", 1],
+      ["Innovation and Design Thinking", "BIDTKx58", 1]
+    ];
+    const eeeChemistryCycleData = [
+      ["Mathematics - for EEE Stream", "BMATS201", 4],
+      ["Applied Chemistry for EEE Stream", "BCHES202", 4],
+      ["Computer-Aided Engineering Drawing", "BCEDKx03", 3],
+      ["Introduction to Electrical Engineering", "BESCKx04x", 3],
+      ["Introduction to Python Programming", "BPLCKx05x", 3],
+      ["Professional Writing Skills in English", "BPWSKx06", 1],
+      ["Indian Constitution", "BICOKx07", 1],
+      ["Scientific Foundations of Health", "BSFHKx58", 1]
+    ];
+    const csePhysicsCycleData = [
+      ["Mathematics -  for CSE Stream", "BMATEX01", 4],
+      ["Applied Physics for CSE Stream", "BPHYEX02", 4],
+      ["Principles of Programming Using C", "BCSESC203", 3],
+      ["Introduction to Electronics Communication", "BECESC204C", 3],
+      ["Global Climate Change", "BETCKx05x / BPLCKx05x", 3],
+      ["Communicative English / Professional Writing Skills", "BENGKx06/BPWSKx06", 1],
+      ["Samskrutika Kannada / Balake Kannada", "BKSKKx07/BKBKKx07", 1],
+      ["Innovation and Design Thinking", "BIDTKx58", 1]
+    ];
+    const cseChemistryCycleData = [
+      ["Mathematics -  for CSE Stream", "BMATS201", 4],
+      ["Applied Chemistry for CSE Stream", "BCHES202", 4],
+      ["Computer-Aided Engineering Drawing", "BCEDKx03", 3],
+      ["Introduction to Mechanical Engineering", "BESCKx04x", 3],
+      ["Introduction to Python Programming", "BPLCKx05x", 3],
+      ["Professional Writing Skills in English", "BPWSKx06", 1],
+      ["Indian Constitution", "BICOKx07", 1],
+      ["Scientific Foundations of Health", "BSFHKx58", 1]
+    ];
+
+    function handleStreamSelection() {
+      const stream = document.getElementById("streamSelect").value;
+      document.getElementById("cycleSelection").style.display = stream === "cse" ? "block" : "none";
+      document.getElementById("eeeCycleSelection").style.display = stream === "eee" ? "block" : "none";
+      document.getElementById("cseSubjects").style.display = "none";
+      document.getElementById("eeeSubjects").style.display = "none";
+      document.getElementById("otherSubjects").style.display = stream === "other" ? "block" : "none";
+      if (stream === "other") fillOtherInputs();
+    }
+
+    function handleCycleSelection() {
+      const cycle = document.getElementById("cycleSelect").value;
+      if (cycle === "physics") {
+        fillInputs("cseInputs", csePhysicsCycleData);
+        document.getElementById("cseSubjects").style.display = "block";
+      } else if (cycle === "chemistry") {
+        fillInputs("cseInputs", cseChemistryCycleData);
+        document.getElementById("cseSubjects").style.display = "block";
+      } else {
+        document.getElementById("cseSubjects").style.display = "none";
+      }
+    }
+
+    function handleEEECycleSelection() {
+      const cycle = document.getElementById("eeeCycleSelect").value;
+      if (cycle === "eeePhysics") {
+        fillInputs("eeeInputs", eeePhysicsCycleData);
+        document.getElementById("eeeSubjects").style.display = "block";
+      } else if (cycle === "eeeChemistry") {
+        fillInputs("eeeInputs", eeeChemistryCycleData);
+        document.getElementById("eeeSubjects").style.display = "block";
+      } else {
+        document.getElementById("eeeSubjects").style.display = "none";
+      }
+    }
+
+    function fillInputs(containerId, subjectsData) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      subjectsData.forEach((subj, index) => {
+        container.innerHTML += `
+          <div class='subject-row'>
+            <div class='line'>
+              <label>Subject Name:</label><input type='text' value='${subj[0]}' readonly />
+              <label>Subject Code:</label><input type='text' value='${subj[1]}' readonly />
+            </div>
+            <div class='line'>
+              <label>Marks:</label><input type='number' id='${containerId}_sub${index}_marks' />
+              <label>Credits:</label><input type='number' value='${subj[2]}' id='${containerId}_sub${index}_credits' readonly />
+            </div>
+          </div>`;
+      });
+    }
+
+    function fillOtherInputs() {
+      const container = document.getElementById("otherInputs");
+      container.innerHTML = "";
+      for (let i = 0; i < 8; i++) {
+        container.innerHTML += `
+          <div class='subject-row'>
+            <div class='line'>
+              <label>Subject Name:</label><input type='text' />
+              <label>Marks:</label><input type='number' class='otherMarks' />
+              <label>Credits:</label><input type='number' class='otherCredits' />
+            </div>
+          </div>`;
+      }
+    }
+
+    function calculateSGPA() {
+      let marks = document.querySelectorAll("input[id$='_marks'], .otherMarks");
+      let credits = document.querySelectorAll("input[id$='_credits'], .otherCredits");
+      let totalMarks = 0, totalCredits = 0;
+      for (let i = 0; i < marks.length; i++) {
+        const score = parseFloat(marks[i].value);
+        const credit = parseFloat(credits[i].value);
+        if (!isNaN(score) && !isNaN(credit)) {
+          let gradePoint = 0;
+          if (score >= 90) gradePoint = 10;
+          else if (score >= 80) gradePoint = 9;
+          else if (score >= 70) gradePoint = 8;
+          else if (score >= 60) gradePoint = 7;
+          else if (score >= 45) gradePoint = 6;
+          else if (score >= 40) gradePoint = 4;
+          else gradePoint = 0;
+
+          totalMarks += gradePoint * credit;
+          totalCredits += credit;
+        }
+      }
+
+      const sgpa = (totalMarks / totalCredits).toFixed(2);
+      const name = document.getElementById("fullName").value || "Student";
+      const stream = document.getElementById("streamSelect").value.toUpperCase() || "N/A";
+      document.getElementById("result").innerHTML = `
+        <div style="text-align: center; font-size: 36px; font-weight: bold; margin-bottom: 16px; color: #1e90ff;">
+          SGPA = ${sgpa}
+        </div>
+        Name: ${name}<br>
+        Stream: ${stream}<br>
+        Total Credits: ${totalCredits}<br>
+        SGPA = ${sgpa}`;
+    }
+
+    function printPage() {
+      window.print();
+    }
+
+    function sharePage() {
+      const resultText = document.getElementById("result").innerText || "Check out this SGPA Calculator!";
+      if (navigator.share) {
+        navigator.share({
+          title: "SGPA Result",
+          text: resultText,
+          url: window.location.href
+        }).catch(err => alert("Share cancelled or unsupported."));
+      } else {
+        alert("Sharing is not supported on this browser.");
+      }
+    }
+  </script>
+</body>
+</html>
