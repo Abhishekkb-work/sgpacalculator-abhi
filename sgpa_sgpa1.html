@@ -1,6 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SGPA Calculator</title>
+
+  
+  <!-- Your body and script stays unchanged below -->
+  <!-- Use your existing script and logic -->
+  <!-- Already includes calculation, stream logic, sharing, etc. -->
+
+  <!-- Keep your existing script tags here as they are. -->
+  <!-- No changes needed in JavaScript for focus zoom. -->
+
+</body>
+</html>
+
+<a href="abhii.html" id="designerProfileBtn"> View Designer Profile</a>
+<a href="abhisgpa.html" id="feedbackFloatingBtn">Give Feedback</a>
+
+<style>
+  #designerProfileBtn,
+  #feedbackFloatingBtn {
+    position: fixed;
+    right: 20px;
+    padding: 12px 20px;
+    background: #ff5c5c;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(255, 92, 92, 0.3);
+    z-index: 9999;
+    transition: background 0.3s ease, transform 0.3s ease;
+    animation: floatFade 3s ease-in-out infinite;
+  }
+
+  #designerProfileBtn {
+    bottom: 70px;
+  }
+
+  #feedbackFloatingBtn {
+    bottom: 20px;
+    background: #0077cc;
+    box-shadow: 0 8px 20px rgba(0, 119, 204, 0.3);
+  }
+
+  #designerProfileBtn:hover {
+    background: #e60039;
+    transform: translateY(-3px);
+  }
+
+  #feedbackFloatingBtn:hover {
+    background: #005fa3;
+    transform: translateY(-3px);
+  }
+
+  @keyframes floatFade {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  @media print {
+    #designerProfileBtn, #feedbackFloatingBtn {
+      display: none !important;
+    }
+  }
+</style>
   <title>SGPA Calculator</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -266,7 +338,7 @@
   <div id="result"></div>
   <div class="footer-text">CREATED BY : A B H I S H E K _ B A G E W A D I</div>
 
-  <a href="abhisgpa.html" id="feedbackButton">Click here to submit your feedback</a>
+ 
 
   <script>
     const eeePhysicsCycleData = [
@@ -430,6 +502,10 @@
         alert("Sharing is not supported on this browser.");
       }
     }
+
+
+
+    
   </script>
 </body>
 </html>
