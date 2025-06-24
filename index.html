@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#0d6efd" />
+  <button id="installBtn" style="display:none; padding:10px 20px; background:#0d6efd; color:white; border:none; border-radius:8px; font-size:16px;">
+  📲 Install SGPA App
+</button>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0d6efd" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SGPA Calculator by ABHI</title>
@@ -201,9 +204,9 @@
   </svg>
 
   <!-- Main UI Content -->
-  <h1>SGPA CALCULATING WEBSITE</h1>
+  <h1>SGPA CALCULATING WEB</h1>
   <a href="abhisgpa.html" class="button">Enter to Website</a>
-  <div class="credit">This Web is Created by ABHISHEK BAGEWADI</div>
+  <div class="credit">This WebAPP is Created by ABHISHEK BAGEWADI</div>
   <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js')
@@ -211,5 +214,28 @@
   }
   </script>
 
+  <script>
+  let deferredPrompt;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); // Stop auto-prompt
+    deferredPrompt = e;
+    const installBtn = document.getElementById('installBtn');
+    installBtn.style.display = 'inline-block';
+
+    installBtn.addEventListener('click', () => {
+      installBtn.style.display = 'none'; // Hide button once clicked
+      deferredPrompt.prompt(); // Show prompt
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('✅ App installed');
+        } else {
+          console.log('❌ Installation cancelled');
+        }
+        deferredPrompt = null;
+      });
+    });
+  });
+</script>
 </body>
 </html>
