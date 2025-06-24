@@ -1,344 +1,497 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<!DOCTYPE html>
-<html>
-<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>SGPA Calculator</title>
 
-  
-  <!-- Your body and script stays unchanged below -->
-  <!-- Use your existing script and logic -->
-  <!-- Already includes calculation, stream logic, sharing, etc. -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- Keep your existing script tags here as they are. -->
-  <!-- No changes needed in JavaScript for focus zoom. -->
+  <a href="abhii.html" id="designerProfileBtn">⟿ View Abhishek's Profile</a>
+  <a href="abhisgpa.html" id="feedbackFloatingBtn">Give Feedback</a>
 
-</body>
-</html>
-
-<a href="abhii.html" id="designerProfileBtn">╰┈➤ View Abhishek's Profile</a>
-<a href="abhisgpa.html" id="feedbackFloatingBtn">Give Feedback</a>
-
-<style>
-  #designerProfileBtn,
-  #feedbackFloatingBtn {
-    position: fixed;
-    right: 20px;
-    padding: 12px 20px;
-    background: #ff5c5c;
-    color: white;
-    font-weight: 600;
-    font-size: 14px;
-    border-radius: 8px;
-    text-decoration: none;
-    box-shadow: 0 8px 20px rgba(255, 92, 92, 0.3);
-    z-index: 9999;
-    transition: background 0.3s ease, transform 0.3s ease;
-    animation: floatFade 3s ease-in-out infinite;
-  }
-
-  #designerProfileBtn {
-    bottom: 70px;
-  }
-
-  #feedbackFloatingBtn {
-    bottom: 20px;
-    background: #0077cc;
-    box-shadow: 0 8px 20px rgba(0, 119, 204, 0.3);
-  }
-
-  #designerProfileBtn:hover {
-    background: #e60039;
-    transform: translateY(-3px);
-  }
-
-  #feedbackFloatingBtn:hover {
-    background: #005fa3;
-    transform: translateY(-3px);
-  }
-
-  @keyframes floatFade {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-3px);
-    }
-  }
-
-  @media print {
-    #designerProfileBtn, #feedbackFloatingBtn {
-      display: none !important;
-    }
-  }
-</style>
-  <title>SGPA Calculator</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-    :root {
-      --primary: #1e90ff;
-      --secondary: #f0f2f5;
-      --text-dark: #1a1a1a;
-      --text-light: #555;
-      --border-color: #ccc;
-      --background: #ffffff;
-      --highlight: #f9f9f9;
+    /* Base for rem units */
+    html {
+      font-size: 62.5%; /* 1rem = 10px */
     }
+
     body {
-      font-family: 'Inter', Arial, sans-serif;
-      background-color: var(--secondary);
-      color: var(--text-dark);
+      font-family: 'Inter', sans-serif;
+      background-color: #e0f2f7; /* Light blue background */
+      color: #333;
       margin: 0;
-      padding: 10px;
+      padding: 20px;
+      font-size: 1.6rem; /* Base text size 16px */
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
+
+    /* Main Container for overall centering and width control */
+    .container {
+      width: 100%;
+      max-width: 800px; /* Max width for content */
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
     h1 {
       text-align: center;
-      color: var(--primary);
-      font-size: 28px;
-      margin-bottom: 8px;
+      color: #007bff; /* Vibrant blue */
+      font-size: 3.6rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
     }
-    h2 {
-      font-size: 20px;
-      color: var(--text-dark);
-      border-bottom: 2px solid var(--primary);
-      padding-bottom: 4px;
-      margin-bottom: 16px;
-    }
+
     .small-text {
       text-align: center;
-      font-size: 11px;
+      font-size: 1.2rem;
       font-weight: 600;
-      opacity: 0.6;
-      margin-bottom: 20px;
+      color: #666;
+      margin-bottom: 2.5rem;
     }
+
     .footer-text {
       text-align: center;
-      font-size: 10px;
+      font-size: 1.1rem;
       color: #999;
-      margin-top: 20px;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #eee;
     }
+
     label {
       font-weight: 600;
-      display: inline-block;
-      margin-bottom: 4px;
-      color: var(--text-dark);
+      display: block; /* Make labels block for better spacing */
+      margin-bottom: 0.8rem;
+      color: #444;
     }
+
     input[type="text"], input[type="number"], select {
-      padding: 6px 8px;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      background-color: var(--background);
-      width: 180px;
-      font-size: 12px;
-      margin-right: 8px;
-    }
-    .section {
-      background: var(--highlight);
-      padding: 14px;
+      padding: 1.2rem 1.5rem; /* Larger padding for better touch targets and appearance */
+      border: 1px solid #cceeff; /* Light blue border */
       border-radius: 8px;
-      margin-top: 14px;
-      box-shadow: 0 0 3px rgba(0, 0, 0, 0.05);
-      display: none;
+      background-color: #f9fcff; /* Very light blue background */
+      width: calc(100% - 3rem); /* Account for padding */
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem; /* More space below inputs */
+      transition: all 0.3s ease;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
     }
-    .subject-row {
-      margin-bottom: 24px;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+
+    input[type="text"]:focus, input[type="number"]:focus, select:focus {
+      border-color: #007bff; /* Highlight on focus */
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+      outline: none;
       background-color: #fff;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     }
-    .line {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 10px;
+
+    select {
+      appearance: none; /* Remove default arrow for custom styling */
+      background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.7L146.2%20202.7%2018.4%2075.1a17.6%2017.6%200%200%200-25.7%2023.1l138.4%20140c6.6%206.6%2017.2%206.6%2023.9%200l138.4-140a17.6%2017.6%200%200%200-13-29.8z%22%2F%3E%3C%2Fsvg%3E');
+      background-repeat: no-repeat;
+      background-position: right 1.5rem top 50%;
+      background-size: 1rem auto;
+      padding-right: 3.5rem; /* Make space for custom arrow */
     }
-    #result {
-      font-size: 18px;
-      font-weight: 600;
-      margin-top: 20px;
-      white-space: pre-line;
-      background-color: #e8f0ff;
-      border: 1px solid var(--primary);
-      padding: 14px;
+
+    .section {
+      background: #f0f8ff; /* Very light blue */
+      padding: 2rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e0f0ff; /* Subtle border */
+      display: none; /* Hidden by default */
+    }
+
+    .section h2 {
+      color: #0056b3; /* Darker blue for section titles */
+      font-size: 2.2rem;
+      margin-top: 0;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #cfe8ff; /* Underline for titles */
+      padding-bottom: 0.8rem;
+    }
+
+    .subject-row {
+      margin-bottom: 2.5rem;
+      padding: 1.5rem;
+      border: 1px solid #b3d9ff; /* Light blue border */
       border-radius: 8px;
-      color: #003366;
-      max-width: 580px;
-      margin-left: auto;
-      margin-right: auto;
+      background-color: #e9f5ff; /* Slightly darker light blue */
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      display: flex; /* Use flex for alignment */
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+      gap: 1.5rem; /* Spacing between input groups */
+      align-items: flex-end; /* Align inputs at the bottom */
     }
+
+    .subject-row > div { /* Target direct children of subject-row (each input group) */
+      flex: 1; /* Distribute space */
+      min-width: 150px; /* Minimum width for each input group */
+    }
+
+    .subject-row input {
+        margin-bottom: 0; /* Remove extra margin inside subject row */
+    }
+    
     .action-buttons {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 3.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem; /* Space between buttons */
     }
+
     .action-buttons button {
-      background-color: var(--primary);
+      background-color: #007bff;
       color: white;
       border: none;
-      padding: 10px 20px;
-      font-size: 14px;
+      padding: 1.4rem 2.8rem;
+      font-size: 1.6rem;
       font-weight: 600;
-      margin: 0 6px;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
     }
+
     .action-buttons button:hover {
-      background-color: #006ad4;
+      background-color: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
     }
+
+    #result {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-top: 3rem;
+      white-space: pre-line;
+      background-color: #e0ffe0; /* Light green for success/result */
+      border: 1px solid #28a745; /* Green border */
+      padding: 2rem;
+      border-radius: 10px;
+      color: #1a5e20;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center; /* Center result text */
+      box-shadow: 0 4px 15px rgba(40, 167, 69, 0.15);
+    }
+
+    #result strong {
+      color: #0056b3; /* Darker blue for labels within result */
+    }
+
+    #result div:first-child { /* SGPA value */
+      font-size: 3.2rem;
+      margin-bottom: 1.5rem;
+      color: #007bff;
+      font-weight: 700;
+    }
+
     #initial-form,
     #cycleSelection,
     #eeeCycleSelection {
-      background: white;
-      padding: 16px;
-      border-radius: 8px;
-      margin-bottom: 16px;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.06);
-      max-width: 700px;
+      background: #f0f8ff; /* Consistent background */
+      padding: 2.5rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e0f0ff;
+      max-width: 100%;
       margin-left: auto;
       margin-right: auto;
     }
+    
+    #initial-form label {
+        margin-bottom: 1.5rem; /* More space between initial form labels */
+    }
 
-    #feedbackButton {
+    /* Floating Buttons General Style */
+    #designerProfileBtn,
+    #feedbackFloatingBtn {
       position: fixed;
-      bottom: 40px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      background-color: #1e90ff;
-      color: white;
-      font-weight: bold;
-      padding: 10px;
-      font-size: 15px;
+      right: 20px;
+      padding: 1.2rem 2rem;
+      font-size: 1.4rem;
+      font-weight: 600;
       text-decoration: none;
-      z-index: 999;
-      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease;
-    }
-    #feedbackButton:hover {
-      background-color: #006ad4;
+      border-radius: 8px;
+      z-index: 9999;
+      transition: background 0.3s ease, transform 0.3s ease;
+      animation: floatFade 3s ease-in-out infinite;
+      color: white;
     }
 
-    /* PRINT VIEW STYLES */
+    #designerProfileBtn {
+      bottom: 70px;
+      background: #ff5c5c;
+      box-shadow: 0 8px 20px rgba(255, 92, 92, 0.3);
+    }
+
+    #feedbackFloatingBtn {
+      bottom: 20px;
+      background: #0077cc;
+      box-shadow: 0 8px 20px rgba(0, 119, 204, 0.3);
+    }
+
+    /* Hover Effects */
+    #designerProfileBtn:hover {
+      background: #e60039;
+      transform: translateY(-3px);
+    }
+
+    #feedbackFloatingBtn:hover {
+      background: #005fa3;
+      transform: translateY(-3px);
+    }
+
+    /* Floating Animation */
+    @keyframes floatFade {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-3px);
+      }
+    }
+
+    /* --- Print Styles --- */
     @media print {
-      body {
-        zoom: 55%;
+      html, body {
         margin: 0;
         padding: 0;
-        font-size: 10px;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
 
-      .action-buttons,
-      #feedbackButton {
-        display: none !important;
+      html {
+        font-size: 70%; /* Base font size for printing */
       }
-
-      .subject-row {
-        border: 1px solid #aaa;
-        margin-bottom: 12px;
-        padding: 6px;
+      
+      body {
+        font-size: 1.2rem;
+        background-color: #fff; /* White background for print */
+        color: #000; /* Black text for print */
+        padding: 10px; /* Minimal padding for print */
         box-shadow: none;
       }
 
-      .line {
-        gap: 6px;
-        margin-bottom: 6px;
-      }
-
-      input, select {
-        font-size: 10px;
-        padding: 4px;
-        width: 160px;
-      }
-
-      #result {
+      .container {
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
         max-width: 100%;
-        font-size: 12px;
-        padding: 10px;
       }
 
       h1 {
-        font-size: 20px;
-        margin-bottom: 4px;
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+        color: #000;
       }
 
-      h2 {
-        font-size: 14px;
-        margin-bottom: 8px;
+      .small-text, .footer-text {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+        color: #333;
       }
 
-      .footer-text {
-        font-size: 9px;
-        margin-top: 10px;
+      /* Hide elements not needed in print */
+      #designerProfileBtn,
+      #feedbackFloatingBtn,
+      .action-buttons {
+        display: none !important;
+      }
+
+      /* Form sections */
+      #initial-form,
+      #cycleSelection,
+      #eeeCycleSelection,
+      .section {
+        background: #fff;
+        padding: 0.8rem;
+        border-radius: 0;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        margin-bottom: 0.8rem;
+        margin-top: 0.5rem;
+      }
+
+      label {
+        font-size: 1rem;
+        margin-bottom: 2px;
+      }
+
+      input[type="text"], input[type="number"], select {
+        padding: 0.3rem 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #aaa;
+        margin-top: 2px;
+      }
+
+      select {
+        background-image: none; /* Remove custom arrow for print */
+      }
+
+      /* Subject rows - print optimization */
+      .subject-row {
+        margin-bottom: 0.8rem;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        box-shadow: none;
+        page-break-inside: avoid;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      /* Hide Subject Code for print */
+      /* This targets the div containing the Subject Code input */
+      .subject-row > div:nth-child(2) { 
+          display: none !important;
+      }
+
+      .subject-row label,
+      .subject-row input {
+          flex-shrink: 0;
+          width: auto;
+      }
+      
+      .subject-row input[type="text"] {
+          flex-grow: 1;
+          max-width: 60%;
+      }
+      
+      .subject-row input[type="number"] {
+          width: 5rem;
+          text-align: center;
+      }
+
+      /* Result section for print */
+      #result {
+        font-size: 1.4rem;
+        padding: 1rem;
+        margin-top: 1.5rem;
+        border: 2px solid #1e90ff;
+        background-color: #e8f0ff;
+        color: #003366;
+        text-align: left;
+        max-width: 95%;
+        page-break-before: avoid;
+      }
+
+      #result div:first-child {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+      }
+
+      /* No explicit page-break-after on #initial-form to prevent blank page */
+    }
+
+    /* Responsive adjustments */
+    @media screen and (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+      .action-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .action-buttons button {
+        width: 100%;
+        padding: 1.2rem 2rem;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      html {
+        font-size: 55%;
+      }
+      .subject-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .subject-row > div { /* Apply to the direct child divs */
+        min-width: unset;
+        width: 100%;
+      }
+      input[type="text"], input[type="number"], select {
+        width: calc(100% - 3rem);
       }
     }
   </style>
 </head>
 <body>
-  <h1>SGPA CALCULATOR</h1>
-  <div class="small-text">CREATED BY ABHISHEK _ BAGEWADI</div>
+  <div class="container">
+    <h1>SGPA CALCULATOR</h1>
+    <div class="small-text">CREATED BY ABHISHEK _ BAGEWADI</div>
 
-  <div id="initial-form">
-    <label>Enter Full Name: <input type="text" id="fullName" oninput="this.value = this.value.toUpperCase()" /></label><br><br>
-    <label>Select Stream:
+    <div id="initial-form">
+      <label for="fullName">Enter Full Name:</label>
+      <input type="text" id="fullName" oninput="this.value = this.value.toUpperCase()" placeholder="e.g., ABHISHEK" />
+      <label for="streamSelect">Select Stream:</label>
       <select id="streamSelect" onchange="handleStreamSelection()">
         <option value="">--Select--</option>
         <option value="cse">CSE Stream</option>
         <option value="eee">EEE Stream</option>
-        <option value="other">Other</option>
-      </select>
-    </label>
-  </div>
+        <option value="other">Other</option> </select>
+    </div>
 
-  <div id="cycleSelection" class="section">
-    <label>Select Cycle:
+    <div id="cycleSelection" class="section">
+      <h2>Select Cycle (CSE)</h2>
+      <label for="cycleSelect">Select Cycle:</label>
       <select id="cycleSelect" onchange="handleCycleSelection()">
         <option value="">--Select--</option>
         <option value="physics">Physics Cycle</option>
         <option value="chemistry">Chemistry Cycle</option>
       </select>
-    </label>
-  </div>
+    </div>
 
-  <div id="eeeCycleSelection" class="section">
-    <label>Select Cycle:
+    <div id="eeeCycleSelection" class="section">
+      <h2>Select Cycle (EEE)</h2>
+      <label for="eeeCycleSelect">Select Cycle:</label>
       <select id="eeeCycleSelect" onchange="handleEEECycleSelection()">
         <option value="">--Select--</option>
         <option value="eeePhysics">Physics Cycle</option>
         <option value="eeeChemistry">Chemistry Cycle</option>
       </select>
-    </label>
+    </div>
+
+    <div id="eeeSubjects" class="section">
+      <h2>EEE Subjects</h2>
+      <div id="eeeInputs"></div>
+    </div>
+
+    <div id="cseSubjects" class="section">
+      <h2>CSE Subjects</h2>
+      <div id="cseInputs"></div>
+    </div>
+
+    <div id="otherSubjects" class="section">
+      <h2>Custom Subjects</h2>
+      <div id="otherInputs"></div>
+    </div>
+
+    <div class="action-buttons">
+      <button onclick="calculateSGPA()">Calculate SGPA</button>
+      <button onclick="printPage()">Print or Save</button>
+      <button onclick="sharePage()">Share</button>
+    </div>
+
+    <div id="result"></div>
+    <div class="footer-text">CREATED BY : A B H I S H E K _ B A G E W A D I</div>
   </div>
-
-  <div id="eeeSubjects" class="section">
-    <h2>EEE Subjects</h2>
-    <div id="eeeInputs"></div>
-  </div>
-
-  <div id="cseSubjects" class="section">
-    <h2>CSE Subjects</h2>
-    <div id="cseInputs"></div>
-  </div>
-
-  <div id="otherSubjects" class="section">
-    <h2>Custom Subjects</h2>
-    <div id="otherInputs"></div>
-  </div>
-
-  <div class="action-buttons">
-    <button onclick="calculateSGPA()">Calculate SGPA</button>
-    <button onclick="printPage()">Print or Save</button>
-    <button onclick="sharePage()">Share</button>
-  </div>
-
-  <div id="result"></div>
-  <div class="footer-text">CREATED BY : A B H I S H E K _ B A G E W A D I</div>
-
- 
 
   <script>
     const eeePhysicsCycleData = [
@@ -384,53 +537,69 @@
 
     function handleStreamSelection() {
       const stream = document.getElementById("streamSelect").value;
-      document.getElementById("cycleSelection").style.display = stream === "cse" ? "block" : "none";
-      document.getElementById("eeeCycleSelection").style.display = stream === "eee" ? "block" : "none";
+      // Hide all cycle and subject sections initially
+      document.getElementById("cycleSelection").style.display = "none";
+      document.getElementById("eeeCycleSelection").style.display = "none";
       document.getElementById("cseSubjects").style.display = "none";
       document.getElementById("eeeSubjects").style.display = "none";
-      document.getElementById("otherSubjects").style.display = stream === "other" ? "block" : "none";
-      if (stream === "other") fillOtherInputs();
+      document.getElementById("otherSubjects").style.display = "none";
+
+      // Show relevant sections based on stream
+      if (stream === "cse") {
+        document.getElementById("cycleSelection").style.display = "block";
+      } else if (stream === "eee") {
+        document.getElementById("eeeCycleSelection").style.display = "block";
+      } else if (stream === "other") {
+        document.getElementById("otherSubjects").style.display = "block";
+        fillOtherInputs(); // Ensure custom inputs are populated
+      }
     }
 
     function handleCycleSelection() {
       const cycle = document.getElementById("cycleSelect").value;
+      document.getElementById("cseSubjects").style.display = "none"; // Hide first
       if (cycle === "physics") {
         fillInputs("cseInputs", csePhysicsCycleData);
         document.getElementById("cseSubjects").style.display = "block";
       } else if (cycle === "chemistry") {
         fillInputs("cseInputs", cseChemistryCycleData);
         document.getElementById("cseSubjects").style.display = "block";
-      } else {
-        document.getElementById("cseSubjects").style.display = "none";
       }
     }
 
     function handleEEECycleSelection() {
       const cycle = document.getElementById("eeeCycleSelect").value;
+      document.getElementById("eeeSubjects").style.display = "none"; // Hide first
       if (cycle === "eeePhysics") {
         fillInputs("eeeInputs", eeePhysicsCycleData);
         document.getElementById("eeeSubjects").style.display = "block";
       } else if (cycle === "eeeChemistry") {
         fillInputs("eeeInputs", eeeChemistryCycleData);
         document.getElementById("eeeSubjects").style.display = "block";
-      } else {
-        document.getElementById("eeeSubjects").style.display = "none";
       }
     }
 
     function fillInputs(containerId, subjectsData) {
       const container = document.getElementById(containerId);
-      container.innerHTML = "";
+      container.innerHTML = ""; // Clear previous content
       subjectsData.forEach((subj, index) => {
         container.innerHTML += `
           <div class='subject-row'>
-            <div class='line'>
-              <label>Subject Name:</label><input type='text' value='${subj[0]}' readonly />
-              <label>Subject Code:</label><input type='text' value='${subj[1]}' readonly />
+            <div>
+              <label>Subject Name:</label>
+              <input type='text' value='${subj[0]}' readonly />
             </div>
-            <div class='line'>
-              <label>Marks:</label><input type='number' id='${containerId}_sub${index}_marks' />
-              <label>Credits:</label><input type='number' value='${subj[2]}' id='${containerId}_sub${index}_credits' readonly />
+            <div>
+              <label>Subject Code:</label>
+              <input type='text' value='${subj[1]}' readonly />
+            </div>
+            <div>
+              <label>Marks:</label>
+              <input type='number' id='${containerId}_sub${index}_marks' />
+            </div>
+            <div>
+              <label>Credits:</label>
+              <input type='number' value='${subj[2]}' id='${containerId}_sub${index}_credits' readonly />
             </div>
           </div>`;
       });
@@ -438,14 +607,21 @@
 
     function fillOtherInputs() {
       const container = document.getElementById("otherInputs");
-      container.innerHTML = "";
-      for (let i = 0; i < 8; i++) {
+      container.innerHTML = ""; // Clear previous content
+      for (let i = 0; i < 8; i++) { // Generate 8 custom subject input rows
         container.innerHTML += `
           <div class='subject-row'>
-            <div class='line'>
-              <label>Subject Name:</label><input type='text' />
-              <label>Marks:</label><input type='number' class='otherMarks' />
-              <label>Credits:</label><input type='number' class='otherCredits' />
+            <div>
+              <label>Subject Name:</label>
+              <input type='text' />
+            </div>
+            <div>
+              <label>Marks:</label>
+              <input type='number' class='otherMarks' />
+            </div>
+            <div>
+              <label>Credits:</label>
+              <input type='number' class='otherCredits' />
             </div>
           </div>`;
       }
@@ -454,11 +630,15 @@
     function calculateSGPA() {
       let marks = document.querySelectorAll("input[id$='_marks'], .otherMarks");
       let credits = document.querySelectorAll("input[id$='_credits'], .otherCredits");
-      let totalMarks = 0, totalCredits = 0;
+      
+      let totalWeightedGradePoints = 0;
+      let totalCredits = 0;
+
       for (let i = 0; i < marks.length; i++) {
         const score = parseFloat(marks[i].value);
         const credit = parseFloat(credits[i].value);
-        if (!isNaN(score) && !isNaN(credit)) {
+
+        if (!isNaN(score) && !isNaN(credit) && score >= 0 && credit >= 0) {
           let gradePoint = 0;
           if (score >= 90) gradePoint = 10;
           else if (score >= 80) gradePoint = 9;
@@ -468,22 +648,30 @@
           else if (score >= 40) gradePoint = 4;
           else gradePoint = 0;
 
-          totalMarks += gradePoint * credit;
+          totalWeightedGradePoints += gradePoint * credit;
           totalCredits += credit;
         }
       }
 
-      const sgpa = (totalMarks / totalCredits).toFixed(2);
+      let sgpa = 0;
+      if (totalCredits > 0) {
+          sgpa = (totalWeightedGradePoints / totalCredits).toFixed(2);
+      } else {
+          sgpa = "N/A";
+      }
+      
       const name = document.getElementById("fullName").value || "Student";
-      const stream = document.getElementById("streamSelect").value.toUpperCase() || "N/A";
+      const streamSelectElement = document.getElementById("streamSelect");
+      const stream = streamSelectElement.options[streamSelectElement.selectedIndex].text || "Not Selected";
+      
       document.getElementById("result").innerHTML = `
-        <div style="text-align: center; font-size: 36px; font-weight: bold; margin-bottom: 16px; color: #1e90ff;">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 16px; color: #1e90ff;">
           SGPA = ${sgpa}
         </div>
-        Name: ${name}<br>
-        Stream: ${stream}<br>
-        Total Credits: ${totalCredits}<br>
-        SGPA = ${sgpa}`;
+        <strong>Name:</strong> ${name}<br>
+        <strong>Stream:</strong> ${stream}<br>
+        <strong>Total Credits:</strong> ${totalCredits}<br>
+        <strong>Weighted Grade Points:</strong> ${totalWeightedGradePoints.toFixed(2)}`;
     }
 
     function printPage() {
@@ -491,21 +679,29 @@
     }
 
     function sharePage() {
-      const resultText = document.getElementById("result").innerText || "Check out this SGPA Calculator!";
+      const resultText = document.getElementById("result").innerText || "Calculate your SGPA with this easy tool!";
+      
       if (navigator.share) {
         navigator.share({
-          title: "SGPA Result",
+          title: "My SGPA Result",
           text: resultText,
           url: window.location.href
-        }).catch(err => alert("Share cancelled or unsupported."));
+        }).catch(err => {
+          console.error("Share failed:", err);
+          alert("Sharing was cancelled or is not supported on this browser.");
+        });
       } else {
-        alert("Sharing is not supported on this browser.");
+        alert("Sharing is not supported on this browser. You can copy the result manually.");
+        const el = document.createElement('textarea');
+        el.value = resultText + "\n" + window.location.href;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
       }
     }
 
-
-
-    
+    document.addEventListener('DOMContentLoaded', handleStreamSelection);
   </script>
 </body>
 </html>
