@@ -109,17 +109,23 @@
     }
 
     #installBtn {
-      margin-top: 20px;
-      padding: 10px 20px;
+      margin-top: 30px;
+      padding: 20px 50px;
       background: #0d6efd;
       color: white;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
+      border-radius: 12px;
+      font-size: 1.5rem;
       display: none;
       z-index: 1;
       cursor: pointer;
       animation: fadeInUp 1s ease-in-out;
+      box-shadow: 0 0 10px rgba(13, 110, 253, 0.6);
+    }
+
+    #installBtn:hover {
+      background-color: #084298;
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -135,18 +141,24 @@
   <!-- Main UI Content -->
   <h1>SGPA CALCULATING WEB</h1>
 
-  <!-- 📲 Install Button (Now properly placed) -->
   <button id="installBtn">📲 Install SGPA App</button>
 
   <a href="abhisgpa.html" class="button">Enter to WebAPP</a>
   <div class="credit">This WebAPP is Created by ABHISHEK BAGEWADI</div>
 
   <script>
+    // Register Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log("✅ Service Worker Registered"));
+        .then(function(registration) {
+          console.log('✅ Service Worker registered with scope:', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('❌ Service Worker registration failed:', error);
+        });
     }
 
+    // Handle Install Prompt
     let deferredPrompt;
     const installBtn = document.getElementById('installBtn');
 
@@ -162,7 +174,7 @@
           if (choiceResult.outcome === 'accepted') {
             console.log('✅ App installed');
           } else {
-            console.log('❌ Installation cancelled');
+            console.log('❌ Installation dismissed');
           }
           deferredPrompt = null;
         });
