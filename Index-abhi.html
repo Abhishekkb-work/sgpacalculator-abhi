@@ -1214,47 +1214,49 @@
 
         // Show modal
         const gradeCardModal = document.getElementById("grade-card-modal");
-        gradeCardModal.style.display = "flex";
-
-        // For best mobile and desktop image, ensure canvas size matches rendered element
-        // Use a larger scale for crispness
-        let scale = window.devicePixelRatio || 2;
-        // For mobile, forcibly use a higher scale for clarity
-        if (window.innerWidth < 600) scale = 3;
-
-        // Use a short delay to ensure modal is drawn
-        setTimeout(() => {
-            html2canvas(gradeCardContentDiv, {
-                scale: scale,
-                useCORS: true,
-                backgroundColor: "#fff",
-                scrollX: 0,
-                scrollY: 0,
-                windowWidth: gradeCardContentDiv.scrollWidth,
-                windowHeight: gradeCardContentDiv.scrollHeight
-            }).then(canvas => {
-                // Try to correct image size for mobile/desktop
-                // Optional: Crop whitespace if needed
-                const image = canvas.toDataURL("image/jpeg", 0.95);
-                const link = document.createElement('a');
-                link.href = image;
-                link.download = `${name.replace(/\s+/g, '_')}_SGPA_Grade_Card.jpeg`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            });
-        }, 300);
+      gradeCardModal.style.display = "flex";
+      // Use html2canvas to export in fixed 1100x889 px
+      setTimeout(() => {
+        html2canvas(gradeCardContentDiv, {
+          width: 1100,
+          height: 879,
+          windowWidth: 1100,
+          windowHeight: 879,
+          backgroundColor: "#fff",
+          scrollX: 0,
+          scrollY: 0,
+          scale: 1,
+          useCORS: true
+        }).then(canvas => {
+          // Force exact size
+          if (canvas.width !== 1100 || canvas.height !== 879) {
+            let resizedCanvas = document.createElement('canvas');
+            resizedCanvas.width = 1100;
+            resizedCanvas.height = 879;
+            let ctx = resizedCanvas.getContext('2d');
+            ctx.fillStyle = "#fff";
+            ctx.fillRect(0, 0, 1100, 879);
+            ctx.drawImage(canvas, 0, 0, 1100, 879);
+            canvas = resizedCanvas;
+          }
+          const image = canvas.toDataURL("image/jpeg", 0.96);
+          const link = document.createElement('a');
+          link.href = image;
+          link.download = `${name.replace(/\s+/g, '_')}_SGPA_Grade_Card.jpeg`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      }, 350);
     }
-
     document.getElementById('close-modal').addEventListener('click', () => {
-        document.getElementById('grade-card-modal').style.display = 'none';
+      document.getElementById('grade-card-modal').style.display = 'none';
     });
     document.getElementById('grade-card-modal').addEventListener('click', (event) => {
-        if (event.target === document.getElementById('grade-card-modal')) {
-            document.getElementById('grade-card-modal').style.display = 'none';
-        }
+      if (event.target === document.getElementById('grade-card-modal')) {
+        document.getElementById('grade-card-modal').style.display = 'none';
+      }
     });
-
     document.addEventListener('DOMContentLoaded', handleStreamSelection);
   </script>
 </body>
