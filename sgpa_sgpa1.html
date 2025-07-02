@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"> <!-- Allow zooming -->
   <title>SGPA Calculator</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -11,18 +11,17 @@
   <a href="abhisgpa.html" id="feedbackFloatingBtn">Give Feedback</a>
 
   <style>
-    /* Base for rem units */
     html {
       font-size: 62.5%; /* 1rem = 10px */
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #e0f2f7; /* Light blue background */
+      background-color: #e0f2f7;
       color: #333;
       margin: 0;
       padding: 20px;
-      font-size: 1.6rem; /* Base text size 16px */
+      font-size: 1.6rem;
       line-height: 1.6;
       display: flex;
       flex-direction: column;
@@ -30,10 +29,9 @@
       min-height: 100vh;
     }
 
-    /* Main Container for overall centering and width control */
     .container {
       width: 100%;
-      max-width: 800px; /* Max width for content */
+      max-width: 800px;
       margin: 0 auto;
       background-color: #fff;
       padding: 30px;
@@ -43,7 +41,7 @@
 
     h1 {
       text-align: center;
-      color: #007bff; /* Vibrant blue */
+      color: #007bff;
       font-size: 3.6rem;
       margin-bottom: 1rem;
       font-weight: 700;
@@ -69,87 +67,87 @@
 
     label {
       font-weight: 600;
-      display: block; /* Make labels block for better spacing */
+      display: block;
       margin-bottom: 0.8rem;
       color: #444;
     }
 
     input[type="text"], input[type="number"], select {
-      padding: 1.2rem 1.5rem; /* Larger padding for better touch targets and appearance */
-      border: 1px solid #cceeff; /* Light blue border */
+      padding: 1.2rem 1.5rem;
+      border: 1px solid #cceeff;
       border-radius: 8px;
-      background-color: #f9fcff; /* Very light blue background */
-      width: calc(100% - 3rem); /* Account for padding */
+      background-color: #f9fcff;
+      width: calc(100% - 3rem);
       font-size: 1.5rem;
-      margin-bottom: 1.5rem; /* More space below inputs */
+      margin-bottom: 1.5rem;
       transition: all 0.3s ease;
       box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
     input[type="text"]:focus, input[type="number"]:focus, select:focus {
-      border-color: #007bff; /* Highlight on focus */
+      border-color: #007bff;
       box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
       outline: none;
       background-color: #fff;
     }
 
     select {
-      appearance: none; /* Remove default arrow for custom styling */
+      appearance: none;
       background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.7L146.2%20202.7%2018.4%2075.1a17.6%2017.6%200%200%200-25.7%2023.1l138.4%20140c6.6%206.6%2017.2%206.6%2023.9%200l138.4-140a17.6%2017.6%200%200%200-13-29.8z%22%2F%3E%3C%2Fsvg%3E');
       background-repeat: no-repeat;
       background-position: right 1.5rem top 50%;
       background-size: 1rem auto;
-      padding-right: 3.5rem; /* Make space for custom arrow */
+      padding-right: 3.5rem;
     }
 
     .section {
-      background: #f0f8ff; /* Very light blue */
+      background: #f0f8ff;
       padding: 2rem;
       border-radius: 10px;
       margin-top: 2rem;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      border: 1px solid #e0f0ff; /* Subtle border */
-      display: none; /* Hidden by default */
+      border: 1px solid #e0f0ff;
+      display: none;
     }
 
     .section h2 {
-      color: #0056b3; /* Darker blue for section titles */
+      color: #0056b3;
       font-size: 2.2rem;
       margin-top: 0;
       margin-bottom: 2rem;
-      border-bottom: 2px solid #cfe8ff; /* Underline for titles */
+      border-bottom: 2px solid #cfe8ff;
       padding-bottom: 0.8rem;
     }
 
     .subject-row {
       margin-bottom: 2.5rem;
       padding: 1.5rem;
-      border: 1px solid #b3d9ff; /* Light blue border */
+      border: 1px solid #b3d9ff;
       border-radius: 8px;
-      background-color: #e9f5ff; /* Slightly darker light blue */
+      background-color: #e9f5ff;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      display: flex; /* Use flex for alignment */
-      flex-wrap: wrap; /* Allow wrapping on smaller screens */
-      gap: 1.5rem; /* Spacing between input groups */
-      align-items: flex-end; /* Align inputs at the bottom */
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: flex-end;
     }
 
-    .subject-row > div { /* Target direct children of subject-row (each input group) */
-      flex: 1; /* Distribute space */
-      min-width: 150px; /* Minimum width for each input group */
+    .subject-row > div {
+      flex: 1;
+      min-width: 150px;
     }
 
     .subject-row input {
-        margin-bottom: 0; /* Remove extra margin inside subject row */
+        margin-bottom: 0;
     }
-    
+
     .action-buttons {
       text-align: center;
       margin-top: 3.5rem;
       display: flex;
       justify-content: center;
-      gap: 1.5rem; /* Space between buttons */
-      flex-wrap: wrap; /* Allow buttons to wrap */
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .action-buttons button {
@@ -176,23 +174,23 @@
       font-weight: 600;
       margin-top: 3rem;
       white-space: pre-line;
-      background-color: #e0ffe0; /* Light green for success/result */
-      border: 1px solid #28a745; /* Green border */
+      background-color: #e0ffe0;
+      border: 1px solid #28a745;
       padding: 2rem;
       border-radius: 10px;
       color: #1a5e20;
       max-width: 90%;
       margin-left: auto;
       margin-right: auto;
-      text-align: center; /* Center result text */
+      text-align: center;
       box-shadow: 0 4px 15px rgba(40, 167, 69, 0.15);
     }
 
     #result strong {
-      color: #0056b3; /* Darker blue for labels within result */
+      color: #0056b3;
     }
 
-    #result div:first-child { /* SGPA value */
+    #result div:first-child {
       font-size: 3.2rem;
       margin-bottom: 1.5rem;
       color: #007bff;
@@ -202,7 +200,7 @@
     #initial-form,
     #cycleSelection,
     #eeeCycleSelection {
-      background: #f0f8ff; /* Consistent background */
+      background: #f0f8ff;
       padding: 2.5rem;
       border-radius: 10px;
       margin-bottom: 2rem;
@@ -212,9 +210,9 @@
       margin-left: auto;
       margin-right: auto;
     }
-    
+
     #initial-form label {
-        margin-bottom: 1.5rem; /* More space between initial form labels */
+        margin-bottom: 1.5rem;
     }
 
     /* Floating Buttons General Style */
@@ -235,8 +233,8 @@
 
     #designerProfileBtn {
       bottom: 70px;
-      background: #ff5c5c;
-      box-shadow: 0 8px 20px rgba(255, 92, 92, 0.3);
+      background: #007bff; /* Set profile button as blue */
+      box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
     }
 
     #feedbackFloatingBtn {
@@ -245,9 +243,8 @@
       box-shadow: 0 8px 20px rgba(0, 119, 204, 0.3);
     }
 
-    /* Hover Effects */
     #designerProfileBtn:hover {
-      background: #e60039;
+      background: #0056b3;
       transform: translateY(-3px);
     }
 
@@ -256,7 +253,6 @@
       transform: translateY(-3px);
     }
 
-    /* Floating Animation */
     @keyframes floatFade {
       0%, 100% {
         transform: translateY(0);
@@ -277,109 +273,41 @@
         }
     }
 
-    .gap-8 {
-        gap: 8rem;
-    }
-    .gap-6 {
-        gap: 6rem;
-    }
-    .gap-4 {
-        gap: 4rem;
-    }
-    .gap-2 {
-        gap: 2rem;
-    }
-    .mb-8 {
-        margin-bottom: 8rem;
-    }
-    .mb-6 {
-        margin-bottom: 6rem;
-    }
-    .mb-4 {
-        margin-bottom: 4rem;
-    }
-    .mb-3 {
-        margin-bottom: 3rem;
-    }
-    .mb-2 {
-        margin-bottom: 2rem;
-    }
-    .mt-1 {
-        margin-top: 1rem;
-    }
-    .mt-2 {
-        margin-top: 2rem;
-    }
-    .mt-4 {
-        margin-top: 4rem;
-    }
-    
-    .bg-white {
-        background-color: #fff;
-    }
-    .rounded-lg {
-        border-radius: 0.8rem;
-    }
-    .custom-shadow {
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-    .p-6 {
-        padding: 6rem;
-    }
-    .text-xl {
-        font-size: 2rem;
-    }
-    .font-semibold {
-        font-weight: 600;
-    }
-    .font-bold {
-        font-weight: 700;
-    }
-    .text-gray-800 {
-        color: #2d3748;
-    }
-    .text-gray-600 {
-        color: #4a5568;
-    }
-    .list-disc {
-        list-style-type: disc;
-    }
-    .pl-5 {
-        padding-left: 5rem;
-    }
-    .space-y-2 > :not([hidden]) ~ :not([hidden]) {
-        margin-top: 2rem;
-    }
-    .border-b {
-        border-bottom-width: 1px;
-    }
-    .border-gray-200 {
-        border-color: #edf2f7;
-    }
-    .border-gray-300 {
-        border-color: #e2e8f0;
-    }
-    .bg-gray-50 {
-        background-color: #f9fafb;
-    }
-    .border {
-        border-width: 1px;
-    }
-    .rounded-md {
-        border-radius: 0.6rem;
-    }
-    .bg-blue-50 {
-        background-color: #eff6ff;
-    }
-    .text-gray-700 {
-        color: #4a5568;
-    }
-    .overflow-x-auto {
-        overflow-x: auto;
-    }
-    .min-w-full {
-        min-width: 100%;
-    }
+    .gap-8 { gap: 8rem; }
+    .gap-6 { gap: 6rem; }
+    .gap-4 { gap: 4rem; }
+    .gap-2 { gap: 2rem; }
+    .mb-8 { margin-bottom: 8rem; }
+    .mb-6 { margin-bottom: 6rem; }
+    .mb-4 { margin-bottom: 4rem; }
+    .mb-3 { margin-bottom: 3rem; }
+    .mb-2 { margin-bottom: 2rem; }
+    .mt-1 { margin-top: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+    .mt-4 { margin-top: 4rem; }
+
+    .bg-white { background-color: #fff; }
+    .rounded-lg { border-radius: 0.8rem; }
+    .custom-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+    .p-6 { padding: 6rem; }
+    .text-xl { font-size: 2rem; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+    .text-gray-800 { color: #2d3748; }
+    .text-gray-600 { color: #4a5568; }
+    .list-disc { list-style-type: disc; }
+    .pl-5 { padding-left: 5rem; }
+    .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 2rem; }
+    .border-b { border-bottom-width: 1px; }
+    .border-gray-200 { border-color: #edf2f7; }
+    .border-gray-300 { border-color: #e2e8f0; }
+    .bg-gray-50 { background-color: #f9fafb; }
+    .border { border-width: 1px; }
+    .rounded-md { border-radius: 0.6rem; }
+    .bg-blue-50 { background-color: #eff6ff; }
+    .text-gray-700 { color: #4a5568; }
+    .overflow-x-auto { overflow-x: auto; }
+    .min-w-full { min-width: 100%; }
     table {
         width: 100%;
         border-collapse: collapse;
@@ -399,32 +327,29 @@
     tbody tr:nth-child(even) {
         background-color: #f0f8ff;
     }
-    .font-medium {
-        font-weight: 500;
-    }
-    
-    /* Modal Styles */
+    .font-medium { font-weight: 500; }
+
     #grade-card-modal {
       position: fixed;
-      inset: 0; /* top, right, bottom, left to 0 */
+      inset: 0;
       background-color: rgba(0, 0, 0, 0.5);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      padding: 20px; /* Add padding for smaller screens */
+      padding: 20px;
     }
 
-    #grade-card-modal > div { /* Inner modal content */
+    #grade-card-modal > div {
       background-color: #fff;
       border-radius: 12px;
       padding: 30px;
-      max-width: 900px; /* Increased max-width */
+      max-width: 900px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      position: relative; /* For absolute positioning of close button if needed */
+      position: relative;
     }
 
     #grade-card-modal h3 {
@@ -455,7 +380,7 @@
         top: 15px;
         right: 15px;
         padding: 5px;
-        line-height: 1; /* Adjust to better center the 'x' */
+        line-height: 1;
     }
     #grade-card-modal .close-button:hover {
         color: #333;
@@ -466,7 +391,7 @@
         border-radius: 10px;
         padding: 2rem;
         background-color: #f0f8ff;
-        position: relative; /* Needed for the "created with" text positioning */
+        position: relative;
     }
 
     #grade-card-content p {
@@ -495,17 +420,16 @@
     }
 
     .grade-card-footer {
-        font-size: 1.2rem; /* Adjusted from 1rem to 1.2rem for slightly bigger text */
-        color: rgba(0, 0, 0, 0.4); /* Reduced opacity */
+        font-size: 1.2rem;
+        color: rgba(0, 0, 0, 0.4);
         text-align: center;
         margin-top: 2rem;
     }
 
-    /* Styles for the new "Generate Grade Card" button below result */
     #generateGradeCardBtnBottom {
-        display: block; /* Make it a block element to center it */
-        margin: 2rem auto; /* Center horizontally with auto margins */
-        background-color: #28a745; /* Green color for generate button */
+        display: block;
+        margin: 2rem auto;
+        background-color: #28a745;
         color: white;
         border: none;
         padding: 1.4rem 2.8rem;
@@ -522,7 +446,6 @@
         box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
     }
 
-    /* Grade Card Header Styling */
     .grade-card-header {
         display: flex;
         justify-content: space-between;
@@ -549,7 +472,6 @@
         text-align: right;
     }
 
-    /* Grade Card Final SGPA Display */
     .grade-card-final-sgpa {
         text-align: center;
         font-size: 2.8rem;
@@ -560,12 +482,11 @@
         border-top: 2px solid #cfe8ff;
     }
 
-    /* Styling for Informative Sections */
     .grid > div,
-    .bg-white.rounded-lg.custom-shadow.p-6.mb-8 { /* Target both types of informative sections */
-        background: linear-gradient(135deg, #f8faff 0%, #e0f2f7 100%); /* Subtle light blue gradient */
-        border: 1px solid #d0e8f2; /* Lighter border */
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Slightly softer shadow */
+    .bg-white.rounded-lg.custom-shadow.p-6.mb-8 {
+        background: linear-gradient(135deg, #f8faff 0%, #e0f2f7 100%);
+        border: 1px solid #d0e8f2;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -575,8 +496,6 @@
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
     }
 
-
-    /* Print Styles */
     @media print {
       html, body {
         margin: 0;
@@ -586,14 +505,14 @@
       }
 
       html {
-        font-size: 70%; /* Base font size for printing */
+        font-size: 70%;
       }
-      
+
       body {
         font-size: 1.2rem;
-        background-color: #fff; /* White background for print */
-        color: #000; /* Black text for print */
-        padding: 10px; /* Minimal padding for print */
+        background-color: #fff;
+        color: #000;
+        padding: 10px;
         box-shadow: none;
       }
 
@@ -617,17 +536,15 @@
         color: #333;
       }
 
-      /* Hide elements not needed in print */
       #designerProfileBtn,
       #feedbackFloatingBtn,
       .action-buttons,
-      #generateGradeCardBtnBottom, /* Hide this specific button too */
-      .grid, /* Hide informative sections on print */
-      #grade-card-modal { /* Hide the modal container itself */
+      #generateGradeCardBtnBottom,
+      .grid,
+      #grade-card-modal {
         display: none !important;
       }
 
-      /* Form sections */
       #initial-form,
       #cycleSelection,
       #eeeCycleSelection,
@@ -654,10 +571,9 @@
       }
 
       select {
-        background-image: none; /* Remove custom arrow for print */
+        background-image: none;
       }
 
-      /* Subject rows - print optimization */
       .subject-row {
         margin-bottom: 0.8rem;
         padding: 0.5rem;
@@ -669,9 +585,8 @@
         align-items: center;
         gap: 0.5rem;
       }
-      
-      /* Hide Subject Code for print */
-      .subject-row > div:nth-child(2) { 
+
+      .subject-row > div:nth-child(2) {
           display: none !important;
       }
 
@@ -680,18 +595,17 @@
           flex-shrink: 0;
           width: auto;
       }
-      
+
       .subject-row input[type="text"] {
           flex-grow: 1;
           max-width: 60%;
       }
-      
+
       .subject-row input[type="number"] {
           width: 5rem;
           text-align: center;
       }
 
-      /* Result section for print */
       #result {
         font-size: 1.4rem;
         padding: 1rem;
@@ -708,14 +622,15 @@
         font-size: 2.5rem;
         margin-bottom: 0.8rem;
       }
-
-      /* No explicit page-break-after on #initial-form to prevent blank page */
     }
 
-    /* Responsive adjustments */
+    /* Responsive and better mobile zoom experience */
     @media screen and (max-width: 768px) {
+      html {
+        font-size: 62.5%;
+      }
       .container {
-        padding: 20px;
+        padding: 10px;
       }
       .action-buttons {
         flex-direction: column;
@@ -725,28 +640,14 @@
         width: 100%;
         padding: 1.2rem 2rem;
       }
-      /* Adjust modal for smaller screens */
       #grade-card-modal > div {
-        padding: 20px;
+        padding: 10px;
+        max-width: 100vw;
+        width: 98vw;
       }
-    }
-
-    @media screen and (max-width: 480px) {
-      html {
-        font-size: 55%;
+      .section {
+        padding: 1rem;
       }
-      .subject-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .subject-row > div { /* Apply to the direct child divs */
-        min-width: unset;
-        width: 100%;
-      }
-      input[type="text"], input[type="number"], select {
-        width: calc(100% - 3rem);
-      }
-      /* Reduce padding for informative sections on very small screens */
       .p-6 {
         padding: 2rem;
       }
@@ -764,6 +665,35 @@
           font-size: 1.6rem;
       }
     }
+
+    @media screen and (max-width: 480px) {
+      html {
+        font-size: 55%;
+      }
+      .subject-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .subject-row > div {
+        min-width: unset;
+        width: 100%;
+      }
+      input[type="text"], input[type="number"], select {
+        width: calc(100% - 3rem);
+      }
+      .p-6 {
+        padding: 1rem;
+      }
+      th, td {
+        padding: 0.6rem;
+        font-size: 1rem;
+      }
+      #grade-card-modal > div {
+        padding: 0.5rem;
+        max-width: 100vw;
+        width: 99vw;
+      }
+    }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -778,9 +708,9 @@
       <label for="streamSelect">Select Stream:</label>
       <select id="streamSelect" onchange="handleStreamSelection()">
         <option value="">--Select--</option>
-        <option value="cse">CSE Stream</option>
-        <option value="eee">EEE Stream</option>
-        <option value="other">Other</option> </select>
+        <option value="cse">CSE Stream (CS / AIML / CSBS / IS / CSDS / Other)</option>
+        <option value="eee">EEE Stream  (EE / EC / Other)</option>
+        <option value="other">Other (Mech / Civil / Other)</option> </select>
     </div>
 
     <div id="cycleSelection" class="section">
@@ -918,11 +848,10 @@
             <div class="mt-4 bg-blue-50 p-4 rounded-md">
                 <p class="text-gray-700">SGPA = Σ(C × GP) / ΣC = 133 / 16 = <span class="font-bold">8.31</span></p>
                 <p class="text-gray-700 mt-2">Percentage Equivalent = 8.31 - 0.75 × 10 = <span class="font-bold">75.6%</span></p>
+                 <div class="footer-text"> THIS WEB IS CREATED BY :   A B H I S H E K _ B A G E W A D I</div>
             </div>
         </div>
     </div>
-
-    <div class="footer-text">CREATED BY : A B H I S H E K _ B A G E W A D I</div>
   </div>
 
   <!-- Temporary Grade Card Modal -->
@@ -979,32 +908,29 @@
       ["Scientific Foundations of Health", "BSFHKx58", 1]
     ];
 
-    let calculatedSGPA = "N/A"; // Store the calculated SGPA globally
-    let subjectResults = []; // Store subject-wise results
+    let calculatedSGPA = "N/A";
+    let subjectResults = [];
 
     function handleStreamSelection() {
       const stream = document.getElementById("streamSelect").value;
-      // Hide all cycle and subject sections initially
       document.getElementById("cycleSelection").style.display = "none";
       document.getElementById("eeeCycleSelection").style.display = "none";
       document.getElementById("cseSubjects").style.display = "none";
       document.getElementById("eeeSubjects").style.display = "none";
       document.getElementById("otherSubjects").style.display = "none";
-
-      // Show relevant sections based on stream
       if (stream === "cse") {
         document.getElementById("cycleSelection").style.display = "block";
       } else if (stream === "eee") {
         document.getElementById("eeeCycleSelection").style.display = "block";
       } else if (stream === "other") {
         document.getElementById("otherSubjects").style.display = "block";
-        fillOtherInputs(); // Ensure custom inputs are populated
+        fillOtherInputs();
       }
     }
 
     function handleCycleSelection() {
       const cycle = document.getElementById("cycleSelect").value;
-      document.getElementById("cseSubjects").style.display = "none"; // Hide first
+      document.getElementById("cseSubjects").style.display = "none";
       if (cycle === "physics") {
         fillInputs("cseInputs", csePhysicsCycleData);
         document.getElementById("cseSubjects").style.display = "block";
@@ -1016,7 +942,7 @@
 
     function handleEEECycleSelection() {
       const cycle = document.getElementById("eeeCycleSelect").value;
-      document.getElementById("eeeSubjects").style.display = "none"; // Hide first
+      document.getElementById("eeeSubjects").style.display = "none";
       if (cycle === "eeePhysics") {
         fillInputs("eeeInputs", eeePhysicsCycleData);
         document.getElementById("eeeSubjects").style.display = "block";
@@ -1028,7 +954,7 @@
 
     function fillInputs(containerId, subjectsData) {
       const container = document.getElementById(containerId);
-      container.innerHTML = ""; // Clear previous content
+      container.innerHTML = "";
       subjectsData.forEach((subj, index) => {
         container.innerHTML += `
           <div class='subject-row'>
@@ -1054,8 +980,8 @@
 
     function fillOtherInputs() {
       const container = document.getElementById("otherInputs");
-      container.innerHTML = ""; // Clear previous content
-      for (let i = 0; i < 8; i++) { // Generate 8 custom subject input rows
+      container.innerHTML = "";
+      for (let i = 0; i < 8; i++) {
         container.innerHTML += `
           <div class='subject-row'>
             <div>
@@ -1131,12 +1057,10 @@
             marksInputs = document.querySelectorAll("#otherInputs .otherMarks");
             activeSectionId = 'otherSubjects';
         } else {
-            // No stream selected or an unexpected value
             alert("Please select a valid Stream.");
             return false;
         }
 
-        // Check if the relevant subject section is actually visible
         if (document.getElementById(activeSectionId).style.display === 'none') {
             alert("Please select a valid cycle to display subjects before calculating.");
             return false;
@@ -1144,7 +1068,6 @@
 
         let allMarksFilled = true;
         for (let i = 0; i < marksInputs.length; i++) {
-            // Check if input value is empty or not a valid number
             if (!marksInputs[i].value || isNaN(parseFloat(marksInputs[i].value))) {
                 allMarksFilled = false;
                 break;
@@ -1159,9 +1082,8 @@
         return true;
     }
 
-
     function calculateSGPA() {
-        if (!validateInputs(false)) { // false indicates not for download, stricter checks
+        if (!validateInputs(false)) {
             return; 
         }
 
@@ -1170,22 +1092,18 @@
         
         let totalWeightedGradePoints = 0;
         let totalCredits = 0;
-        subjectResults = []; // Clear previous results
+        subjectResults = [];
 
         marksInputs.forEach((markInput, index) => {
             const score = parseFloat(markInput.value);
             const credit = parseFloat(creditsInputs[index].value);
             
-            // Determine subject name dynamically
             let subjectName;
             if (markInput.classList.contains('otherMarks')) {
-                // For 'other' subjects, get name from sibling input
                 subjectName = markInput.closest('.subject-row').querySelector('.otherSubjectName').value || `Custom Subject ${index + 1}`;
             } else {
-                // For pre-defined subjects, get name from the readonly input
                 subjectName = markInput.closest('.subject-row').querySelector("input[type='text']:not([id*='_credits'])").value;
             }
-
 
             if (!isNaN(score) && !isNaN(credit) && score >= 0 && credit >= 0) {
                 let gradePoint = getGradePoint(score);
@@ -1208,7 +1126,7 @@
                     credits: credit,
                     gradePoint: 'N/A',
                     letterGrade: 'N/A',
-                    invalid: true // Mark as invalid for grade card
+                    invalid: true
                 });
             }
         });
@@ -1233,19 +1151,18 @@
             <strong>Weighted Grade Points:</strong> ${totalWeightedGradePoints.toFixed(2)}`;
     }
 
+    // This function improves the grade card image download for mobile and desktop
     function generateTemporaryGradeCardAndDownload() {
-        if (!validateInputs(true)) { // true indicates for download, stricter checks on marks
+        if (!validateInputs(true)) {
             return;
         }
-
-        calculateSGPA(); // Ensure SGPA and subjectResults are updated
+        calculateSGPA();
 
         const name = document.getElementById("fullName").value || "Student";
         const streamSelectElement = document.getElementById("streamSelect");
         const stream = streamSelectElement.options[streamSelectElement.selectedIndex].text || "Not Selected";
 
         const gradeCardContentDiv = document.getElementById("grade-card-content");
-        
         const currentDate = new Date();
         const dateString = currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         const timeString = currentDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -1295,32 +1212,43 @@
             <div class="grade-card-footer">This web is created with ❤️ by ABHISHEK BAGEWADI</div>
         `;
 
+        // Show modal
         const gradeCardModal = document.getElementById("grade-card-modal");
-        gradeCardModal.style.display = "flex"; // Show the modal on screen
+        gradeCardModal.style.display = "flex";
 
-        // Use html2canvas to convert the grade card content to an image
-        // We target the gradeCardContentDiv specifically for the screenshot
-        html2canvas(gradeCardContentDiv, {
-            width: 1119, // Target width for the image
-            height: 877, // Target height for the image
-            scale: 2, // Increase scale for better resolution, then resize to target
-            useCORS: true // Important for handling external resources if any (though none here)
-        }).then(canvas => {
-            const image = canvas.toDataURL("image/jpeg", 0.9); // Convert to JPEG with 90% quality
-            const link = document.createElement('a');
-            link.href = image;
-            link.download = `${name.replace(/\s+/g, '_')}_SGPA_Grade_Card.jpeg`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
+        // For best mobile and desktop image, ensure canvas size matches rendered element
+        // Use a larger scale for crispness
+        let scale = window.devicePixelRatio || 2;
+        // For mobile, forcibly use a higher scale for clarity
+        if (window.innerWidth < 600) scale = 3;
+
+        // Use a short delay to ensure modal is drawn
+        setTimeout(() => {
+            html2canvas(gradeCardContentDiv, {
+                scale: scale,
+                useCORS: true,
+                backgroundColor: "#fff",
+                scrollX: 0,
+                scrollY: 0,
+                windowWidth: gradeCardContentDiv.scrollWidth,
+                windowHeight: gradeCardContentDiv.scrollHeight
+            }).then(canvas => {
+                // Try to correct image size for mobile/desktop
+                // Optional: Crop whitespace if needed
+                const image = canvas.toDataURL("image/jpeg", 0.95);
+                const link = document.createElement('a');
+                link.href = image;
+                link.download = `${name.replace(/\s+/g, '_')}_SGPA_Grade_Card.jpeg`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }, 300);
     }
 
-    // Modal Close functionality
     document.getElementById('close-modal').addEventListener('click', () => {
         document.getElementById('grade-card-modal').style.display = 'none';
     });
-    // Close modal if clicked outside content
     document.getElementById('grade-card-modal').addEventListener('click', (event) => {
         if (event.target === document.getElementById('grade-card-modal')) {
             document.getElementById('grade-card-modal').style.display = 'none';
