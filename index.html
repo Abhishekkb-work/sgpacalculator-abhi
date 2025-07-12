@@ -99,19 +99,21 @@
     #installBtn {
       margin-top: 30px;
       padding: 20px 50px;
-      background: #0d6efd;
-      color: white;
+      background: #dbeafe;        /* soft blue */
+      color: #1e293b;            /* dark text */
       border: none;
       border-radius: 12px;
       font-size: 1.5rem;
-      display: inline-block;
+      display: none;             /* Hide by default, show when available */
       z-index: 1;
       cursor: pointer;
       animation: fadeInUp 1s ease-in-out;
-      box-shadow: 0 0 10px rgba(13, 110, 253, 0.6);
+      box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
+      transition: background 0.3s, color 0.3s;
     }
     #installBtn:hover {
-      background-color: #084298;
+      background-color: #93c5fd; /* lighter blue on hover */
+      color: #0d6efd;
       transform: scale(1.05);
     }
   </style>
@@ -140,24 +142,37 @@
         });
     }
 
-    // Hide Install button if app is already installed (PWA mode)
+    // Install logic
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    // Hide Install button if PWA is already installed
     function hideInstallIfStandalone() {
       const isStandalone = window.matchMedia('(display-mode: standalone)').matches
         || window.navigator.standalone === true;
       if (isStandalone) {
-        document.getElementById('installBtn').style.display = 'none';
+        installBtn.style.display = 'none';
       }
     }
-
-    // Run on page load
     hideInstallIfStandalone();
-
-    // Also listen for display-mode changes (e.g. iOS)
     window.matchMedia('(display-mode: standalone)').addEventListener('change', hideInstallIfStandalone);
 
-    // Install button logic (just shows info, since prompt is removed)
-    document.getElementById('installBtn').addEventListener('click', function() {
-      alert('To install the SGPA App, use your browser\'s menu: "Add to Home Screen" or similar.');
+    // Listen for install availability
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'inline-block';
+    });
+
+    // Directly call install prompt when button is clicked
+    installBtn.addEventListener('click', function() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function(choiceResult) {
+          deferredPrompt = null;
+          installBtn.style.display = 'none';
+        });
+      }
     });
   </script>
   <!-- Google tag (gtag.js) -->
