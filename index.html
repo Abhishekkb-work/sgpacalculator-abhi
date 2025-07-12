@@ -6,19 +6,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SGPA Calculator by ABHI</title>
-
-
-
-
   <style>
     html, body {
-
-
-
-
-
-
-
       margin: 0;
       padding: 0;
       height: 100%;
@@ -28,166 +17,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       justify-content: center;
-
-
-
-
-
-
       color: white;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       text-align: center;
-
     }
-
     .particle {
       position: absolute;
       border-radius: 50%;
@@ -195,28 +28,15 @@
       box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
       animation: floatParticle 10s infinite ease-in-out alternate;
     }
-
     .particle:nth-child(1) { width: 25px; height: 25px; top: 20%; left: 10%; animation-duration: 8s; }
     .particle:nth-child(2) { width: 15px; height: 15px; top: 80%; left: 20%; animation-duration: 12s; }
     .particle:nth-child(3) { width: 20px; height: 20px; top: 50%; left: 85%; animation-duration: 7s; }
     .particle:nth-child(4) { width: 18px; height: 18px; top: 10%; left: 70%; animation-duration: 10s; }
     .particle:nth-child(5) { width: 30px; height: 30px; top: 65%; left: 45%; animation-duration: 11s; }
-
-
     @keyframes floatParticle {
       0% { transform: translateY(0) scale(1); opacity: 0.6; }
       100% { transform: translateY(-30px) scale(1.2); opacity: 1; }
-
-
-
-
-
-
-
-
-
     }
-
     h1 {
       font-size: 6vw;
       background: linear-gradient(90deg, #ffeb3b, #ffc107, #ff9800, #ffc107, #ffeb3b);
@@ -228,7 +48,6 @@
       z-index: 1;
       margin: 0;
     }
-
     .button {
       margin-top: 5vh;
       padding: 12px 30px;
@@ -243,16 +62,12 @@
       transition: all 0.4s ease;
       animation: fadeInUp 2s ease-in-out 0s forwards;
       z-index: 1;
-
-
     }
-
     .button:hover {
       background: rgba(255, 215, 0, 0.2);
       transform: scale(1.05);
       box-shadow: 0 0 20px gold;
     }
-
     .credit {
       margin-top: 3vh;
       font-size: 2.8vw;
@@ -265,630 +80,54 @@
       text-shadow: 0 0 8px rgba(255, 255, 150, 0.6), 0 0 12px rgba(255, 223, 0, 0.3);
       z-index: 1;
     }
-
     @keyframes animateText {
       0% { background-position: 0% center; }
       100% { background-position: 100% center; }
     }
-
     @keyframes floatText {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-
     @keyframes floatCredit {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-8px); }
-
-
-
-
     }
-
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     #installBtn {
       margin-top: 30px;
       padding: 20px 50px;
       background: #0d6efd;
       color: white;
       border: none;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       border-radius: 12px;
       font-size: 1.5rem;
-      display: none;
+      display: inline-block;
       z-index: 1;
       cursor: pointer;
       animation: fadeInUp 1s ease-in-out;
       box-shadow: 0 0 10px rgba(13, 110, 253, 0.6);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
-
     #installBtn:hover {
       background-color: #084298;
       transform: scale(1.05);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
   </style>
-
 </head>
 <body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <!-- Glowing Particles -->
   <div class="particle"></div>
   <div class="particle"></div>
   <div class="particle"></div>
   <div class="particle"></div>
   <div class="particle"></div>
-
-
-
-
   <!-- Main UI Content -->
   <h1>SGPA CALCULATING WEB/APP</h1>
-
-
-
-
-
-
-
-
   <button id="installBtn">📲 Install SGPA App</button>
-
-
-
-
   <a href="abhisgpa.html" class="button">Enter to WebAPP</a>
   <div class="credit">This WebAPP is Created by ABHISHEK BAGEWADI</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <script>
     // Register Service Worker
     if ('serviceWorker' in navigator) {
@@ -898,396 +137,36 @@
         })
         .catch(function(error) {
           console.log('❌ Service Worker registration failed:', error);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
-    // Handle Install Prompt
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtn.style.display = 'inline-block';
-
-      installBtn.addEventListener('click', () => {
-        installBtn.style.display = 'none';
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('✅ App installed');
-          } else {
-            console.log('❌ Installation dismissed');
-          }
-          deferredPrompt = null;
-
-
-
-
-
-
-
-
-
-
-        });
-      });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // Hide Install button if app is already installed (PWA mode)
+    function hideInstallIfStandalone() {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+        || window.navigator.standalone === true;
+      if (isStandalone) {
+        document.getElementById('installBtn').style.display = 'none';
+      }
+    }
+
+    // Run on page load
+    hideInstallIfStandalone();
+
+    // Also listen for display-mode changes (e.g. iOS)
+    window.matchMedia('(display-mode: standalone)').addEventListener('change', hideInstallIfStandalone);
+
+    // Install button logic (just shows info, since prompt is removed)
+    document.getElementById('installBtn').addEventListener('click', function() {
+      alert('To install the SGPA App, use your browser\'s menu: "Add to Home Screen" or similar.');
     });
   </script>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LDX0K93M5E"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LDX0K93M5E');
-</script>
-
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LDX0K93M5E"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LDX0K93M5E');
+  </script>
 </body>
 </html>
