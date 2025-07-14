@@ -7,7 +7,7 @@ const urlsToCache = [
   "/js/script.js",             // Add your JS file if you use one
   "/json/manifest.json",       // Correct path to manifest
   "/icon-192.png",
-  "/icon-512.png"
+  "/icon-5123.png"
 ];
 
 // Install event: caching app shell
