@@ -1,7 +1,7 @@
 
 {
   "name": "SGPA Calculator",
-  "short_name": "SGPA",
+  "short_name": "SGPA Calc",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
