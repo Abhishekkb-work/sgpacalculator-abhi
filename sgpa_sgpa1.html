@@ -46,17 +46,20 @@
 }
 
     h1 {
-      text-align: center;
-      color: #007bff;
-      font-size: 3.6rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-    }
+  text-align: center;
+  color: #0056b3; /* deeper blue */
+  font-size: 5.5rem; /* bigger text */
+  font-weight: 900; /* extra bold */
+  letter-spacing: 1.5px;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 
     .small-text {
       text-align: center;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       font-weight: 600;
       color: #666;
       margin-bottom: 2.5rem;
@@ -74,17 +77,17 @@
     label {
       font-weight: 600;
       display: block;
-      margin-bottom: 0.8rem;
+      margin-bottom: 2rem;
       color: #444;
     }
 
     input[type="text"], input[type="number"], select {
-      padding: 1.2rem 1.5rem;
+      padding: 1.6rem 1.5rem;
       border: 1px solid #cceeff;
       border-radius: 8px;
       background-color: #f9fcff;
-      width: calc(100% - 3rem);
-      font-size: 1.5rem;
+      width: calc(100% - 5rem);
+      font-size: 2rem;
       margin-bottom: 1.5rem;
       transition: all 0.3s ease;
       box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -156,21 +159,22 @@
       flex-wrap: wrap;
     }
 
-    .action-buttons button {
+.action-buttons button {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 1.4rem 2.8rem;
-  font-size: 1.6rem;
-  font-weight: 600;
-  border-radius: 8px;
+  padding: 1.6rem 3.2rem;
+  font-size: 2rem;            /* ✅ Bigger text */
+  font-weight: 700;           /* ✅ Bolder text */
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+  box-shadow: 0 5px 12px rgba(0, 123, 255, 0.25);
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
   text-align: center;
 }
+
 
 .action-buttons button:hover {
   background-color: #0056b3;
@@ -211,12 +215,12 @@
     #cycleSelection,
     #eeeCycleSelection {
       background: #f0f8ff;
-      padding: 2.5rem;
-      border-radius: 10px;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      border: 1px solid #e0f0ff;
-      max-width: 100%;
+      padding: 4rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      border: 2px solid #e0f0ff;
+      max-width: 700px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -705,7 +709,12 @@
       }
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+ <!-- Already existing -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<!-- ✅ ADD this below -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 <body>
   <div class="container">
@@ -1314,85 +1323,81 @@
             }, 300);
         }
 
-        async function shareResultAsPdf() {
-            if (!validateInputs(true)) {
-                return;
+async function shareResultAsPdf() {
+    if (!validateInputs(true)) return;
+
+    calculateSGPA();
+    const { jsPDF } = window.jspdf;
+    const gradeCardContentDiv = document.getElementById("grade-card-content");
+    const gradeCardModal = document.getElementById("grade-card-modal");
+
+    // Inject the generated grade card content
+    gradeCardContentDiv.innerHTML = generateTemporaryGradeCardContent();
+
+    // Show the modal (it must be visible before html2canvas can capture it)
+    gradeCardModal.style.display = "flex";
+    gradeCardModal.style.visibility = "visible";
+
+    // Allow some time for the browser to render the modal before capturing
+    setTimeout(async () => {
+        try {
+            const canvas = await html2canvas(gradeCardContentDiv, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: "#ffffff"
+            });
+
+            const imgData = canvas.toDataURL('image/jpeg', 1.0);
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = 210; // A4 width in mm
+            const margin = 10;
+            const imgWidth = pageWidth - margin * 2;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            let position = margin;
+            let heightLeft = imgHeight;
+
+            doc.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+            heightLeft -= doc.internal.pageSize.height;
+
+            while (heightLeft > 0) {
+                position = heightLeft - imgHeight + margin;
+                doc.addPage();
+                doc.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+                heightLeft -= doc.internal.pageSize.height;
             }
-            calculateSGPA(); // Ensure data is up-to-date
 
-            const gradeCardContentDiv = document.getElementById("grade-card-content");
-            gradeCardContentDiv.innerHTML = generateTemporaryGradeCardContent(); // Populate for canvas
+            const name = document.getElementById("fullName").value || "Student";
+            const pdfFileName = `${name.replace(/\s+/g, '_')}_SGPA_Grade_Card.pdf`;
+            const pdfBlob = doc.output('blob');
 
-            // Temporarily show modal content to render correctly for html2canvas
-            const gradeCardModal = document.getElementById("grade-card-modal");
-            gradeCardModal.style.display = "flex";
-            gradeCardModal.style.visibility = "hidden"; // Hide it from user view while rendering
-
-            let scale = window.devicePixelRatio || 2;
-            if (window.innerWidth < 600) scale = 3;
-
-            try {
-                const canvas = await html2canvas(gradeCardContentDiv, {
-                    scale: scale,
-                    useCORS: true,
-                    backgroundColor: "#fff",
-                    scrollX: 0,
-                    scrollY: 0,
-                    windowWidth: gradeCardContentDiv.scrollWidth,
-                    windowHeight: gradeCardContentDiv.scrollHeight
+            if (
+                navigator.share &&
+                navigator.canShare &&
+                navigator.canShare({
+                    files: [new File([pdfBlob], pdfFileName, { type: 'application/pdf' })]
+                })
+            ) {
+                await navigator.share({
+                    files: [new File([pdfBlob], pdfFileName, { type: 'application/pdf' })],
+                    title: 'SGPA Grade Card',
+                    text: `Check out my SGPA Grade Card for ${name}!`,
                 });
-
-                const imgData = canvas.toDataURL('image/jpeg', 0.95);
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF('p', 'mm', 'a4'); // 'p' for portrait, 'mm' for millimeters, 'a4' for A4 size
-
-                const imgWidth = 190; // Image width in mm (A4 width is 210mm, leaving 10mm margin on each side)
-                const pageHeight = doc.internal.pageSize.height;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                let heightLeft = imgHeight;
-                let position = 10; // Start position from top with a 10mm margin
-
-                doc.addImage(imgData, 'JPEG', 10, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-
-                // If content is taller than one page, add new pages
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight + 10;
-                    doc.addPage();
-                    doc.addImage(imgData, 'JPEG', 10, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-                }
-
-                const name = document.getElementById("fullName").value || "Student";
-                const pdfFileName = `${name.replace(/\s+/g, '_')}_SGPA_Grade_Card.pdf`;
-
-                // Convert PDF to Blob for sharing
-                const pdfBlob = doc.output('blob');
-
-                // Try to use Web Share API
-                if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([pdfBlob], pdfFileName, { type: 'application/pdf' })] })) {
-                    await navigator.share({
-                        files: [new File([pdfBlob], pdfFileName, { type: 'application/pdf' })],
-                        title: 'SGPA Grade Card',
-                        text: `Check out my SGPA Grade Card for ${name}!`,
-                    });
-                } else {
-                    // Fallback for browsers that don't support Web Share API or for desktop
-                    doc.save(pdfFileName);
-                    alert("PDF downloaded. You can manually share it from your downloads.");
-                }
-
-            } catch (error) {
-                console.error("Error generating or sharing PDF:", error);
-                alert("Failed to generate or share PDF. Please try again.");
-            } finally {
-                // Hide modal content after processing
-                gradeCardModal.style.display = "none";
-                gradeCardModal.style.visibility = "visible"; // Reset visibility
+            } else {
+                doc.save(pdfFileName);
+                alert("PDF downloaded. You can manually share it from your downloads.");
             }
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+            alert("Failed to generate or share PDF. Please try again.");
+        } finally {
+            // Hide the modal again after capture
+            gradeCardModal.style.display = "none";
         }
+    }, 400); // Wait ~400ms to ensure rendering
+}
 
-
+               
         document.getElementById('close-modal').addEventListener('click', () => {
             document.getElementById('grade-card-modal').style.display = 'none';
         });
