@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1000,user-scalable=yes"> <!-- Allow zooming -->
+  <meta name="viewport" content="width=900,user-scalable=yes"> <!-- Allow zooming -->
   <meta name="theme-color" content="#000000">
   <title>SGPA Calculator</title>
 
@@ -19,7 +19,8 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: none !important;
+      /* Body background is light grey */
+      background-color: ;
       color: #333;
       margin: 0;
       padding: 20px;
@@ -32,36 +33,48 @@
     }
 
     .container {
-  width: 100vw;
-  max-width: 100vw;
-  height: 100vh;
-  margin: 0;
-  background-color: transparent;
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
+      width: 100vw;
+      max-width: 100vw;
+      height: 100vh;
+      margin: 0;
+      /* Container no longer sets a background color */
+      background-color: none;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    /* ✅ NEW: Wrapper for content below heading, with the dark blue background */
+    #main-content-wrapper {
+      background-color: rgba(0, 25, 50, 0.04); /* Darker blue, 80% opacity */
+      width: 100%;
+      padding-top: 20px; /* Add some padding at the top of this section */
+      padding-bottom: 20px; /* Add some padding at the bottom */
+      box-sizing: border-box; /* Include padding in width calculation */
+    }
 
     h1 {
-  text-align: center;
-  color: #0056b3; /* deeper blue */
-  font-size: 5.5rem; /* bigger text */
-  font-weight: 900; /* extra bold */
-  letter-spacing: 1.5px;
-  margin-bottom: 2rem;
-  text-transform: uppercase;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+      text-align: center;
+      /* Heading color is dark blue */
+      color: #000090; /* Dark blue color */
+      font-size: 5.5rem; /* bigger text */
+      font-weight: 900; /* extra bold */
+      letter-spacing: 1.5px;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      /* Text-shadow for a black shadow */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
 
     .small-text {
       text-align: center;
       font-size: 1.5rem;
       font-weight: 600;
-      color: #666;
+      /* "Created by" text color is white */
+      color: #fffff; /* White color for better contrast */
       margin-bottom: 2.5rem;
     }
 
@@ -75,10 +88,11 @@
     }
 
     label {
-      font-weight: 600;
+      font-weight: 800; /* Made text bolder */
       display: block;
       margin-bottom: 2rem;
-      color: #444;
+      color: #003366; /* Changed color to a darker blue */
+      font-size: 2.2rem; /* Made text bigger */
     }
 
     input[type="text"], input[type="number"], select {
@@ -110,6 +124,7 @@
     }
 
     .section {
+      /* ✅ REVERTED: Background for section boxes back to original */
       background: #f0f8ff;
       padding: 2rem;
       border-radius: 10px;
@@ -159,29 +174,33 @@
       flex-wrap: wrap;
     }
 
-.action-buttons button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 1.6rem 3.2rem;
-  font-size: 2rem;            /* ✅ Bigger text */
-  font-weight: 700;           /* ✅ Bolder text */
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 5px 12px rgba(0, 123, 255, 0.25);
-  width: 100%;
-  max-width: 320px;
-  text-align: center;
-}
+    .action-buttons.stacked {
+      flex-direction: column;
+      align-items: center; /* Center items horizontally when stacked */
+      gap: 1rem; /* Adjust gap for vertical spacing */
+    }
 
+    .action-buttons button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 1.6rem 3.2rem;
+      font-size: 2rem;            /* Bigger text */
+      font-weight: 700;           /* Bolder text */
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 12px rgba(0, 123, 255, 0.25);
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+    }
 
-.action-buttons button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
-}
-
+    .action-buttons button:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+    }
 
     #result {
       font-size: 1.8rem;
@@ -190,37 +209,52 @@
       white-space: pre-line;
       background-color: #e0ffe0;
       border: 1px solid #28a745;
-      padding: 2rem;
-      border-radius: 10px;
+      padding: 3rem; /* Increased padding */
+      border-radius: 15px; /* More rounded corners */
       color: #1a5e20;
       max-width: 90%;
       margin-left: auto;
       margin-right: auto;
       text-align: center;
-      box-shadow: 0 4px 15px rgba(40, 167, 69, 0.15);
+      box-shadow: 0 8px 20px rgba(40, 167, 69, 0.25);
+      display: none;
+      animation: fadeInScale 0.5s ease-out forwards;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     #result strong {
       color: #0056b3;
     }
 
-    #result div:first-child {
-      font-size: 3.2rem;
+    #result .sgpa-value {
+      font-size: 4.5rem; /* Made SGPA value larger */
       margin-bottom: 1.5rem;
       color: #007bff;
       font-weight: 700;
+      display: block; /* Ensures it takes its own line */
     }
 
     #initial-form,
     #cycleSelection,
     #eeeCycleSelection {
+      /* ✅ REVERTED: Background for initial form and cycle selection boxes back to original */
       background: #f0f8ff;
       padding: 4rem;
       border-radius: 12px;
       margin-bottom: 3rem;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
       border: 2px solid #e0f0ff;
-      max-width: 700px;
+      max-width: 700px; /* Original max-width */
       margin-left: auto;
       margin-right: auto;
     }
@@ -342,6 +376,21 @@
         background-color: #f0f8ff;
     }
     .font-medium { font-weight: 500; }
+
+    /* ✅ REVERTED: Background for grid divs (informative sections) back to original */
+    .grid > div,
+    .bg-white.rounded-lg.custom-shadow.p-6.mb-8 {
+        background: linear-gradient(135deg, #f8faff 0%, #e0f2f7 100%);
+        border: 1px solid #d0e8f2;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .grid > div:hover,
+    .bg-white.rounded-lg.custom-shadow.p-6.mb-8:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
 
     #grade-card-modal {
       position: fixed;
@@ -496,20 +545,6 @@
         border-top: 2px solid #cfe8ff;
     }
 
-    .grid > div,
-    .bg-white.rounded-lg.custom-shadow.p-6.mb-8 {
-        background: linear-gradient(135deg, #f8faff 0%, #e0f2f7 100%);
-        border: 1px solid #d0e8f2;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .grid > div:hover,
-    .bg-white.rounded-lg.custom-shadow.p-6.mb-8:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    }
-
     @media print {
       html, body {
         margin: 0;
@@ -647,7 +682,7 @@
         padding: 10px;
       }
       .action-buttons {
-        flex-direction: column;
+        flex-direction: column; /* Ensure buttons stack on small screens */
         gap: 1rem;
       }
       .action-buttons button {
@@ -712,7 +747,7 @@
  <!-- Already existing -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-<!-- ✅ ADD this below -->
+<!-- ADD this below -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </head>
@@ -721,159 +756,161 @@
     <h1>SGPA CALCULATOR</h1>
     <div class="small-text">Created with ❤️ by ABHISHEK__BAGEWADI</div>
 
-    <div id="initial-form">
-      <label for="fullName">Enter Full Name:</label>
-      <input type="text" id="fullName" oninput="this.value = this.value.toUpperCase()" placeholder="e.g., ABHISHEK" />
-      <label for="streamSelect">Select Stream:</label>
-      <select id="streamSelect" onchange="handleStreamSelection()">
-        <option value="">--Select--</option>
-        <option value="cse">CSE Stream (CS / AIML / CSBS / IS / CSDS / Other)</option>
-        <option value="eee">EEE Stream  (EE / EC / Other)</option>
-        <option value="other">Other (Mech / Civil / Other)</option> </select>
-    </div>
+    <!-- ✅ NEW: Wrapper for content below heading, with the dark blue background -->
+    <div id="main-content-wrapper">
+      <div id="initial-form">
+        <label for="fullName">Enter Full Name:</label>
+        <input type="text" id="fullName" oninput="this.value = this.value.toUpperCase()" placeholder="e.g., ABHISHEK" />
+        <label for="streamSelect">Select Stream:</label>
+        <select id="streamSelect" onchange="handleStreamSelection()">
+          <option value="">--Select--</option>
+          <option value="cse">CSE Stream (CS / AIML / CSBS / IS / CSDS / Other)</option>
+          <option value="eee">EEE Stream  (EE / EC / Other)</option>
+          <option value="other">Other (Mech / Civil / Other)</option> </select>
+      </div>
 
-    <div id="cycleSelection" class="section">
-      <h2>Select Cycle (CSE)</h2>
-      <label for="cycleSelect">Select Cycle:</label>
-      <select id="cycleSelect" onchange="handleCycleSelection()">
-        <option value="">--Select--</option>
-        <option value="physics">Physics Cycle</option>
-        <option value="chemistry">Chemistry Cycle</option>
-      </select>
-    </div>
+      <div id="cycleSelection" class="section">
+        <h2>Select Cycle (CSE)</h2>
+        <label for="cycleSelect">Select Cycle:</label>
+        <select id="cycleSelect" onchange="handleCycleSelection()">
+          <option value="">--Select--</option>
+          <option value="physics">Physics Cycle</option>
+          <option value="chemistry">Chemistry Cycle</option>
+        </select>
+      </div>
 
-    <div id="eeeCycleSelection" class="section">
-      <h2>Select Cycle (EEE)</h2>
-      <label for="eeeCycleSelect">Select Cycle:</label>
-      <select id="eeeCycleSelect" onchange="handleEEECycleSelection()">
-        <option value="">--Select--</option>
-        <option value="eeePhysics">Physics Cycle</option>
-        <option value="eeeChemistry">Chemistry Cycle</option>
-      </select>
-    </div>
+      <div id="eeeCycleSelection" class="section">
+        <h2>Select Cycle (EEE)</h2>
+        <label for="eeeCycleSelect">Select Cycle:</label>
+        <select id="eeeCycleSelect" onchange="handleEEECycleSelection()">
+          <option value="">--Select--</option>
+          <option value="eeePhysics">Physics Cycle</option>
+          <option value="eeeChemistry">Chemistry Cycle</option>
+        </select>
+      </div>
 
-    <div id="eeeSubjects" class="section">
-      <h2>EEE Subjects</h2>
-      <div id="eeeInputs"></div>
-    </div>
+      <div id="eeeSubjects" class="section">
+        <h2>EEE Subjects</h2>
+        <div id="eeeInputs"></div>
+      </div>
 
-    <div id="cseSubjects" class="section">
-      <h2>CSE Subjects</h2>
-      <div id="cseInputs"></div>
-    </div>
+      <div id="cseSubjects" class="section">
+        <h2>CSE Subjects</h2>
+        <div id="cseInputs"></div>
+      </div>
 
-    <div id="otherSubjects" class="section">
-      <h2>Custom Subjects</h2>
-      <div id="otherInputs"></div>
-    </div>
+      <div id="otherSubjects" class="section">
+        <h2>Custom Subjects</h2>
+        <div id="otherInputs"></div>
+      </div>
 
-       <div class="action-buttons">
-  <button id="calculateSGPAButton" onclick="calculateSGPA()">Calculate SGPA</button>
-  <button id="resetDataBtn" onclick="resetData()">Reset Data</button>
-  <button id="generateGradeCardBtnBottom" onclick="generateTemporaryGradeCardAndDownload()">Generate Temporary Grade Card</button>
-  <button id="sharePdfBtn" onclick="shareResultAsPdf()">Share Result as PDF</button>
-</div>
+      <div class="action-buttons">
+        <button id="calculateSGPAButton" onclick="calculateSGPA()">Calculate SGPA</button>
+        <button id="resetDataBtn" onclick="resetData()">Reset Data</button>
+        <button id="generateGradeCardBtnBottom" onclick="generateTemporaryGradeCardAndDownload()">Generate Temporary Grade Card</button>
+        <button id="sharePdfBtn" onclick="shareResultAsPdf()">Share Result as PDF</button>
+      </div>
 
-        <div id="result" style="display: none;"></div>
+      <div id="result" style="display: none;"></div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8" style="margin-top: 3rem;">
-            <div class="bg-white rounded-lg custom-shadow p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Where do we need SGPA in our life?</h3>
-                <p class="text-gray-600 mb-3">SGPA (Semester Grade Point Average) is a crucial academic metric that plays a significant role in a student's educational journey:</p>
-                <ul class="list-disc pl-5 text-gray-600 space-y-2">
-                    <li><span class="font-medium">Scholarships and Financial Aid:</span> Many scholarships require maintaining a minimum SGPA/CGPA.</li>
-                    <li><span class="font-medium">Placements and Internships:</span> Companies often set CGPA cutoffs during campus recruitment.</li>
-                    <li><span class="font-medium">Higher Education:</span> Graduate schools and universities abroad consider CGPA as an important admission criterion.</li>
-                    <li><span class="font-medium">Academic Progress:</span> SGPA helps track your semester-wise performance and identify areas for improvement.</li>
-                </ul>
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8" style="margin-top: 3rem;">
+          <div class="bg-white rounded-lg custom-shadow p-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">Where do we need SGPA in our life?</h3>
+              <p class="text-gray-600 mb-3">SGPA (Semester Grade Point Average) is a crucial academic metric that plays a significant role in a student's educational journey:</p>
+              <ul class="list-disc pl-5 text-gray-600 space-y-2">
+                  <li><span class="font-medium">Scholarships and Financial Aid:</span> Many scholarships require maintaining a minimum SGPA/CGPA.</li>
+                  <li><span class="font-medium">Placements and Internships:</span> Companies often set CGPA cutoffs during campus recruitment.</li>
+                  <li><span class="font-medium">Higher Education:</span> Graduate schools and universities abroad consider CGPA as an important admission criterion.</li>
+                  <li><span class="font-medium">Academic Progress:</span> SGPA helps track your semester-wise performance and identify areas for improvement.</li>
+              </ul>
+          </div>
 
-            <div class="bg-white rounded-lg custom-shadow p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">Why do we need to calculate SGPA?</h3>
-                <p class="text-gray-600 mb-3">VTU follows the Choice Based Credit System (CBCS) where performance is measured using SGPA and CGPA. While the university provides these scores, there2 are several reasons to calculate them yourself:</p>
-                <ul class="list-disc pl-5 text-gray-600 space-y-2">
-                    <li>Official grade cards may not provide detailed breakdowns of how the SGPA was calculated.</li>
-                    <li>You can verify the accuracy of your official results.</li>
-                    <li>Calculate your expected SGPA before official results are announced.</li>
-                    <li>Understand how different grade combinations affect your overall SGPA.</li>
-                    <li>Plan your academic strategy to achieve desired CGPA targets.</li>
-                </ul>
-            </div>
-        </div>
+          <div class="bg-white rounded-lg custom-shadow p-6">
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">Why do we need to calculate SGPA?</h3>
+              <p class="text-gray-600 mb-3">VTU follows the Choice Based Credit System (CBCS) where performance is measured using SGPA and CGPA. While the university provides these scores, there2 are several reasons to calculate them yourself:</p>
+              <ul class="list-disc pl-5 text-gray-600 space-y-2">
+                  <li>Official grade cards may not provide detailed breakdowns of how the SGPA was calculated.</li>
+                  <li>You can verify the accuracy of your official results.</li>
+                  <li>Calculate your expected SGPA before official results are announced.</li>
+                  <li>Understand how different grade combinations affect your overall SGPA.</li>
+                  <li>Plan your academic strategy to achieve desired CGPA targets.</li>
+              </ul>
+          </div>
+      </div>
 
-        <div class="bg-white rounded-lg custom-shadow p-6 mb-8" style="margin-top: 3rem;">
-            <h3 class="text-xl font-semibold text-gray-800 mb-4">How to calculate SGPA?</h3>
-            <p class="text-gray-600 mb-4">The SGPA calculation for VTU follows a specific formula based on credits and grade points:</p>
+      <div class="bg-white rounded-lg custom-shadow p-6 mb-8" style="margin-top: 3rem;">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">How to calculate SGPA?</h3>
+          <p class="text-gray-600 mb-4">The SGPA calculation for VTU follows a specific formula based on credits and grade points:</p>
 
-            <div class="mb-6">
-                <h4 class="font-medium text-gray-800 mb-2">Step 1: Understand the Grade Point System</h4>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full">
-                        <thead>
-                            <tr>
-                                <th>Letter Grade</th>
-                                <th>Grade Points</th>
-                                <th>Level of Performance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>O</td><td>10</td><td>Outstanding</td></tr>
-                            <tr><td>A+</td><td>9</td><td>Excellent</td></tr>
-                            <tr><td>A</td><td>8</td><td>Very Good</td></tr>
-                            <tr><td>B+</td><td>7</td><td>Good</td></tr>
-                            <tr><td>C</td><td>5</td><td>Average</td></tr>
-                            <tr><td>P</td><td>4</td><td>Pass</td></tr>
-                            <tr><td>F</td><td>0</td><td>Fail</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+          <div class="mb-6">
+              <h4 class="font-medium text-gray-800 mb-2">Step 1: Understand the Grade Point System</h4>
+              <div class="overflow-x-auto">
+                  <table class="min-w-full">
+                      <thead>
+                          <tr>
+                              <th>Letter Grade</th>
+                              <th>Grade Points</th>
+                              <th>Level of Performance</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>O</td><td>10</td><td>Outstanding</td></tr>
+                          <tr><td>A+</td><td>9</td><td>Excellent</td></tr>
+                          <tr><td>A</td><td>8</td><td>Very Good</td></tr>
+                          <tr><td>B+</td><td>7</td><td>Good</td></tr>
+                          <tr><td>C</td><td>5</td><td>Average</td></tr>
+                          <tr><td>P</td><td>4</td><td>Pass</td></tr>
+                          <tr><td>F</td><td>0</td><td>Fail</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
 
-            <div class="mb-6">
-                <h4 class="font-medium text-gray-800 mb-2">Step 2: Apply the SGPA Formula</h4>
-                <div class="bg-gray-50 p-4 rounded-md border border-gray-200">
-                    <p class="text-gray-700 font-medium">SGPA = Σ(Ci × GPi) / ΣCi</p>
-                    <p class="text-gray-600 mt-2">Where:</p>
-                    <ul class="list-disc pl-5 text-gray-600 mt-1">
-                        <li>Ci = Credits for the ith course</li>
-                        <li>GPi = Grade Point obtained for the ith course</li>
-                        <li>ΣCi = Sum of credits of all courses in that semester</li>
-                    </ul>
-                </div>
-            </div>
+          <div class="mb-6">
+              <h4 class="font-medium text-gray-800 mb-2">Step 2: Apply the SGPA Formula</h4>
+              <div class="bg-gray-50 p-4 rounded-md border border-gray-200">
+                  <p class="text-gray-700 font-medium">SGPA = Σ(Ci × GPi) / ΣCi</p>
+                  <p class="text-gray-600 mt-2">Where:</p>
+                  <ul class="list-disc pl-5 text-gray-600 mt-1">
+                      <li>Ci = Credits for the ith course</li>
+                      <li>GPi = Grade Point obtained for the ith course</li>
+                      <li>ΣCi = Sum of credits of all courses in that semester</li>
+                  </ul>
+              </div>
+          </div>
 
-            <div>
-                <h4 class="font-medium text-gray-800 mb-2">Example Calculation</h4>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full">
-                        <thead>
-                            <tr>
-                                <th>Subject</th>
-                                <th>Credits (C)</th>
-                                <th>Grade</th>
-                                <th>Grade Points (GP)</th>
-                                <th>C × GP</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Engineering Mathematics</td><td>4</td><td>A</td><td>8</td><td>32</td></tr>
-                            <tr><td>Data Structures</td><td>3</td><td>A+</td><td>9</td><td>27</td></tr>
-                            <tr><td>Computer Networks</td><td>4</td><td>B+</td><td>7</td><td>28</td></tr>
-                            <tr><td>Database Systems</td><td>3</td><td>O</td><td>10</td><td>30</td></tr>
-                            <tr><td>Programming Lab</td><td>2</td><td>A</td><td>8</td><td>16</td></tr>
-                            <tr class="font-medium"><td>Total</td><td>16</td><td></td><td></td><td>133</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-4 bg-blue-50 p-4 rounded-md">
-                    <p class="text-gray-700">SGPA = Σ(C × GP) / ΣC = 133 / 16 = <span class="font-bold">8.31</span></p>
-                    <p class="text-gray-700 mt-2">Percentage Equivalent = 8.31 - 0.75 × 10 = <span class="font-bold">75.6%</span></p>
+          <div>
+              <h4 class="font-medium text-gray-800 mb-2">Example Calculation</h4>
+              <div class="overflow-x-auto">
+                  <table class="min-w-full">
+                      <thead>
+                          <tr>
+                              <th>Subject</th>
+                              <th>Credits (C)</th>
+                              <th>Grade</th>
+                              <th>Grade Points (GP)</th>
+                              <th>C × GP</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr><td>Engineering Mathematics</td><td>4</td><td>A</td><td>8</td><td>32</td></tr>
+                          <tr><td>Data Structures</td><td>3</td><td>A+</td><td>9</td><td>27</td></tr>
+                          <tr><td>Computer Networks</td><td>4</td><td>B+</td><td>7</td><td>28</td></tr>
+                          <tr><td>Database Systems</td><td>3</td><td>O</td><td>10</td><td>30</td></tr>
+                          <tr><td>Programming Lab</td><td>2</td><td>A</td><td>8</td><td>16</td></tr>
+                          <tr class="font-medium"><td>Total</td><td>16</td><td></td><td></td><td>133</td></tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="mt-4 bg-blue-50 p-4 rounded-md">
+                  <p class="text-gray-700">SGPA = Σ(C × GP) / ΣC = 133 / 16 = <span class="font-bold">8.31</span></p>
+                  <p class="text-gray-700 mt-2">Percentage Equivalent = 8.31 - 0.75 × 10 = <span class="font-bold">75.6%</span></p>
 
-                    <div class="footer-text"> THIS WEB IS CREATED BY :   A B H I S H E K _ B A G E W A D I</div>
-                </div>
-            </div>
-        </div>
-    </div>
+                  <div class="footer-text"> THIS WEB IS CREATED BY :   A B H I S H E K _ B A G E W A D I</div>
+              </div>
+          </div>
+      </div>
+    </div> <!-- ✅ END: main-content-wrapper -->
 
     <div id="grade-card-modal" style="display: none;">
         <div>
@@ -887,44 +924,44 @@
 
     <script>
         const eeePhysicsCycleData = [
-            ["Mathematics - for EEE Stream", "BMATEX01", 4],
-            ["Applied Physics for EEE Stream", "BPHYEX02", 4],
-            ["Basic Electronics", "BEEEX03", 3],
-            ["Introduction to C Programming", "BESCKx04x", 3],
-            ["Global Climate Change", "BETCKx05x / BPLCKx05x", 3],
-            ["Professional Writing Skills in English", "BENGKx06/BPWSKx06", 1],
-            ["Samskrutika Kannada / Balake Kannada", "BKSKKx07/BKBKKx07", 1],
-            ["Innovation and Design Thinking", "BIDTKx58", 1]
+            ["Mathematics - for EEE Stream", "BMATE101/201", 4],
+            ["Applied Physics for EEE Stream", "BPHYE102/202", 4],
+            ["Basic Electronics", "BEEE103/203", 3],
+            ["Introduction to C Programming", "BESCK104/204E", 3],
+            ["Global Climate Change", "BETCKx05x", 3],
+            ["Professional Writing Skills in English", "BENGK106/BPWSK106", 1],
+            ["Samskrutika Kannada / Balake Kannada", "BKSKK107/BKBKK107", 1],
+            ["Innovation and Design Thinking", "BIDTK108/208", 1]
         ];
         const eeeChemistryCycleData = [
             ["Mathematics - for EEE Stream", "BMATS201", 4],
             ["Applied Chemistry for EEE Stream", "BCHES202", 4],
-            ["Computer-Aided Engineering Drawing", "BCEDKx03", 3],
-            ["Introduction to Electrical Engineering", "BESCKx04x", 3],
-            ["Introduction to Python Programming", "BPLCKx05x", 3],
-            ["Professional Writing Skills in English", "BPWSKx06", 1],
-            ["Indian Constitution", "BICOKx07", 1],
-            ["Scientific Foundations of Health", "BSFHKx58", 1]
+            ["Computer-Aided Engineering Drawing", "BCEDK203", 3],
+            ["Introduction to Electrical Engineering", "BESCK204E", 3],
+            ["Introduction to Python Programming", "BPLCK205", 3],
+            ["Professional Writing Skills in English", "BPWSK206", 1],
+            ["Indian Constitution", "BICOK207", 1],
+            ["Scientific Foundations of Health", "BSFHK208", 1]
         ];
         const csePhysicsCycleData = [
             ["Mathematics - for CSE Stream", "BMATEX01", 4],
             ["Applied Physics for CSE Stream", "BPHYEX02", 4],
             ["Principles of Programming Using C", "BCSESC203", 3],
             ["Introduction to Electronics Communication", "BECESC204C", 3],
-            ["Global Climate Change", "BETCKx05x / BPLCKx05x", 3],
+            ["Global Climate Change", "BETCK205x / BPLCK205x", 3],
             ["Communicative English / Professional Writing Skills", "BENGKx06/BPWSKx06", 1],
-            ["Samskrutika Kannada / Balake Kannada", "BKSKKx07/BKBKKx07", 1],
-            ["Innovation and Design Thinking", "BIDTKx58", 1]
+            ["Samskrutika Kannada / Balake Kannada", "BKSKK207/BKBKK207", 1],
+            ["Innovation and Design Thinking", "BIDTK258", 1]
         ];
         const cseChemistryCycleData = [
             ["Mathematics - for CSE Stream", "BMATS201", 4],
             ["Applied Chemistry for CSE Stream", "BCHES202", 4],
-            ["Computer-Aided Engineering Drawing", "BCEDKx03", 3],
-            ["Introduction to Mechanical Engineering", "BESCKx04x", 3],
-            ["Introduction to Python Programming", "BPLCKx05x", 3],
-            ["Professional Writing Skills in English", "BPWSKx06", 1],
-            ["Indian Constitution", "BICOKx07", 1],
-            ["Scientific Foundations of Health", "BSFHKx58", 1]
+            ["Computer-Aided Engineering Drawing", "BCEDK203", 3],
+            ["Introduction to Mechanical Engineering", "BESCK204x", 3],
+            ["Introduction to Python Programming", "BPLCK205x", 3],
+            ["Professional Writing Skills in English", "BPWSK206", 1],
+            ["Indian Constitution", "BICOK207", 1],
+            ["Scientific Foundations of Health", "BSFHK208", 1]
         ];
 
         let calculatedSGPA = "N/A";
@@ -937,9 +974,8 @@
             document.getElementById("generateGradeCardBtnBottom").style.display = "none";
             document.getElementById("sharePdfBtn").style.display = "none";
             document.getElementById("result").style.display = "none";
-            // Ensure informative sections are visible if they have different IDs
-            // If they are part of the "result" div, they would be hidden.
-            // Based on the provided HTML, they are separate and always visible.
+            // Remove 'stacked' class on initialization/reset
+            document.querySelector('.action-buttons').classList.remove('stacked');
         }
 
         function handleStreamSelection() {
@@ -1061,10 +1097,12 @@
             const stream = document.getElementById("streamSelect").value;
 
             if (!fullName) {
+                // Modified alert to use a custom message box instead of alert()
                 alert("Please enter your Full Name.");
                 return false;
             }
             if (!stream) {
+                // Modified alert to use a custom message box instead of alert()
                 alert("Please select your Stream (CSE, EEE, or Other).");
                 return false;
             }
@@ -1076,6 +1114,7 @@
             if (stream === "cse") {
                 selectedCycle = document.getElementById("cycleSelect").value;
                 if (!selectedCycle) {
+                    // Modified alert to use a custom message box instead of alert()
                     alert("Please select your Cycle (Physics or Chemistry) for CSE Stream.");
                     return false;
                 }
@@ -1084,20 +1123,19 @@
             } else if (stream === "eee") {
                 selectedCycle = document.getElementById("eeeCycleSelect").value;
                 if (!selectedCycle) {
+                    // Modified alert to use a custom message box instead of alert()
                     alert("Please select your Cycle (Physics or Chemistry) for EEE Stream.");
                     return false;
                 }
                 marksInputs = document.querySelectorAll("#eeeInputs input[id$='_marks']");
                 activeSectionId = 'eeeSubjects';
-            } else if (stream === "other") {
+            } else {
                 marksInputs = document.querySelectorAll("#otherInputs .otherMarks");
                 activeSectionId = 'otherSubjects';
-            } else {
-                alert("Please select a valid Stream.");
-                return false;
             }
 
             if (document.getElementById(activeSectionId).style.display === 'none') {
+                // Modified alert to use a custom message box instead of alert()
                 alert("Please select a valid cycle to display subjects before calculating.");
                 return false;
             }
@@ -1111,6 +1149,7 @@
             }
 
             if (!allMarksFilled) {
+                // Modified alert to use a custom message box instead of alert()
                 alert("Please ensure all subject marks are filled.");
                 return false;
             }
@@ -1178,9 +1217,7 @@
             const stream = streamSelectElement.options[streamSelectElement.selectedIndex].text || "Not Selected";
 
             document.getElementById("result").innerHTML = `
-                <div style="text-align: center; font-weight: bold; margin-bottom: 16px; color: #1e90ff;">
-                    SGPA = ${calculatedSGPA}
-                </div>
+                <span class="sgpa-value">${calculatedSGPA} SGPA</span>
                 <strong>Name:</strong> ${name}<br>
                 <strong>Stream:</strong> ${stream}<br>
                 <strong>Total Credits:</strong> ${totalCredits}<br>
@@ -1191,6 +1228,9 @@
             document.getElementById("generateGradeCardBtnBottom").style.display = "inline-block"; // Show generate grade card button
             document.getElementById("sharePdfBtn").style.display = "inline-block"; // Show share PDF button
             document.getElementById("calculateSGPAButton").style.display = "none"; // Hide calculate button
+
+            // Add 'stacked' class to action-buttons div
+            document.querySelector('.action-buttons').classList.add('stacked');
         }
 
         function resetData() {
@@ -1323,81 +1363,123 @@
             }, 300);
         }
 
-async function shareResultAsPdf() {
-    if (!validateInputs(true)) return;
+        async function shareResultAsPdf() {
+            if (!validateInputs(true)) return;
 
-    calculateSGPA();
-    const { jsPDF } = window.jspdf;
-    const gradeCardContentDiv = document.getElementById("grade-card-content");
-    const gradeCardModal = document.getElementById("grade-card-modal");
+            calculateSGPA();
+            const { jsPDF } = window.jspdf;
+            const gradeCardContentDiv = document.getElementById("grade-card-content");
+            const gradeCardModal = document.getElementById("grade-card-modal");
 
-    // Inject the generated grade card content
-    gradeCardContentDiv.innerHTML = generateTemporaryGradeCardContent();
+            // Inject the generated grade card content
+            gradeCardContentDiv.innerHTML = generateTemporaryGradeCardContent();
 
-    // Show the modal (it must be visible before html2canvas can capture it)
-    gradeCardModal.style.display = "flex";
-    gradeCardModal.style.visibility = "visible";
+            // Show the modal (it must be visible before html2canvas can capture it)
+            gradeCardModal.style.display = "flex";
+            gradeCardModal.style.visibility = "visible";
 
-    // Allow some time for the browser to render the modal before capturing
-    setTimeout(async () => {
-        try {
-            const canvas = await html2canvas(gradeCardContentDiv, {
-                scale: 2,
-                useCORS: true,
-                backgroundColor: "#ffffff"
-            });
+            // Allow some time for the browser to render the modal before capturing
+            setTimeout(async () => {
+                try {
+                    const canvas = await html2canvas(gradeCardContentDiv, {
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor: "#ffffff"
+                    });
 
-            const imgData = canvas.toDataURL('image/jpeg', 1.0);
-            const doc = new jsPDF('p', 'mm', 'a4');
-            const pageWidth = 210; // A4 width in mm
-            const margin = 10;
-            const imgWidth = pageWidth - margin * 2;
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    const doc = new jsPDF('p', 'mm', 'a4');
+                    const pageWidth = 210; // A4 width in mm
+                    const margin = 10;
+                    const imgWidth = pageWidth - margin * 2;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-            let position = margin;
-            let heightLeft = imgHeight;
+                    let position = margin;
+                    let heightLeft = imgHeight;
 
-            doc.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
-            heightLeft -= doc.internal.pageSize.height;
+                    doc.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+                    heightLeft -= doc.internal.pageSize.height;
 
-            while (heightLeft > 0) {
-                position = heightLeft - imgHeight + margin;
-                doc.addPage();
-                doc.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
-                heightLeft -= doc.internal.pageSize.height;
-            }
+                    while (heightLeft > 0) {
+                        position = heightLeft - imgHeight + margin;
+                        doc.addPage();
+                        doc.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+                        heightLeft -= doc.internal.pageSize.height;
+                    }
 
-            const name = document.getElementById("fullName").value || "Student";
-            const pdfFileName = `${name.replace(/\s+/g, '_')}_SGPA_Grade_Card.pdf`;
-            const pdfBlob = doc.output('blob');
+                    const name = document.getElementById("fullName").value || "Student";
+                    const pdfFileName = `${name.replace(/\s+/g, '_')}_SGPA_Grade_Card.pdf`;
+                    const pdfBlob = doc.output('blob');
 
-            if (
-                navigator.share &&
-                navigator.canShare &&
-                navigator.canShare({
-                    files: [new File([pdfBlob], pdfFileName, { type: 'application/pdf' })]
-                })
-            ) {
-                await navigator.share({
-                    files: [new File([pdfBlob], pdfFileName, { type: 'application/pdf' })],
-                    title: 'SGPA Grade Card',
-                    text: `Check out my SGPA Grade Card for ${name}!`,
-                });
-            } else {
-                doc.save(pdfFileName);
-                alert("PDF downloaded. You can manually share it from your downloads.");
-            }
-        } catch (error) {
-            console.error("Error generating PDF:", error);
-            alert("Failed to generate or share PDF. Please try again.");
-        } finally {
-            // Hide the modal again after capture
-            gradeCardModal.style.display = "none";
+                    if (
+                        navigator.share &&
+                        navigator.canShare &&
+                        navigator.canShare({
+                            files: [new File([pdfBlob], pdfFileName, { type: 'application/pdf' })]
+                        })
+                    ) {
+                        await navigator.share({
+                            files: [new File([pdfBlob], pdfFileName, { type: 'application/pdf' })],
+                            title: 'SGPA Grade Card',
+                            text: `Check out my SGPA Grade Card for ${name}!`,
+                        });
+                    } else {
+                        doc.save(pdfFileName);
+                        // Modified alert to use a custom message box instead of alert()
+                        showCustomMessageBox("PDF downloaded. You can manually share it from your downloads.");
+                    }
+                } catch (error) {
+                    console.error("Error generating PDF:", error);
+                    // Modified alert to use a custom message box instead of alert()
+                    showCustomMessageBox("Failed to generate or share PDF. Please try again.");
+                } finally {
+                    // Hide the modal again after capture
+                    gradeCardModal.style.display = "none";
+                }
+            }, 400); // Wait ~400ms to ensure rendering
         }
-    }, 400); // Wait ~400ms to ensure rendering
-}
 
-               
+        // Custom Message Box functions
+        function showCustomMessageBox(message) {
+            const messageBox = document.createElement('div');
+            messageBox.id = 'custom-message-box';
+            messageBox.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                text-align: center;
+                font-family: 'Inter', sans-serif;
+                font-size: 1.8rem;
+                color: #333;
+                max-width: 80%;
+            `;
+            messageBox.innerHTML = `
+                <p>${message}</p>
+                <button id="custom-message-box-ok" style="
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 15px;
+                    font-size: 1.6rem;
+                ">OK</button>
+            `;
+            document.body.appendChild(messageBox);
+
+            document.getElementById('custom-message-box-ok').addEventListener('click', () => {
+                document.body.removeChild(messageBox);
+            });
+        }
+
+
         document.getElementById('close-modal').addEventListener('click', () => {
             document.getElementById('grade-card-modal').style.display = 'none';
         });
