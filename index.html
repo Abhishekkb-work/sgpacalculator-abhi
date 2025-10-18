@@ -128,7 +128,6 @@
       display: none;             /* Hide by default, show when available */
       z-index: 1;
       cursor: pointer;
-      animation: fadeInUp 1s ease-in-out;
       box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
       transition: background 0.3s, color 0.3s;
     }
@@ -150,10 +149,12 @@
   <div class="particle"></div>
   <div class="particle"></div>
   <!-- Main UI Content -->
-  <h1>SGPA CALCULATING WEB/APP</h1>
-  <button id="installBtn">📲 Install SGPA App</button>
-  <a href="abhisgpa.html" class="button">Enter to WebAPP</a>
-  <div class="credit">This WebAPP is Created by ABHISHEK BAGEWADI</div>
+    <button id="installBtn">📲 Install SGPA App</button>
+  <h1>SGPA / CGPA CALCULATOR</h1>
+  
+  <a href="abhisgpa.html" class="button">Enter SGPA calculator</a>
+    <a href="cgpa.html" class="button">Enter CGPA Calculator</a>
+  <div class="credit">This WebAPP is Created by Abhishek Bagewadi</div>
   <script>
     // Register Service Worker
     if ('serviceWorker' in navigator) {
@@ -214,6 +215,7 @@
   </script>
 </body>
 </html>
+
 
 
 
