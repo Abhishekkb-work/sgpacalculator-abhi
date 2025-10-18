@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional CGPA Report Card</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* --- CSS for Professional & Unique Design --- */
+        body {
+            font-family: 'Poppins', sans-serif; 
+            background-color: #f5f8fa; /* Very Light Blue-Gray Background */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 750px;
+        }
+
+        h1 {
+            color: #00796b; /* Professional Teal Header */
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            border-bottom: 4px solid #00796b;
+            padding-bottom: 10px;
+        }
+
+        /* --- Input Sections Style --- */
+        .user-details, .semester-input-section {
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #b2dfdb; /* Light Teal Border */
+            border-radius: 8px;
+            background-color: #e0f2f1; /* Very Light Teal Background */
+        }
+
+        .user-details h2, .semester-input-section h2 {
+            color: #263238;
+            margin-top: 0;
+            border-bottom: 1px solid #b2dfdb;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        
+        .semester-input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        /* --- Buttons Style --- */
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .calculate-btn {
+            background-color: #00796b; /* Primary Teal */
+            color: white;
+            flex-grow: 1;
+            margin-right: 15px;
+        }
+        
+        .add-sem-btn {
+            background-color: #ff9800; /* Amber/Orange for adding */
+            color: white;
+        }
+
+        /* --- Unique Result Card Design --- */
+        #result-card {
+            margin-top: 30px;
+            border: 5px solid #26a69a; /* Darker Teal Border */
+            border-radius: 12px;
+            overflow: hidden;
+            display: none; 
+            background: #ffffff;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            /* Set fixed size for better ratio capture */
+            width: 600px; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card-header {
+            background-color: #00796b;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            font-size: 1.6em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .detail-item strong {
+            color: #004d40; /* Dark Teal */
+        }
+
+        .final-result {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff3e0; /* Soft Orange background */
+            border-radius: 10px;
+            border: 2px solid #ffb74d; /* Light Orange border */
+        }
+
+        .final-result p {
+            font-size: 1.3em;
+            color: #5d4037;
+            margin-bottom: 5px;
+        }
+
+        .final-cgpa {
+            font-size: 4em;
+            color: #ef6c00; /* Deep Orange for result */
+            font-weight: 900;
+            line-height: 1;
+            padding-top: 10px;
+        }
+        
+        .download-btn-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        #downloadBtn {
+            background-color: #0288d1; /* Blue download button */
+            color: white;
+            padding: 10px 25px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Professional CGPA Report</h1>
+
+        <div class="user-details">
+            <h2>Personal & Academic Details</h2>
+            <div class="semester-input-grid">
+                <div>
+                    <label for="userName">Name:</label>
+                    <input type="text" id="userName" placeholder="e,g Abhishek">
+                </div>
+                <div>
+                    <label for="branch">Branch:</label>
+                    <input type="text" id="branch" placeholder="e,g Computer Science">
+                </div>
+                <div>
+                    <label for="currentYear">Academic Year:</label>
+                    <input type="number" id="currentYear" min="1" max="5" value="enter">
+                </div>
+                <div>
+                    <label for="currentSem">Currently In Semester:</label>
+                    <select id="currentSem">
+                        <option value="1">1st Semester</option>
+                        <option value="2">2nd Semester</option>
+                        <option value="3">3rd Semester</option>
+                        <option value="4">4th Semester</option>
+                        <option value="5">5th Semester</option>
+                        <option value="6">6th Semester</option>
+                        <option value="7">7th Semester</option>
+                        <option value="8">8th Semester</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="semester-input-section">
+            <h2>Semester SGPA Input</h2>
+            <p style="color: #004d40; font-weight: bold;">
+                
+                <span style="color: #ff9800;">All the best.!</span>
+            </p>
+            
+            <div id="sgpa-list" class="semester-input-grid">
+                <div>
+                    <label for="sgpa1">Semester 1 SGPA :</label>
+                    <input type="number" id="sgpa1" class="sem-sgpa" value="" min="0" max="10" step="0.01">
+                </div>
+                 <div>
+                    <label for="sgpa2">Semester 2 SGPA:</label>
+                    <input type="number" id="sgpa2" class="sem-sgpa" value="" min="0" max="10" step="0.01">
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn calculate-btn" onclick="calculateCGPA()">calculate</button>
+            <button class="btn add-sem-btn" onclick="addSemesterInput()">+ Add Semester</button>
+        </div>
+
+        <div id="result-card">
+            <div class="card-header">
+                Cumulative Performance Summary
+            </div>
+            <div class="card-body">
+                <div class="details-grid">
+                    <div class="detail-item"><strong>Student Name:</strong> <span id="reportName"></span></div>
+                    <div class="detail-item"><strong>Branch:</strong> <span id="reportBranch"></span></div>
+                    <div class="detail-item"><strong>Academic Year:</strong> <span id="reportYear"></span></div>
+                    <div class="detail-item"><strong>Completed Sems:</strong> <span id="reportCompletedSems"></span></div>
+                </div>
+
+                <div class="final-result">
+                    <p>Your Calculated CGPA Is:</p>
+                    <div class="final-cgpa" id="reportCGPA">0.00</div>
+                </div>
+                
+                <div class="download-btn-container">
+                    <button id="downloadBtn" class="btn" onclick="downloadReport()">Download Report </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let semCount = 2; // Starts at 2 inputs
+
+        // Function to add a new semester input field
+        function addSemesterInput() {
+            semCount++;
+            const sgpaList = document.getElementById('sgpa-list');
+            const newSemDiv = document.createElement('div');
+            
+            newSemDiv.innerHTML = `
+                <label for="sgpa${semCount}">Semester ${semCount} SGPA (e.g., 8.5):</label>
+                <input type="number" id="sgpa${semCount}" class="sem-sgpa" value="" min="0" max="10" step="0.01">
+            `;
+            sgpaList.appendChild(newSemDiv);
+        }
+
+        // Function to calculate CGPA and display the report card
+        function calculateCGPA() {
+            const sgpaInputs = document.querySelectorAll('.sem-sgpa');
+            
+            // Check for minimum 2 inputs
+            if (sgpaInputs.length < 2) {
+                 alert("Please enter SGPA for at least two semesters to calculate CGPA.");
+                 document.getElementById('result-card').style.display = 'none';
+                 return;
+            }
+
+            const totalSGPA = Array.from(sgpaInputs).reduce((sum, input) => {
+                const sgpa = parseFloat(input.value);
+                if (isNaN(sgpa) || sgpa < 0 || sgpa > 10) {
+                    input.style.borderColor = 'red';
+                    alert(`Please check the SGPA input. SGPA must be between 0 and 10.`);
+                    document.getElementById('result-card').style.display = 'none';
+                    return NaN; 
+                }
+                input.style.borderColor = '#ccc';
+                return sum + sgpa;
+            }, 0);
+
+            if (isNaN(totalSGPA)) return;
+
+            const cgpa = (totalSGPA / sgpaInputs.length).toFixed(2);
+            
+            // --- Update Report Card Details ---
+            document.getElementById('reportName').textContent = document.getElementById('userName').value || 'N/A';
+            document.getElementById('reportBranch').textContent = document.getElementById('branch').value || 'N/A';
+            document.getElementById('reportYear').textContent = document.getElementById('currentYear').value || 'N/A';
+            document.getElementById('reportCompletedSems').textContent = sgpaInputs.length;
+            document.getElementById('reportCGPA').textContent = cgpa;
+
+            // Show the result card
+            document.getElementById('result-card').style.display = 'block';
+        }
+
+        // Function to download the result card as a PNG image
+        function downloadReport() {
+            const cardElement = document.getElementById('result-card');
+            
+            // Temporarily hide the download button from the image capture
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.style.display = 'none'; 
+            
+            // Use html2canvas to capture the element
+            html2canvas(cardElement, {
+                scale: 3, // Increased scale for very high resolution
+                backgroundColor: '#ffffff' 
+            }).then(canvas => {
+                // Convert canvas to image data URL
+                const image = canvas.toDataURL('image/png');
+                
+                // Create a temporary link element for download
+                const link = document.createElement('a');
+                link.href = image;
+                link.download = `CGPA_Report_${document.getElementById('userName').value.replace(/\s/g, '_') || 'Student'}.png`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Restore the download button visibility
+                downloadBtn.style.display = 'block';
+            
+            });
+        }
+    </script>
+     
+</body>
+
+</html>
