@@ -91,7 +91,7 @@
     }
     .credit {
       margin-top: 3vh;
-      font-size: 2.0vw;
+      font-size: 2.5vw;
       font-weight: bold;
       background: linear-gradient(90deg, #fffacd, #ffdf00, #fffacd);
       background-size: 300% auto;
@@ -119,7 +119,7 @@
     }
     #installBtn {
       margin-top: 30px;
-      padding: 20px 50px;
+      padding: 15px 40px;
       background: #7EBAF7;        /* soft blue */
       color: #1e293b;            /* dark text */
       border: none;
@@ -129,7 +129,7 @@
       z-index: 1;
       cursor: pointer;
       box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
-      transition: background 0.3s, color 0.3s;
+      
     }
     #installBtn:hover {
       background-color: #7EBAF7; /* lighter blue on hover */
@@ -149,12 +149,14 @@
   <div class="particle"></div>
   <div class="particle"></div>
   <!-- Main UI Content -->
-    <button id="installBtn">📲 Install Our SGPA App</button>
+    
   <h1>SGPA / CGPA CALCULATOR</h1>
   
   <a href="abhisgpa.html" class="button">Enter SGPA calculator</a>
     <a href="cgpa.html" class="button">Enter CGPA Calculator</a>
+  <button id="installBtn">📲 Install Our SGPA App</button>
   <div class="credit">This WebAPP is Created by Abhishek Bagewadi</div>
+  
   <script>
     // Register Service Worker
     if ('serviceWorker' in navigator) {
@@ -215,6 +217,7 @@
   </script>
 </body>
 </html>
+
 
 
 
