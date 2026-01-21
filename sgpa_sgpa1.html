@@ -5,7 +5,7 @@
         src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
   </script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=900,user-scalable=yes"> 
+  <meta name="viewport" content="width=700,user-scalable=yes"> 
   <meta name="google-adsense-account" content="ca-pub-3770007315697798"><!-- Allow zooming -->
   <meta name="theme-color" content="#000000">
   <title>SGPA Calculator</title>
@@ -783,7 +783,8 @@
           <option value="">--Select--</option>
           <option value="cse">CSE Stream (CS / AIML / CSBS / IS / CSDS / Other)</option>
           <option value="eee">EEE Stream  (EE / EC / Other)</option>
-          <option value="other">Other (Mech / Civil / Other)</option> </select>
+          <option value="other">Other (Mech / Civil / Other)</option>
+        </select>
       </div>
 
       <div id="cycleSelection" class="section">
@@ -803,6 +804,7 @@
           <option value="">--Select--</option>
           <option value="eeePhysics">Physics Cycle</option>
           <option value="eeeChemistry">Chemistry Cycle</option>
+          <option value="ec_third">Third Semester E & C Engineering (3rd Sem)</option>
         </select>
       </div>
 
@@ -814,6 +816,11 @@
       <div id="cseSubjects" class="section">
         <h2>CSE Subjects</h2>
         <div id="cseInputs"></div>
+      </div>
+      
+      <div id="thirdSemSection" class="section">
+        <h2>Third Semester — EC Engineers</h2>
+        <div id="thirdSemInputs"></div>
       </div>
 
       <div id="otherSubjects" class="section">
@@ -940,6 +947,7 @@
     </div>
 
     <script>
+        // --- Subject Data Sets ---
         const eeePhysicsCycleData = [
             ["Mathematics - for EEE Stream", "BMATE101/201", 4],
             ["Applied Physics for EEE Stream", "BPHYE102/202", 4],
@@ -981,6 +989,18 @@
             ["Scientific Foundations of Health", "BSFHK208", 1]
         ];
 
+        // Third semester subjects (EC Engineers) - same list to be used for both CSE/EEE third sem option
+        const thirdSemECData = [
+            ["Mathematics-III for EC Engineers", "BECASC301", 3],
+            ["Network Analysis", "BECPCC302", 4],
+            ["Electronic Principles and Circuits", "BECPCC303", 4],
+            ["Digital System Design Using Verilog", "BECPCC304", 4],
+            ["Digital Electronic Circuits", "BECESC05E", 3],
+            ["Analog and Digital System Design Lab", "BECPCL306", 1],
+            ["UHV & SCR", "BHSUHV307", 1],
+            ["Physical Education", "BMNPHE309", 0]
+        ];
+
         let calculatedSGPA = "N/A";
         let subjectResults = [];
 
@@ -1002,6 +1022,8 @@
             document.getElementById("cseSubjects").style.display = "none";
             document.getElementById("eeeSubjects").style.display = "none";
             document.getElementById("otherSubjects").style.display = "none";
+            document.getElementById("thirdSemSection").style.display = "none";
+
             if (stream === "cse") {
                 document.getElementById("cycleSelection").style.display = "block";
             } else if (stream === "eee") {
@@ -1016,12 +1038,18 @@
         function handleCycleSelection() {
             const cycle = document.getElementById("cycleSelect").value;
             document.getElementById("cseSubjects").style.display = "none";
+            document.getElementById("thirdSemSection").style.display = "none";
+
             if (cycle === "physics") {
                 fillInputs("cseInputs", csePhysicsCycleData);
                 document.getElementById("cseSubjects").style.display = "block";
             } else if (cycle === "chemistry") {
                 fillInputs("cseInputs", cseChemistryCycleData);
                 document.getElementById("cseSubjects").style.display = "block";
+            } else if (cycle === "ec_third") {
+                // populate third semester subjects for EC (shows inputs to enter marks)
+                fillInputs("thirdSemInputs", thirdSemECData);
+                document.getElementById("thirdSemSection").style.display = "block";
             }
             initializePageVisibility(); // Reset button visibility on cycle change
         }
@@ -1029,43 +1057,56 @@
         function handleEEECycleSelection() {
             const cycle = document.getElementById("eeeCycleSelect").value;
             document.getElementById("eeeSubjects").style.display = "none";
+            document.getElementById("thirdSemSection").style.display = "none";
+
             if (cycle === "eeePhysics") {
                 fillInputs("eeeInputs", eeePhysicsCycleData);
                 document.getElementById("eeeSubjects").style.display = "block";
             } else if (cycle === "eeeChemistry") {
                 fillInputs("eeeInputs", eeeChemistryCycleData);
                 document.getElementById("eeeSubjects").style.display = "block";
+            } else if (cycle === "ec_third") {
+                // populate third semester subjects for EC (shows inputs to enter marks)
+                fillInputs("thirdSemInputs", thirdSemECData);
+                document.getElementById("thirdSemSection").style.display = "block";
             }
             initializePageVisibility(); // Reset button visibility on cycle change
         }
 
+        // Generic function to fill inputs for a given container and subject data
+        // Marks input now restricted to 0-100 (step 1)
         function fillInputs(containerId, subjectsData) {
             const container = document.getElementById(containerId);
             container.innerHTML = "";
             subjectsData.forEach((subj, index) => {
+                // safe values
+                const name = subj[0] || "";
+                const code = subj[1] || "";
+                const credits = subj[2] !== undefined ? subj[2] : "";
                 container.innerHTML += `
                     <div class='subject-row'>
                         <div>
                             <label>Subject Name:</label>
-                            <input type='text' value='${subj[0]}' readonly />
+                            <input type='text' value='${escapeHtml(name)}' readonly />
                         </div>
                         <div>
                             <label>Subject Code:</label>
-                            <input type='text' value='${subj[1]}' readonly />
+                            <input type='text' value='${escapeHtml(code)}' readonly />
                         </div>
                         <div>
-                            <label>Marks:</label>
-                            <input type='number' id='${containerId}_sub${index}_marks' />
+                            <label>Marks (0-100):</label>
+                            <input type='number' id='${containerId}_sub${index}_marks' min="0" max="100" step="1" placeholder="0 - 100" />
                         </div>
                         <div>
                             <label>Credits:</label>
-                            <input type='number' value='${subj[2]}' id='${containerId}_sub${index}_credits' readonly />
+                            <input type='number' value='${credits}' id='${containerId}_sub${index}_credits' readonly />
                         </div>
                     </div>
                 `;
             });
         }
 
+        // Fill custom (other) inputs; marks input bounded 0-100
         function fillOtherInputs() {
             const container = document.getElementById("otherInputs");
             container.innerHTML = "";
@@ -1077,8 +1118,8 @@
                             <input type='text' class='otherSubjectName' placeholder='Subject ${i + 1}' />
                         </div>
                         <div>
-                            <label>Marks:</label>
-                            <input type='number' class='otherMarks' placeholder='Marks' />
+                            <label>Marks (0-100):</label>
+                            <input type='number' class='otherMarks' min="0" max="100" step="1" placeholder='Marks' />
                         </div>
                         <div>
                             <label>Credits:</label>
@@ -1087,6 +1128,16 @@
                     </div>
                 `;
             }
+        }
+
+        // small HTML-escape helper for safe insertion
+        function escapeHtml(str) {
+            return String(str)
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;');
         }
 
         function getGradePoint(score) {
@@ -1098,7 +1149,6 @@
             else if (score >= 50) return 5;
             else if (score >= 40) return 4;
             else if (score >= 0) return 0;
-            else if (score > 100) return alert("Please enter a valid marks.");
             else return 0;
         }
 
@@ -1114,17 +1164,16 @@
             else return 'F';
         }
 
+        // Validate inputs and ensure marks are within 0-100
         function validateInputs(forDownload = false) {
             const fullName = document.getElementById("fullName").value.trim();
             const stream = document.getElementById("streamSelect").value;
 
             if (!fullName) {
-                // Modified alert to use a custom message box instead of alert()
                 alert("Please enter your Full Name.");
                 return false;
             }
             if (!stream) {
-                // Modified alert to use a custom message box instead of alert()
                 alert("Please select your Stream (CSE, EEE, or Other).");
                 return false;
             }
@@ -1136,42 +1185,59 @@
             if (stream === "cse") {
                 selectedCycle = document.getElementById("cycleSelect").value;
                 if (!selectedCycle) {
-                    // Modified alert to use a custom message box instead of alert()
-                    alert("Please select your Cycle (Physics or Chemistry) for CSE Stream.");
+                    alert("Please select your Cycle (Physics / Chemistry / Third Semester) for CSE Stream.");
                     return false;
                 }
-                marksInputs = document.querySelectorAll("#cseInputs input[id$='_marks']");
-                activeSectionId = 'cseSubjects';
+                if (selectedCycle === "ec_third") {
+                    marksInputs = document.querySelectorAll("#thirdSemInputs input[id$='_marks']");
+                    activeSectionId = 'thirdSemSection';
+                } else {
+                    marksInputs = document.querySelectorAll("#cseInputs input[id$='_marks']");
+                    activeSectionId = 'cseSubjects';
+                }
             } else if (stream === "eee") {
                 selectedCycle = document.getElementById("eeeCycleSelect").value;
                 if (!selectedCycle) {
-                    // Modified alert to use a custom message box instead of alert()
-                    alert("Please select your Cycle (Physics or Chemistry) for EEE Stream.");
+                    alert("Please select your Cycle (Physics / Chemistry / Third Semester) for EEE Stream.");
                     return false;
                 }
-                marksInputs = document.querySelectorAll("#eeeInputs input[id$='_marks']");
-                activeSectionId = 'eeeSubjects';
+                if (selectedCycle === "ec_third") {
+                    marksInputs = document.querySelectorAll("#thirdSemInputs input[id$='_marks']");
+                    activeSectionId = 'thirdSemSection';
+                } else {
+                    marksInputs = document.querySelectorAll("#eeeInputs input[id$='_marks']");
+                    activeSectionId = 'eeeSubjects';
+                }
             } else {
                 marksInputs = document.querySelectorAll("#otherInputs .otherMarks");
                 activeSectionId = 'otherSubjects';
             }
 
-            if (document.getElementById(activeSectionId).style.display === 'none') {
-                // Modified alert to use a custom message box instead of alert()
+            if (!document.getElementById(activeSectionId) || document.getElementById(activeSectionId).style.display === 'none') {
                 alert("Please select a valid cycle to display subjects before calculating.");
+                return false;
+            }
+
+            if (!marksInputs || marksInputs.length === 0) {
+                alert("No subject marks inputs found. Make sure subjects are displayed.");
                 return false;
             }
 
             let allMarksFilled = true;
             for (let i = 0; i < marksInputs.length; i++) {
-                if (!marksInputs[i].value || isNaN(parseFloat(marksInputs[i].value))) {
+                const val = marksInputs[i].value;
+                if (val === "" || val === null || isNaN(parseFloat(val))) {
                     allMarksFilled = false;
                     break;
+                }
+                const num = parseFloat(val);
+                if (num < 0 || num > 100) {
+                    alert("Please enter marks between 0 and 100 for all subjects.");
+                    return false;
                 }
             }
 
             if (!allMarksFilled) {
-                // Modified alert to use a custom message box instead of alert()
                 alert("Please ensure all subject marks are filled.");
                 return false;
             }
@@ -1193,13 +1259,16 @@
 
             marksInputs.forEach((markInput, index) => {
                 const score = parseFloat(markInput.value);
-                const credit = parseFloat(creditsInputs[index].value);
+                // guard: some credit inputs may be missing for custom subjects
+                const creditInput = creditsInputs[index];
+                const credit = creditInput ? parseFloat(creditInput.value) || 0 : 0;
 
                 let subjectName;
                 if (markInput.classList.contains('otherMarks')) {
                     subjectName = markInput.closest('.subject-row').querySelector('.otherSubjectName').value || `Custom Subject ${index + 1}`;
                 } else {
-                    subjectName = markInput.closest('.subject-row').querySelector("input[type='text']:not([id*='_credits'])").value;
+                    const nameInput = markInput.closest('.subject-row').querySelector("input[type='text']:not([id*='_credits'])");
+                    subjectName = nameInput ? nameInput.value : `Subject ${index + 1}`;
                 }
 
                 if (!isNaN(score) && !isNaN(credit) && score >= 0 && credit >= 0) {
@@ -1240,8 +1309,8 @@
 
             document.getElementById("result").innerHTML = `
                 <span class="sgpa-value">${calculatedSGPA} SGPA</span>
-                <strong>Name:</strong> ${name}<br>
-                <strong>Stream:</strong> ${stream}<br>
+                <strong>Name:</strong> ${escapeHtml(name)}<br>
+                <strong>Stream:</strong> ${escapeHtml(stream)}<br>
                 <strong>Total Credits:</strong> ${totalCredits}<br>
                 <strong>Weighted Grade Points:</strong> ${totalWeightedGradePoints.toFixed(2)}
             `;
@@ -1249,7 +1318,7 @@
             document.getElementById("resetDataBtn").style.display = "inline-block"; // Show reset button
             document.getElementById("generateGradeCardBtnBottom").style.display = "inline-block"; // Show generate grade card button
             document.getElementById("sharePdfBtn").style.display = "inline-block"; // Show share PDF button
-            document.getElementById("calculateSGPAButton").style.display = "inline-block"; // Hide calculate button
+            document.getElementById("calculateSGPAButton").style.display = "inline-block"; // Keep calculate button visible
 
             // Add 'stacked' class to action-buttons div
             document.querySelector('.action-buttons').classList.add('stacked');
@@ -1270,11 +1339,13 @@
             document.getElementById("cseSubjects").style.display = "none";
             document.getElementById("eeeSubjects").style.display = "none";
             document.getElementById("otherSubjects").style.display = "none";
+            document.getElementById("thirdSemSection").style.display = "none";
 
             // Clear subject input fields (marks, names for custom, credits for custom)
             document.getElementById("cseInputs").innerHTML = "";
             document.getElementById("eeeInputs").innerHTML = "";
             document.getElementById("otherInputs").innerHTML = "";
+            document.getElementById("thirdSemInputs").innerHTML = "";
 
             // Clear results
             document.getElementById("result").innerHTML = "";
@@ -1305,7 +1376,7 @@
                 const status = subj.letterGrade === 'F' ? 'FAIL' : (subj.invalid ? 'INVALID INPUT' : 'PASS');
                 tableRows += `
                     <tr>
-                        <td>${subj.name}</td>
+                        <td>${escapeHtml(subj.name)}</td>
                         <td>${subj.credits}</td>
                         <td>${subj.marks === undefined || isNaN(subj.marks) ? 'N/A' : subj.marks}</td>
                         <td>${subj.letterGrade}</td>
@@ -1317,12 +1388,12 @@
 
             return `
                 <div class="grade-card-header">
-                    <div class="left">${window.location.href}</div>
+                    <div class="left">${escapeHtml(window.location.href)}</div>
                     <div class="center">SGPA REPORT</div>
                     <div class="right">${dateString}<br>${timeString}</div>
                 </div>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Stream:</strong> ${stream}</p>
+                <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+                <p><strong>Stream:</strong> ${escapeHtml(stream)}</p>
                 <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ccc;">
                 <table>
                     <thead>
@@ -1447,12 +1518,10 @@
                         });
                     } else {
                         doc.save(pdfFileName);
-                        // Modified alert to use a custom message box instead of alert()
                         showCustomMessageBox("PDF downloaded. You can manually share it from your downloads.");
                     }
                 } catch (error) {
                     console.error("Error generating PDF:", error);
-                    // Modified alert to use a custom message box instead of alert()
                     showCustomMessageBox("Failed to generate or share PDF. Please try again.");
                 } finally {
                     // Hide the modal again after capture
@@ -1529,6 +1598,3 @@
      crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-
