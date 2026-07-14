@@ -120,7 +120,7 @@
 
     select {
       appearance: none;
-      background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007fff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4l128-127.9c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.9z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+      background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.7L146.2%20202.7%2018.4%2075.1a17.6%2017.6%200%200%200-25.7%2023.1l138.4%20140c6.6%206.6%2017.2%206.6%2023.9%200l138.4-140a17.6%2017.6%200%200%200-13-29.8z%22%2F%3E%3C%2Fsvg%3E');
       background-repeat: no-repeat;
       background-position: right 1.5rem top 50%;
       background-size: 1rem auto;
@@ -783,7 +783,7 @@
           <option value="">--Select--</option>
           <option value="cse">CSE Stream (CS / AIML / CSBS / IS / CSDS / Other)</option>
           <option value="eee">EEE Stream  (EE / EC / Other)</option>
-          <option value="other">Other (Mech / Civil / Other)</option>
+          <option value="other">Other (Mech / Civil / Other)</option>
         </select>
       </div>
 
@@ -794,7 +794,6 @@
           <option value="">--Select--</option>
           <option value="physics">Physics Cycle</option>
           <option value="chemistry">Chemistry Cycle</option>
-          <option value="cse_fourth">Fourth Semester (4th Sem)</option>
         </select>
       </div>
 
@@ -805,7 +804,7 @@
           <option value="">--Select--</option>
           <option value="eeePhysics">Physics Cycle</option>
           <option value="eeeChemistry">Chemistry Cycle</option>
-          <option value="eee_fourth">Fourth Semester (4th Sem)</option>
+          <option value="ec_third">Third Semester E & C Engineering (3rd Sem)</option>
         </select>
       </div>
 
@@ -852,7 +851,7 @@
 
           <div class="bg-white rounded-lg custom-shadow p-6">
               <h3 class="text-xl font-semibold text-gray-800 mb-4">Why do we need to calculate SGPA?</h3>
-              <p class="text-gray-600 mb-3">VTU follows the Choice Based Credit System (CBCS) where performance is measured using SGPA and CGPA. While the university provides these scores, there are benefits of calculating your own:</p>
+              <p class="text-gray-600 mb-3">VTU follows the Choice Based Credit System (CBCS) where performance is measured using SGPA and CGPA. While the university provides these scores, there2 are several reasons to calculate them yourself:</p>
               <ul class="list-disc pl-5 text-gray-600 space-y-2">
                   <li>Official grade cards may not provide detailed breakdowns of how the SGPA was calculated.</li>
                   <li>You can verify the accuracy of your official results.</li>
@@ -969,17 +968,6 @@
             ["Indian Constitution", "BICOK207", 1],
             ["Scientific Foundations of Health", "BSFHK208", 1]
         ];
-
-        // ✅ NEW: 4th Semester EEE Subjects
-        const eeeFourthSemData = [
-            ["Control Systems", "BEEEC401", 4],
-            ["Analog and Digital Communication", "BEEEC402", 4],
-            ["Power Electronics", "BEEEC403", 4],
-            ["Signals and Systems", "BEEEC404", 3],
-            ["Electrical Machines Lab", "BEEEC405", 2],
-            ["Communication Systems Lab", "BEEEC406", 2]
-        ];
-
         const csePhysicsCycleData = [
             ["Mathematics - for CSE Stream", "BMATEX01", 4],
             ["Applied Physics for CSE Stream", "BPHYEX02", 4],
@@ -1001,16 +989,6 @@
             ["Scientific Foundations of Health", "BSFHK208", 1]
         ];
 
-        // ✅ NEW: 4th Semester CSE Subjects
-        const cseFourthSemData = [
-            ["Design and Analysis of Algorithms", "BCSEC401", 4],
-            ["Database Management Systems", "BCSEC402", 4],
-            ["Web Technologies", "BCSEC403", 4],
-            ["System Software", "BCSEC404", 3],
-            ["Data Structures Lab", "BCSEC405", 2],
-            ["Database Lab", "BCSEC406", 2]
-        ];
-
         // Third semester subjects (EC Engineers) - same list to be used for both CSE/EEE third sem option
         const thirdSemECData = [
             ["Mathematics-III for EC Engineers", "BECASC301", 3],
@@ -1020,309 +998,604 @@
             ["Digital Electronic Circuits", "BECESC05E", 3],
             ["Analog and Digital System Design Lab", "BECPCL306", 1],
             ["UHV & SCR", "BHSUHV307", 1],
-            ["Advanced DSP", "BADSPC308", 2]
+            ["Physical Education", "BMNPHE309", 0]
         ];
 
-        // --- Grade Point Mapping ---
-        const gradePoints = {
-            'O': 10, 'A+': 9, 'A': 8, 'B+': 7, 'B': 6, 'C': 5, 'P': 4, 'F': 0
-        };
+        let calculatedSGPA = "N/A";
+        let subjectResults = [];
 
-        // --- Helper Functions ---
+        // Function to control initial button and result visibility
+        function initializePageVisibility() {
+            document.getElementById("calculateSGPAButton").style.display = "inline-block";
+            document.getElementById("resetDataBtn").style.display = "none";
+            document.getElementById("generateGradeCardBtnBottom").style.display = "none";
+            document.getElementById("sharePdfBtn").style.display = "none";
+            document.getElementById("result").style.display = "none";
+            // Remove 'stacked' class on initialization/reset
+            document.querySelector('.action-buttons').classList.remove('stacked');
+        }
+
         function handleStreamSelection() {
-            const streamSelect = document.getElementById('streamSelect');
-            const cycleSelection = document.getElementById('cycleSelection');
-            const eeeCycleSelection = document.getElementById('eeeCycleSelection');
-            const cseSubjects = document.getElementById('cseSubjects');
-            const eeeSubjects = document.getElementById('eeeSubjects');
-            const thirdSemSection = document.getElementById('thirdSemSection');
-            const otherSubjects = document.getElementById('otherSubjects');
-            const result = document.getElementById('result');
+            const stream = document.getElementById("streamSelect").value;
+            document.getElementById("cycleSelection").style.display = "none";
+            document.getElementById("eeeCycleSelection").style.display = "none";
+            document.getElementById("cseSubjects").style.display = "none";
+            document.getElementById("eeeSubjects").style.display = "none";
+            document.getElementById("otherSubjects").style.display = "none";
+            document.getElementById("thirdSemSection").style.display = "none";
 
-            cseSubjects.style.display = 'none';
-            eeeSubjects.style.display = 'none';
-            thirdSemSection.style.display = 'none';
-            otherSubjects.style.display = 'none';
-            result.style.display = 'none';
-
-            if (streamSelect.value === 'cse') {
-                cycleSelection.style.display = 'block';
-                eeeCycleSelection.style.display = 'none';
-                otherSubjects.style.display = 'none';
-            } else if (streamSelect.value === 'eee') {
-                eeeCycleSelection.style.display = 'block';
-                cycleSelection.style.display = 'none';
-                otherSubjects.style.display = 'none';
-            } else if (streamSelect.value === 'other') {
-                cycleSelection.style.display = 'none';
-                eeeCycleSelection.style.display = 'none';
-                otherSubjects.style.display = 'block';
-                generateCustomSubjectInputs(5);
+            if (stream === "cse") {
+                document.getElementById("cycleSelection").style.display = "block";
+            } else if (stream === "eee") {
+                document.getElementById("eeeCycleSelection").style.display = "block";
+            } else if (stream === "other") {
+                document.getElementById("otherSubjects").style.display = "block";
+                fillOtherInputs();
             }
+            initializePageVisibility(); // Reset button visibility on stream change
         }
 
         function handleCycleSelection() {
-            const cycleSelect = document.getElementById('cycleSelect');
-            const cseInputs = document.getElementById('cseInputs');
-            const cseSubjects = document.getElementById('cseSubjects');
-            const thirdSemSection = document.getElementById('thirdSemSection');
-            const result = document.getElementById('result');
+            const cycle = document.getElementById("cycleSelect").value;
+            document.getElementById("cseSubjects").style.display = "none";
+            document.getElementById("thirdSemSection").style.display = "none";
 
-            cseSubjects.style.display = 'none';
-            thirdSemSection.style.display = 'none';
-            result.style.display = 'none';
-
-            if (cycleSelect.value === 'physics') {
-                generateSubjectInputs(csePhysicsCycleData, cseInputs);
-                cseSubjects.style.display = 'block';
-            } else if (cycleSelect.value === 'chemistry') {
-                generateSubjectInputs(cseChemistryCycleData, cseInputs);
-                cseSubjects.style.display = 'block';
-            } else if (cycleSelect.value === 'cse_fourth') {
-                generateSubjectInputs(cseFourthSemData, cseInputs);
-                cseSubjects.style.display = 'block';
-                document.querySelector('#cseSubjects h2').textContent = 'CSE Subjects - 4th Semester';
+            if (cycle === "physics") {
+                fillInputs("cseInputs", csePhysicsCycleData);
+                document.getElementById("cseSubjects").style.display = "block";
+            } else if (cycle === "chemistry") {
+                fillInputs("cseInputs", cseChemistryCycleData);
+                document.getElementById("cseSubjects").style.display = "block";
+            } else if (cycle === "ec_third") {
+                // populate third semester subjects for EC (shows inputs to enter marks)
+                fillInputs("thirdSemInputs", thirdSemECData);
+                document.getElementById("thirdSemSection").style.display = "block";
             }
+            initializePageVisibility(); // Reset button visibility on cycle change
         }
 
         function handleEEECycleSelection() {
-            const eeeCycleSelect = document.getElementById('eeeCycleSelect');
-            const eeeInputs = document.getElementById('eeeInputs');
-            const eeeSubjects = document.getElementById('eeeSubjects');
-            const thirdSemSection = document.getElementById('thirdSemSection');
-            const result = document.getElementById('result');
+            const cycle = document.getElementById("eeeCycleSelect").value;
+            document.getElementById("eeeSubjects").style.display = "none";
+            document.getElementById("thirdSemSection").style.display = "none";
 
-            eeeSubjects.style.display = 'none';
-            thirdSemSection.style.display = 'none';
-            result.style.display = 'none';
-
-            if (eeeCycleSelect.value === 'eeePhysics') {
-                generateSubjectInputs(eeePhysicsCycleData, eeeInputs);
-                eeeSubjects.style.display = 'block';
-                document.querySelector('#eeeSubjects h2').textContent = 'EEE Subjects';
-            } else if (eeeCycleSelect.value === 'eeeChemistry') {
-                generateSubjectInputs(eeeChemistryCycleData, eeeInputs);
-                eeeSubjects.style.display = 'block';
-                document.querySelector('#eeeSubjects h2').textContent = 'EEE Subjects';
-            } else if (eeeCycleSelect.value === 'eee_fourth') {
-                generateSubjectInputs(eeeFourthSemData, eeeInputs);
-                eeeSubjects.style.display = 'block';
-                document.querySelector('#eeeSubjects h2').textContent = 'EEE Subjects - 4th Semester';
-            } else if (eeeCycleSelect.value === 'ec_third') {
-                generateSubjectInputs(thirdSemECData, document.getElementById('thirdSemInputs'));
-                thirdSemSection.style.display = 'block';
+            if (cycle === "eeePhysics") {
+                fillInputs("eeeInputs", eeePhysicsCycleData);
+                document.getElementById("eeeSubjects").style.display = "block";
+            } else if (cycle === "eeeChemistry") {
+                fillInputs("eeeInputs", eeeChemistryCycleData);
+                document.getElementById("eeeSubjects").style.display = "block";
+            } else if (cycle === "ec_third") {
+                // populate third semester subjects for EC (shows inputs to enter marks)
+                fillInputs("thirdSemInputs", thirdSemECData);
+                document.getElementById("thirdSemSection").style.display = "block";
             }
+            initializePageVisibility(); // Reset button visibility on cycle change
         }
 
-        function generateSubjectInputs(subjectData, container) {
-            container.innerHTML = '';
-            subjectData.forEach((subject, index) => {
-                const [name, code, credits] = subject;
-                const row = document.createElement('div');
-                row.className = 'subject-row';
-                row.innerHTML = `
-                    <div>
-                        <label>${name}</label>
-                    </div>
-                    <div>
-                        <label>Marks (0-100):</label>
-                        <input type="number" id="subject-${index}" min="0" max="100" placeholder="0" />
+        // Generic function to fill inputs for a given container and subject data
+        // Marks input now restricted to 0-100 (step 1)
+        function fillInputs(containerId, subjectsData) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = "";
+            subjectsData.forEach((subj, index) => {
+                // safe values
+                const name = subj[0] || "";
+                const code = subj[1] || "";
+                const credits = subj[2] !== undefined ? subj[2] : "";
+                container.innerHTML += `
+                    <div class='subject-row'>
+                        <div>
+                            <label>Subject Name:</label>
+                            <input type='text' value='${escapeHtml(name)}' readonly />
+                        </div>
+                        <div>
+                            <label>Subject Code:</label>
+                            <input type='text' value='${escapeHtml(code)}' readonly />
+                        </div>
+                        <div>
+                            <label>Marks (0-100):</label>
+                            <input type='number' id='${containerId}_sub${index}_marks' min="0" max="100" step="1" placeholder="0 - 100" />
+                        </div>
+                        <div>
+                            <label>Credits:</label>
+                            <input type='number' value='${credits}' id='${containerId}_sub${index}_credits' readonly />
+                        </div>
                     </div>
                 `;
-                container.appendChild(row);
             });
         }
 
-        function generateCustomSubjectInputs(count) {
-            const otherInputs = document.getElementById('otherInputs');
-            otherInputs.innerHTML = '';
-            for (let i = 0; i < count; i++) {
-                const row = document.createElement('div');
-                row.className = 'subject-row';
-                row.innerHTML = `
-                    <div>
-                        <label>Subject Name:</label>
-                        <input type="text" id="custom-name-${i}" placeholder="Enter subject name" />
-                    </div>
-                    <div>
-                        <label>Credits:</label>
-                        <input type="number" id="custom-credit-${i}" min="1" max="10" placeholder="Credits" />
-                    </div>
-                    <div>
-                        <label>Marks (0-100):</label>
-                        <input type="number" id="custom-marks-${i}" min="0" max="100" placeholder="Marks" />
+        // Fill custom (other) inputs; marks input bounded 0-100
+        function fillOtherInputs() {
+            const container = document.getElementById("otherInputs");
+            container.innerHTML = "";
+            for (let i = 0; i < 8; i++) {
+                container.innerHTML += `
+                    <div class='subject-row'>
+                        <div>
+                            <label>Subject Name:</label>
+                            <input type='text' class='otherSubjectName' placeholder='Subject ${i + 1}' />
+                        </div>
+                        <div>
+                            <label>Marks (0-100):</label>
+                            <input type='number' class='otherMarks' min="0" max="100" step="1" placeholder='Marks' />
+                        </div>
+                        <div>
+                            <label>Credits:</label>
+                            <input type='number' class='otherCredits' placeholder='Credits' />
+                        </div>
                     </div>
                 `;
-                otherInputs.appendChild(row);
             }
         }
 
-        function getGradeFromMarks(marks) {
-            if (marks >= 90) return 'O';
-            if (marks >= 80) return 'A+';
-            if (marks >= 70) return 'A';
-            if (marks >= 60) return 'B+';
-            if (marks >= 50) return 'B';
-            if (marks >= 45) return 'C';
-            if (marks >= 40) return 'P';
-            return 'F';
+        // small HTML-escape helper for safe insertion
+        function escapeHtml(str) {
+            return String(str)
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;');
+        }
+
+        function getGradePoint(score) {
+            if (score >= 90) return 10;
+            else if (score >= 80) return 9;
+            else if (score >= 70) return 8;
+            else if (score >= 60) return 7;
+            else if (score >= 55) return 6;
+            else if (score >= 50) return 5;
+            else if (score >= 40) return 4;
+            else if (score >= 0) return 0;
+            else return 0;
+        }
+
+        function getLetterGrade(score) {
+            if (score >= 90) return 'O';
+            else if (score >= 80) return 'A+';
+            else if (score >= 70) return 'A';
+            else if (score >= 60) return 'B+';
+            else if (score >= 55) return 'B';
+            else if (score >= 50) return 'C';
+            else if (score >= 40) return 'P';
+            else if (score >= 0) return 'F';
+            else return 'F';
+        }
+
+        // Validate inputs and ensure marks are within 0-100
+        function validateInputs(forDownload = false) {
+            const fullName = document.getElementById("fullName").value.trim();
+            const stream = document.getElementById("streamSelect").value;
+
+            if (!fullName) {
+                alert("Please enter your Full Name.");
+                return false;
+            }
+            if (!stream) {
+                alert("Please select your Stream (CSE, EEE, or Other).");
+                return false;
+            }
+
+            let marksInputs;
+            let selectedCycle;
+            let activeSectionId = '';
+
+            if (stream === "cse") {
+                selectedCycle = document.getElementById("cycleSelect").value;
+                if (!selectedCycle) {
+                    alert("Please select your Cycle (Physics / Chemistry / Third Semester) for CSE Stream.");
+                    return false;
+                }
+                if (selectedCycle === "ec_third") {
+                    marksInputs = document.querySelectorAll("#thirdSemInputs input[id$='_marks']");
+                    activeSectionId = 'thirdSemSection';
+                } else {
+                    marksInputs = document.querySelectorAll("#cseInputs input[id$='_marks']");
+                    activeSectionId = 'cseSubjects';
+                }
+            } else if (stream === "eee") {
+                selectedCycle = document.getElementById("eeeCycleSelect").value;
+                if (!selectedCycle) {
+                    alert("Please select your Cycle (Physics / Chemistry / Third Semester) for EEE Stream.");
+                    return false;
+                }
+                if (selectedCycle === "ec_third") {
+                    marksInputs = document.querySelectorAll("#thirdSemInputs input[id$='_marks']");
+                    activeSectionId = 'thirdSemSection';
+                } else {
+                    marksInputs = document.querySelectorAll("#eeeInputs input[id$='_marks']");
+                    activeSectionId = 'eeeSubjects';
+                }
+            } else {
+                marksInputs = document.querySelectorAll("#otherInputs .otherMarks");
+                activeSectionId = 'otherSubjects';
+            }
+
+            if (!document.getElementById(activeSectionId) || document.getElementById(activeSectionId).style.display === 'none') {
+                alert("Please select a valid cycle to display subjects before calculating.");
+                return false;
+            }
+
+            if (!marksInputs || marksInputs.length === 0) {
+                alert("No subject marks inputs found. Make sure subjects are displayed.");
+                return false;
+            }
+
+            let allMarksFilled = true;
+            for (let i = 0; i < marksInputs.length; i++) {
+                const val = marksInputs[i].value;
+                if (val === "" || val === null || isNaN(parseFloat(val))) {
+                    allMarksFilled = false;
+                    break;
+                }
+                const num = parseFloat(val);
+                if (num < 0 || num > 100) {
+                    alert("Please enter marks between 0 and 100 for all subjects.");
+                    return false;
+                }
+            }
+
+            if (!allMarksFilled) {
+                alert("Please ensure all subject marks are filled.");
+                return false;
+            }
+
+            return true;
         }
 
         function calculateSGPA() {
-            const fullName = document.getElementById('fullName').value;
-            const streamSelect = document.getElementById('streamSelect');
-            const result = document.getElementById('result');
-
-            if (!fullName) {
-                alert('Please enter your full name');
+            if (!validateInputs(false)) {
                 return;
             }
 
-            if (!streamSelect.value) {
-                alert('Please select a stream');
-                return;
-            }
+            let marksInputs = document.querySelectorAll("input[id$='_marks'], .otherMarks");
+            let creditsInputs = document.querySelectorAll("input[id$='_credits'], .otherCredits");
 
-            let subjectData = [];
-            let inputs = [];
+            let totalWeightedGradePoints = 0;
             let totalCredits = 0;
-            let totalPoints = 0;
+            subjectResults = [];
 
-            if (streamSelect.value === 'cse') {
-                const cycleSelect = document.getElementById('cycleSelect');
-                if (cycleSelect.value === 'physics') {
-                    subjectData = csePhysicsCycleData;
-                } else if (cycleSelect.value === 'chemistry') {
-                    subjectData = cseChemistryCycleData;
-                } else if (cycleSelect.value === 'cse_fourth') {
-                    subjectData = cseFourthSemData;
+            marksInputs.forEach((markInput, index) => {
+                const score = parseFloat(markInput.value);
+                // guard: some credit inputs may be missing for custom subjects
+                const creditInput = creditsInputs[index];
+                const credit = creditInput ? parseFloat(creditInput.value) || 0 : 0;
+
+                let subjectName;
+                if (markInput.classList.contains('otherMarks')) {
+                    subjectName = markInput.closest('.subject-row').querySelector('.otherSubjectName').value || `Custom Subject ${index + 1}`;
                 } else {
-                    alert('Please select a cycle');
-                    return;
+                    const nameInput = markInput.closest('.subject-row').querySelector("input[type='text']:not([id*='_credits'])");
+                    subjectName = nameInput ? nameInput.value : `Subject ${index + 1}`;
                 }
-                inputs = document.querySelectorAll('#cseInputs input');
-            } else if (streamSelect.value === 'eee') {
-                const eeeCycleSelect = document.getElementById('eeeCycleSelect');
-                if (eeeCycleSelect.value === 'eeePhysics') {
-                    subjectData = eeePhysicsCycleData;
-                } else if (eeeCycleSelect.value === 'eeeChemistry') {
-                    subjectData = eeeChemistryCycleData;
-                } else if (eeeCycleSelect.value === 'eee_fourth') {
-                    subjectData = eeeFourthSemData;
-                } else if (eeeCycleSelect.value === 'ec_third') {
-                    subjectData = thirdSemECData;
+
+                if (!isNaN(score) && !isNaN(credit) && score >= 0 && credit >= 0) {
+                    let gradePoint = getGradePoint(score);
+                    let letterGrade = getLetterGrade(score);
+
+                    totalWeightedGradePoints += gradePoint * credit;
+                    totalCredits += credit;
+
+                    subjectResults.push({
+                        name: subjectName,
+                        marks: score,
+                        credits: credit,
+                        gradePoint: gradePoint,
+                        letterGrade: letterGrade
+                    });
                 } else {
-                    alert('Please select a cycle');
-                    return;
+                    subjectResults.push({
+                        name: subjectName,
+                        marks: score,
+                        credits: credit,
+                        gradePoint: 'N/A',
+                        letterGrade: 'N/A',
+                        invalid: true
+                    });
                 }
-                inputs = document.querySelectorAll('#eeeInputs input, #thirdSemInputs input');
-            } else if (streamSelect.value === 'other') {
-                inputs = document.querySelectorAll('#otherInputs input');
-            }
+            });
 
-            let resultHTML = `<strong>${fullName}</strong><br>`;
-
-            if (streamSelect.value === 'other') {
-                // Custom subjects
-                const customInputs = document.querySelectorAll('#otherInputs input');
-                let customIndex = 0;
-
-                for (let i = 0; i < customInputs.length; i += 3) {
-                    const nameInput = customInputs[i];
-                    const creditInput = customInputs[i + 1];
-                    const marksInput = customInputs[i + 2];
-
-                    const name = nameInput.value || `Subject ${customIndex + 1}`;
-                    const credits = parseInt(creditInput.value) || 0;
-                    const marks = parseInt(marksInput.value) || 0;
-
-                    if (credits === 0 || marks === 0) continue;
-
-                    const grade = getGradeFromMarks(marks);
-                    const gradePoint = gradePoints[grade];
-
-                    totalCredits += credits;
-                    totalPoints += credits * gradePoint;
-                    customIndex++;
-                }
+            if (totalCredits > 0) {
+                calculatedSGPA = (totalWeightedGradePoints / totalCredits).toFixed(2);
             } else {
-                // Predefined subjects
-                let inputIndex = 0;
-                subjectData.forEach((subject) => {
-                    const input = inputs[inputIndex];
-                    if (input) {
-                        const marks = parseInt(input.value) || 0;
-                        const grade = getGradeFromMarks(marks);
-                        const credits = subject[2];
-                        const gradePoint = gradePoints[grade];
-
-                        totalCredits += credits;
-                        totalPoints += credits * gradePoint;
-                    }
-                    inputIndex++;
-                });
+                calculatedSGPA = "N/A";
             }
 
-            if (totalCredits === 0) {
-                alert('Please enter marks for at least one subject');
-                return;
-            }
+            const name = document.getElementById("fullName").value || "Student";
+            const streamSelectElement = document.getElementById("streamSelect");
+            const stream = streamSelectElement.options[streamSelectElement.selectedIndex].text || "Not Selected";
 
-            const sgpa = (totalPoints / totalCredits).toFixed(2);
-            const percentage = ((sgpa - 0.75) * 10).toFixed(2);
+            document.getElementById("result").innerHTML = `
+                <span class="sgpa-value">${calculatedSGPA} SGPA</span>
+                <strong>Name:</strong> ${escapeHtml(name)}<br>
+                <strong>Stream:</strong> ${escapeHtml(stream)}<br>
+                <strong>Total Credits:</strong> ${totalCredits}<br>
+                <strong>Weighted Grade Points:</strong> ${totalWeightedGradePoints.toFixed(2)}
+            `;
+            document.getElementById("result").style.display = "block"; // Show result div
+            document.getElementById("resetDataBtn").style.display = "inline-block"; // Show reset button
+            document.getElementById("generateGradeCardBtnBottom").style.display = "inline-block"; // Show generate grade card button
+            document.getElementById("sharePdfBtn").style.display = "inline-block"; // Show share PDF button
+            document.getElementById("calculateSGPAButton").style.display = "inline-block"; // Keep calculate button visible
 
-            resultHTML += `<span class="sgpa-value">${sgpa}</span>`;
-            resultHTML += `<strong>Total Credits: ${totalCredits}</strong><br>`;
-            resultHTML += `<strong>Percentage: ${percentage}%</strong>`;
-
-            result.innerHTML = resultHTML;
-            result.style.display = 'block';
-            result.scrollIntoView({ behavior: 'smooth' });
+            // Add 'stacked' class to action-buttons div
+            document.querySelector('.action-buttons').classList.add('stacked');
         }
 
         function resetData() {
-            document.getElementById('fullName').value = '';
-            document.getElementById('streamSelect').value = '';
-            document.getElementById('cycleSelect').value = '';
-            document.getElementById('eeeCycleSelect').value = '';
-            document.getElementById('result').style.display = 'none';
-            document.getElementById('cseSubjects').style.display = 'none';
-            document.getElementById('eeeSubjects').style.display = 'none';
-            document.getElementById('cycleSelection').style.display = 'none';
-            document.getElementById('eeeCycleSelection').style.display = 'none';
-            document.getElementById('thirdSemSection').style.display = 'none';
-            document.getElementById('otherSubjects').style.display = 'none';
+            // Reset Full Name
+            document.getElementById("fullName").value = "";
+
+            // Reset Stream and Cycle selections
+            document.getElementById("streamSelect").value = "";
+            document.getElementById("cycleSelect").value = "";
+            document.getElementById("eeeCycleSelect").value = "";
+
+            // Hide all subject sections
+            document.getElementById("cycleSelection").style.display = "none";
+            document.getElementById("eeeCycleSelection").style.display = "none";
+            document.getElementById("cseSubjects").style.display = "none";
+            document.getElementById("eeeSubjects").style.display = "none";
+            document.getElementById("otherSubjects").style.display = "none";
+            document.getElementById("thirdSemSection").style.display = "none";
+
+            // Clear subject input fields (marks, names for custom, credits for custom)
+            document.getElementById("cseInputs").innerHTML = "";
+            document.getElementById("eeeInputs").innerHTML = "";
+            document.getElementById("otherInputs").innerHTML = "";
+            document.getElementById("thirdSemInputs").innerHTML = "";
+
+            // Clear results
+            document.getElementById("result").innerHTML = "";
+
+            // Hide all buttons except calculate
+            initializePageVisibility();
+
+            // Reset calculated SGPA and subject results
+            calculatedSGPA = "N/A";
+            subjectResults = [];
+
+            // Re-initialize based on default stream selection (which is now empty)
+            handleStreamSelection();
         }
 
+
+        function generateTemporaryGradeCardContent() {
+            const name = document.getElementById("fullName").value || "Student";
+            const streamSelectElement = document.getElementById("streamSelect");
+            const stream = streamSelectElement.options[streamSelectElement.selectedIndex].text || "Not Selected";
+
+            const currentDate = new Date();
+            const dateString = currentDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            const timeString = currentDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+            let tableRows = '';
+            subjectResults.forEach(subj => {
+                const status = subj.letterGrade === 'F' ? 'FAIL' : (subj.invalid ? 'INVALID INPUT' : 'PASS');
+                tableRows += `
+                    <tr>
+                        <td>${escapeHtml(subj.name)}</td>
+                        <td>${subj.credits}</td>
+                        <td>${subj.marks === undefined || isNaN(subj.marks) ? 'N/A' : subj.marks}</td>
+                        <td>${subj.letterGrade}</td>
+                        <td>${subj.gradePoint}</td>
+                        <td>${status}</td>
+                    </tr>
+                `;
+            });
+
+            return `
+                <div class="grade-card-header">
+                    <div class="left">${escapeHtml(window.location.href)}</div>
+                    <div class="center">SGPA REPORT</div>
+                    <div class="right">${dateString}<br>${timeString}</div>
+                </div>
+                <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+                <p><strong>Stream:</strong> ${escapeHtml(stream)}</p>
+                <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #ccc;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Subject Name</th>
+                            <th>Credits</th>
+                            <th>Marks</th>
+                            <th>Letter Grade</th>
+                            <th>Grade Point</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
+                <div class="grade-card-final-sgpa">
+                    ${calculatedSGPA} SGPA
+                </div>
+                <div class="grade-card-footer">This web is created with ❤️ by ABHISHEK BAGEWADI</div>
+            `;
+        }
+
+        // This function improves the grade card image download for mobile and desktop
         function generateTemporaryGradeCardAndDownload() {
-            const fullName = document.getElementById('fullName').value;
-            if (!fullName) {
-                alert('Please calculate SGPA first');
+            if (!validateInputs(true)) {
                 return;
             }
-            const result = document.getElementById('result').textContent;
-            alert('Grade card generated. Check the modal.');
-        }
+            calculateSGPA(); // Recalculate to ensure latest data is used for grade card
 
-        function shareResultAsPdf() {
-            const result = document.getElementById('result');
-            if (result.style.display === 'none') {
-                alert('Please calculate SGPA first');
-                return;
-            }
-            alert('PDF download started');
-        }
+            const gradeCardContentDiv = document.getElementById("grade-card-content");
+            gradeCardContentDiv.innerHTML = generateTemporaryGradeCardContent();
 
-        // Close modal
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('grade-card-modal');
-            const closeBtn = document.getElementById('close-modal');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function() {
-                    modal.style.display = 'none';
+            // Show modal
+            const gradeCardModal = document.getElementById("grade-card-modal");
+            gradeCardModal.style.display = "flex";
+
+            let scale = window.devicePixelRatio || 2;
+            if (window.innerWidth < 600) scale = 3;
+
+            setTimeout(() => {
+                html2canvas(gradeCardContentDiv, {
+                    scale: scale,
+                    useCORS: true,
+                    backgroundColor: "#fff",
+                    scrollX: 0,
+                    scrollY: 0,
+                    windowWidth: gradeCardContentDiv.scrollWidth,
+                    windowHeight: gradeCardContentDiv.scrollHeight
+                }).then(canvas => {
+                    const image = canvas.toDataURL("image/jpeg", 0.95);
+                    const link = document.createElement('a');
+                    const name = document.getElementById("fullName").value || "Student";
+                    link.href = image;
+                    link.download = `${name.replace(/\s+/g, '_')}_SGPA_Grade_Card.jpeg`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                 });
+            }, 300);
+        }
+
+        async function shareResultAsPdf() {
+            if (!validateInputs(true)) return;
+
+            calculateSGPA();
+            const { jsPDF } = window.jspdf;
+            const gradeCardContentDiv = document.getElementById("grade-card-content");
+            const gradeCardModal = document.getElementById("grade-card-modal");
+
+            // Inject the generated grade card content
+            gradeCardContentDiv.innerHTML = generateTemporaryGradeCardContent();
+
+            // Show the modal (it must be visible before html2canvas can capture it)
+            gradeCardModal.style.display = "flex";
+            gradeCardModal.style.visibility = "visible";
+
+            // Allow some time for the browser to render the modal before capturing
+            setTimeout(async () => {
+                try {
+                    const canvas = await html2canvas(gradeCardContentDiv, {
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor: "#ffffff"
+                    });
+
+                    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    const doc = new jsPDF('p', 'mm', 'a4');
+                    const pageWidth = 210; // A4 width in mm
+                    const margin = 10;
+                    const imgWidth = pageWidth - margin * 2;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                    let position = margin;
+                    let heightLeft = imgHeight;
+
+                    doc.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+                    heightLeft -= doc.internal.pageSize.height;
+
+                    while (heightLeft > 0) {
+                        position = heightLeft - imgHeight + margin;
+                        doc.addPage();
+                        doc.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+                        heightLeft -= doc.internal.pageSize.height;
+                    }
+
+                    const name = document.getElementById("fullName").value || "Student";
+                    const pdfFileName = `${name.replace(/\s+/g, '_')}_SGPA_Grade_Card.pdf`;
+                    const pdfBlob = doc.output('blob');
+
+                    if (
+                        navigator.share &&
+                        navigator.canShare &&
+                        navigator.canShare({
+                            files: [new File([pdfBlob], pdfFileName, { type: 'application/pdf' })]
+                        })
+                    ) {
+                        await navigator.share({
+                            files: [new File([pdfBlob], pdfFileName, { type: 'application/pdf' })],
+                            title: 'SGPA Grade Card',
+                            text: `Check out my SGPA Grade Card for ${name}!`,
+                        });
+                    } else {
+                        doc.save(pdfFileName);
+                        showCustomMessageBox("PDF downloaded. You can manually share it from your downloads.");
+                    }
+                } catch (error) {
+                    console.error("Error generating PDF:", error);
+                    showCustomMessageBox("Failed to generate or share PDF. Please try again.");
+                } finally {
+                    // Hide the modal again after capture
+                    gradeCardModal.style.display = "none";
+                }
+            }, 400); // Wait ~400ms to ensure rendering
+        }
+
+        // Custom Message Box functions
+        function showCustomMessageBox(message) {
+            const messageBox = document.createElement('div');
+            messageBox.id = 'custom-message-box';
+            messageBox.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                text-align: center;
+                font-family: 'Inter', sans-serif;
+                font-size: 1.8rem;
+                color: #333;
+                max-width: 80%;
+            `;
+            messageBox.innerHTML = `
+                <p>${message}</p>
+                <button id="custom-message-box-ok" style="
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 15px;
+                    font-size: 1.6rem;
+                ">OK</button>
+            `;
+            document.body.appendChild(messageBox);
+
+            document.getElementById('custom-message-box-ok').addEventListener('click', () => {
+                document.body.removeChild(messageBox);
+            });
+        }
+
+
+        document.getElementById('close-modal').addEventListener('click', () => {
+            document.getElementById('grade-card-modal').style.display = 'none';
+        });
+        document.getElementById('grade-card-modal').addEventListener('click', (event) => {
+            if (event.target === document.getElementById('grade-card-modal')) {
+                document.getElementById('grade-card-modal').style.display = 'none';
             }
         });
+
+        // Initialize button visibility when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            handleStreamSelection(); // This will also call initializePageVisibility internally
+            initializePageVisibility();
+        });
     </script>
-  </body>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LDX0K93M5E"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-LDX0K93M5E');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3770007315697798"
+     crossorigin="anonymous"></script>
+</body>
 </html>
+
