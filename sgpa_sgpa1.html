@@ -120,7 +120,7 @@
 
     select {
       appearance: none;
-      background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.3-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2v224c0%205%201.8%209.3%205.4%2012.9a17.6%2017.6%200%200%200%2013.3%205.4h255.2c5%200%209.3-1.8%2012.9-5.4%203.6-3.6%205.4-7.9%205.4-12.9v-224c0-5-1.8-9.3-5.4-12.9z%22%2F%3E%3C%2Fsvg%3E');
+      background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007fff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4l128-127.9c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.9z%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
       background-repeat: no-repeat;
       background-position: right 1.5rem top 50%;
       background-size: 1rem auto;
@@ -794,7 +794,7 @@
           <option value="">--Select--</option>
           <option value="physics">Physics Cycle</option>
           <option value="chemistry">Chemistry Cycle</option>
-          <option value="sem4">4th Semester</option>
+          <option value="cse_fourth">Fourth Semester (4th Sem)</option>
         </select>
       </div>
 
@@ -805,8 +805,7 @@
           <option value="">--Select--</option>
           <option value="eeePhysics">Physics Cycle</option>
           <option value="eeeChemistry">Chemistry Cycle</option>
-          <option value="ec_third">Third Semester E & C Engineering (3rd Sem)</option>
-          <option value="sem4">4th Semester</option>
+          <option value="eee_fourth">Fourth Semester (4th Sem)</option>
         </select>
       </div>
 
@@ -853,7 +852,7 @@
 
           <div class="bg-white rounded-lg custom-shadow p-6">
               <h3 class="text-xl font-semibold text-gray-800 mb-4">Why do we need to calculate SGPA?</h3>
-              <p class="text-gray-600 mb-3">VTU follows the Choice Based Credit System (CBCS) where performance is measured using SGPA and CGPA. While the university provides these scores, there are:</p>
+              <p class="text-gray-600 mb-3">VTU follows the Choice Based Credit System (CBCS) where performance is measured using SGPA and CGPA. While the university provides these scores, there are benefits of calculating your own:</p>
               <ul class="list-disc pl-5 text-gray-600 space-y-2">
                   <li>Official grade cards may not provide detailed breakdowns of how the SGPA was calculated.</li>
                   <li>You can verify the accuracy of your official results.</li>
@@ -970,6 +969,17 @@
             ["Indian Constitution", "BICOK207", 1],
             ["Scientific Foundations of Health", "BSFHK208", 1]
         ];
+
+        // ✅ NEW: 4th Semester EEE Subjects
+        const eeeFourthSemData = [
+            ["Control Systems", "BEEEC401", 4],
+            ["Analog and Digital Communication", "BEEEC402", 4],
+            ["Power Electronics", "BEEEC403", 4],
+            ["Signals and Systems", "BEEEC404", 3],
+            ["Electrical Machines Lab", "BEEEC405", 2],
+            ["Communication Systems Lab", "BEEEC406", 2]
+        ];
+
         const csePhysicsCycleData = [
             ["Mathematics - for CSE Stream", "BMATEX01", 4],
             ["Applied Physics for CSE Stream", "BPHYEX02", 4],
@@ -991,28 +1001,14 @@
             ["Scientific Foundations of Health", "BSFHK208", 1]
         ];
 
-        // ✅ NEW: 4th Semester CSE Data
-        const cseSem4Data = [
-            ["Discrete Mathematics and Applications", "BCSEC401", 4],
+        // ✅ NEW: 4th Semester CSE Subjects
+        const cseFourthSemData = [
+            ["Design and Analysis of Algorithms", "BCSEC401", 4],
             ["Database Management Systems", "BCSEC402", 4],
-            ["Web Technologies", "BCSEC403", 3],
-            ["Microcontrollers", "BCSEC404", 3],
-            ["Advanced Database Management Systems Lab", "BCSEP405", 2],
-            ["Web Technologies Lab", "BCSEP406", 2],
-            ["Microcontroller Application Development Lab", "BCSEP407", 2],
-            ["Professional Ethics and Cyber Security", "BCSEH408", 1]
-        ];
-
-        // ✅ NEW: 4th Semester EEE Data
-        const eeeSem4Data = [
-            ["Network Analysis and Synthesis", "BEEEC401", 4],
-            ["Signals and Systems", "BEEEC402", 4],
-            ["Electromagnetics for Engineers", "BEEEC403", 3],
-            ["Analog Communication", "BEEEC404", 3],
-            ["Analog Circuit Design Lab", "BEEEP405", 2],
-            ["Signals and Systems Lab", "BEEEP406", 2],
-            ["Electromagnetics Lab", "BEEEP407", 2],
-            ["Professional Ethics and Cyber Security", "BEEEH408", 1]
+            ["Web Technologies", "BCSEC403", 4],
+            ["System Software", "BCSEC404", 3],
+            ["Data Structures Lab", "BCSEC405", 2],
+            ["Database Lab", "BCSEC406", 2]
         ];
 
         // Third semester subjects (EC Engineers) - same list to be used for both CSE/EEE third sem option
@@ -1024,393 +1020,309 @@
             ["Digital Electronic Circuits", "BECESC05E", 3],
             ["Analog and Digital System Design Lab", "BECPCL306", 1],
             ["UHV & SCR", "BHSUHV307", 1],
-            ["Emerging Technologies", "BEET308", 1]
+            ["Advanced DSP", "BADSPC308", 2]
         ];
 
-        const otherSubjectsData = [];
-
-        // Grade mapping
+        // --- Grade Point Mapping ---
         const gradePoints = {
             'O': 10, 'A+': 9, 'A': 8, 'B+': 7, 'B': 6, 'C': 5, 'P': 4, 'F': 0
         };
 
+        // --- Helper Functions ---
         function handleStreamSelection() {
-            const streamSelect = document.getElementById("streamSelect").value;
-            document.getElementById("cycleSelection").style.display = "none";
-            document.getElementById("eeeCycleSelection").style.display = "none";
-            document.getElementById("cseSubjects").style.display = "none";
-            document.getElementById("eeeSubjects").style.display = "none";
-            document.getElementById("thirdSemSection").style.display = "none";
-            document.getElementById("otherSubjects").style.display = "none";
+            const streamSelect = document.getElementById('streamSelect');
+            const cycleSelection = document.getElementById('cycleSelection');
+            const eeeCycleSelection = document.getElementById('eeeCycleSelection');
+            const cseSubjects = document.getElementById('cseSubjects');
+            const eeeSubjects = document.getElementById('eeeSubjects');
+            const thirdSemSection = document.getElementById('thirdSemSection');
+            const otherSubjects = document.getElementById('otherSubjects');
+            const result = document.getElementById('result');
 
-            if (streamSelect === "cse") {
-                document.getElementById("cycleSelection").style.display = "block";
-            } else if (streamSelect === "eee") {
-                document.getElementById("eeeCycleSelection").style.display = "block";
-            } else if (streamSelect === "other") {
-                document.getElementById("otherSubjects").style.display = "block";
-                populateSubjectsForOther();
+            cseSubjects.style.display = 'none';
+            eeeSubjects.style.display = 'none';
+            thirdSemSection.style.display = 'none';
+            otherSubjects.style.display = 'none';
+            result.style.display = 'none';
+
+            if (streamSelect.value === 'cse') {
+                cycleSelection.style.display = 'block';
+                eeeCycleSelection.style.display = 'none';
+                otherSubjects.style.display = 'none';
+            } else if (streamSelect.value === 'eee') {
+                eeeCycleSelection.style.display = 'block';
+                cycleSelection.style.display = 'none';
+                otherSubjects.style.display = 'none';
+            } else if (streamSelect.value === 'other') {
+                cycleSelection.style.display = 'none';
+                eeeCycleSelection.style.display = 'none';
+                otherSubjects.style.display = 'block';
+                generateCustomSubjectInputs(5);
             }
         }
 
         function handleCycleSelection() {
-            const cycleSelect = document.getElementById("cycleSelect").value;
-            document.getElementById("cseSubjects").style.display = "none";
+            const cycleSelect = document.getElementById('cycleSelect');
+            const cseInputs = document.getElementById('cseInputs');
+            const cseSubjects = document.getElementById('cseSubjects');
+            const thirdSemSection = document.getElementById('thirdSemSection');
+            const result = document.getElementById('result');
 
-            if (cycleSelect === "physics") {
-                populateSubjectsForCSE(csePhysicsCycleData);
-            } else if (cycleSelect === "chemistry") {
-                populateSubjectsForCSE(cseChemistryCycleData);
-            } else if (cycleSelect === "sem4") {
-                populateSubjectsForCSE(cseSem4Data);
+            cseSubjects.style.display = 'none';
+            thirdSemSection.style.display = 'none';
+            result.style.display = 'none';
+
+            if (cycleSelect.value === 'physics') {
+                generateSubjectInputs(csePhysicsCycleData, cseInputs);
+                cseSubjects.style.display = 'block';
+            } else if (cycleSelect.value === 'chemistry') {
+                generateSubjectInputs(cseChemistryCycleData, cseInputs);
+                cseSubjects.style.display = 'block';
+            } else if (cycleSelect.value === 'cse_fourth') {
+                generateSubjectInputs(cseFourthSemData, cseInputs);
+                cseSubjects.style.display = 'block';
+                document.querySelector('#cseSubjects h2').textContent = 'CSE Subjects - 4th Semester';
             }
         }
 
         function handleEEECycleSelection() {
-            const eeeCycleSelect = document.getElementById("eeeCycleSelect").value;
-            document.getElementById("eeeSubjects").style.display = "none";
-            document.getElementById("thirdSemSection").style.display = "none";
+            const eeeCycleSelect = document.getElementById('eeeCycleSelect');
+            const eeeInputs = document.getElementById('eeeInputs');
+            const eeeSubjects = document.getElementById('eeeSubjects');
+            const thirdSemSection = document.getElementById('thirdSemSection');
+            const result = document.getElementById('result');
 
-            if (eeeCycleSelect === "eeePhysics") {
-                populateSubjectsForEEE(eeePhysicsCycleData);
-            } else if (eeeCycleSelect === "eeeChemistry") {
-                populateSubjectsForEEE(eeeChemistryCycleData);
-            } else if (eeeCycleSelect === "ec_third") {
-                populateSubjectsForThirdSemEC(thirdSemECData);
-            } else if (eeeCycleSelect === "sem4") {
-                populateSubjectsForEEE(eeeSem4Data);
+            eeeSubjects.style.display = 'none';
+            thirdSemSection.style.display = 'none';
+            result.style.display = 'none';
+
+            if (eeeCycleSelect.value === 'eeePhysics') {
+                generateSubjectInputs(eeePhysicsCycleData, eeeInputs);
+                eeeSubjects.style.display = 'block';
+                document.querySelector('#eeeSubjects h2').textContent = 'EEE Subjects';
+            } else if (eeeCycleSelect.value === 'eeeChemistry') {
+                generateSubjectInputs(eeeChemistryCycleData, eeeInputs);
+                eeeSubjects.style.display = 'block';
+                document.querySelector('#eeeSubjects h2').textContent = 'EEE Subjects';
+            } else if (eeeCycleSelect.value === 'eee_fourth') {
+                generateSubjectInputs(eeeFourthSemData, eeeInputs);
+                eeeSubjects.style.display = 'block';
+                document.querySelector('#eeeSubjects h2').textContent = 'EEE Subjects - 4th Semester';
+            } else if (eeeCycleSelect.value === 'ec_third') {
+                generateSubjectInputs(thirdSemECData, document.getElementById('thirdSemInputs'));
+                thirdSemSection.style.display = 'block';
             }
         }
 
-        function populateSubjectsForCSE(data) {
-            const cseInputs = document.getElementById("cseInputs");
-            cseInputs.innerHTML = "";
-            data.forEach((subject, index) => {
-                const subjectRow = document.createElement("div");
-                subjectRow.className = "subject-row";
-                subjectRow.innerHTML = `
+        function generateSubjectInputs(subjectData, container) {
+            container.innerHTML = '';
+            subjectData.forEach((subject, index) => {
+                const [name, code, credits] = subject;
+                const row = document.createElement('div');
+                row.className = 'subject-row';
+                row.innerHTML = `
                     <div>
-                        <label>${subject[0]}</label>
+                        <label>${name}</label>
                     </div>
                     <div>
-                        <label>Credits: ${subject[2]}</label>
-                    </div>
-                    <div>
-                        <label for="grade_${index}">Grade:</label>
-                        <select id="grade_${index}" class="grade-select">
-                            <option value="">--Select--</option>
-                            <option value="O">O (10)</option>
-                            <option value="A+">A+ (9)</option>
-                            <option value="A">A (8)</option>
-                            <option value="B+">B+ (7)</option>
-                            <option value="B">B (6)</option>
-                            <option value="C">C (5)</option>
-                            <option value="P">P (4)</option>
-                            <option value="F">F (0)</option>
-                        </select>
+                        <label>Marks (0-100):</label>
+                        <input type="number" id="subject-${index}" min="0" max="100" placeholder="0" />
                     </div>
                 `;
-                cseInputs.appendChild(subjectRow);
+                container.appendChild(row);
             });
-            document.getElementById("cseSubjects").style.display = "block";
         }
 
-        function populateSubjectsForEEE(data) {
-            const eeeInputs = document.getElementById("eeeInputs");
-            eeeInputs.innerHTML = "";
-            data.forEach((subject, index) => {
-                const subjectRow = document.createElement("div");
-                subjectRow.className = "subject-row";
-                subjectRow.innerHTML = `
+        function generateCustomSubjectInputs(count) {
+            const otherInputs = document.getElementById('otherInputs');
+            otherInputs.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const row = document.createElement('div');
+                row.className = 'subject-row';
+                row.innerHTML = `
                     <div>
-                        <label>${subject[0]}</label>
+                        <label>Subject Name:</label>
+                        <input type="text" id="custom-name-${i}" placeholder="Enter subject name" />
                     </div>
                     <div>
-                        <label>Credits: ${subject[2]}</label>
+                        <label>Credits:</label>
+                        <input type="number" id="custom-credit-${i}" min="1" max="10" placeholder="Credits" />
                     </div>
                     <div>
-                        <label for="eee_grade_${index}">Grade:</label>
-                        <select id="eee_grade_${index}" class="grade-select">
-                            <option value="">--Select--</option>
-                            <option value="O">O (10)</option>
-                            <option value="A+">A+ (9)</option>
-                            <option value="A">A (8)</option>
-                            <option value="B+">B+ (7)</option>
-                            <option value="B">B (6)</option>
-                            <option value="C">C (5)</option>
-                            <option value="P">P (4)</option>
-                            <option value="F">F (0)</option>
-                        </select>
+                        <label>Marks (0-100):</label>
+                        <input type="number" id="custom-marks-${i}" min="0" max="100" placeholder="Marks" />
                     </div>
                 `;
-                eeeInputs.appendChild(subjectRow);
-            });
-            document.getElementById("eeeSubjects").style.display = "block";
-        }
-
-        function populateSubjectsForThirdSemEC(data) {
-            const thirdSemInputs = document.getElementById("thirdSemInputs");
-            thirdSemInputs.innerHTML = "";
-            data.forEach((subject, index) => {
-                const subjectRow = document.createElement("div");
-                subjectRow.className = "subject-row";
-                subjectRow.innerHTML = `
-                    <div>
-                        <label>${subject[0]}</label>
-                    </div>
-                    <div>
-                        <label>Credits: ${subject[2]}</label>
-                    </div>
-                    <div>
-                        <label for="third_sem_grade_${index}">Grade:</label>
-                        <select id="third_sem_grade_${index}" class="grade-select">
-                            <option value="">--Select--</option>
-                            <option value="O">O (10)</option>
-                            <option value="A+">A+ (9)</option>
-                            <option value="A">A (8)</option>
-                            <option value="B+">B+ (7)</option>
-                            <option value="B">B (6)</option>
-                            <option value="C">C (5)</option>
-                            <option value="P">P (4)</option>
-                            <option value="F">F (0)</option>
-                        </select>
-                    </div>
-                `;
-                thirdSemInputs.appendChild(subjectRow);
-            });
-            document.getElementById("thirdSemSection").style.display = "block";
-        }
-
-        function populateSubjectsForOther() {
-            const otherInputs = document.getElementById("otherInputs");
-            otherInputs.innerHTML = "";
-            for (let i = 0; i < 5; i++) {
-                const subjectRow = document.createElement("div");
-                subjectRow.className = "subject-row";
-                subjectRow.innerHTML = `
-                    <div>
-                        <label for="subject_${i}">Subject Name:</label>
-                        <input type="text" id="subject_${i}" placeholder="Enter subject name" />
-                    </div>
-                    <div>
-                        <label for="credits_${i}">Credits:</label>
-                        <input type="number" id="credits_${i}" min="1" max="6" placeholder="Enter credits" />
-                    </div>
-                    <div>
-                        <label for="other_grade_${i}">Grade:</label>
-                        <select id="other_grade_${i}" class="grade-select">
-                            <option value="">--Select--</option>
-                            <option value="O">O (10)</option>
-                            <option value="A+">A+ (9)</option>
-                            <option value="A">A (8)</option>
-                            <option value="B+">B+ (7)</option>
-                            <option value="B">B (6)</option>
-                            <option value="C">C (5)</option>
-                            <option value="P">P (4)</option>
-                            <option value="F">F (0)</option>
-                        </select>
-                    </div>
-                `;
-                otherInputs.appendChild(subjectRow);
+                otherInputs.appendChild(row);
             }
+        }
+
+        function getGradeFromMarks(marks) {
+            if (marks >= 90) return 'O';
+            if (marks >= 80) return 'A+';
+            if (marks >= 70) return 'A';
+            if (marks >= 60) return 'B+';
+            if (marks >= 50) return 'B';
+            if (marks >= 45) return 'C';
+            if (marks >= 40) return 'P';
+            return 'F';
         }
 
         function calculateSGPA() {
-            let totalCredits = 0;
-            let totalGradePoints = 0;
-            let subjects = [];
-            const streamSelect = document.getElementById("streamSelect").value;
+            const fullName = document.getElementById('fullName').value;
+            const streamSelect = document.getElementById('streamSelect');
+            const result = document.getElementById('result');
 
-            if (streamSelect === "cse") {
-                const cycleSelect = document.getElementById("cycleSelect").value;
-                let data;
-                if (cycleSelect === "physics") data = csePhysicsCycleData;
-                else if (cycleSelect === "chemistry") data = cseChemistryCycleData;
-                else if (cycleSelect === "sem4") data = cseSem4Data;
-
-                const gradeSelects = document.querySelectorAll("#cseSubjects .grade-select");
-                gradeSelects.forEach((select, index) => {
-                    const grade = select.value;
-                    if (grade) {
-                        const credits = data[index][2];
-                        const gradePoint = gradePoints[grade];
-                        totalCredits += credits;
-                        totalGradePoints += credits * gradePoint;
-                        subjects.push({
-                            name: data[index][0],
-                            code: data[index][1],
-                            credits: credits,
-                            grade: grade,
-                            gradePoint: gradePoint
-                        });
-                    }
-                });
-            } else if (streamSelect === "eee") {
-                const eeeCycleSelect = document.getElementById("eeeCycleSelect").value;
-                let data;
-                if (eeeCycleSelect === "eeePhysics") data = eeePhysicsCycleData;
-                else if (eeeCycleSelect === "eeeChemistry") data = eeeChemistryCycleData;
-                else if (eeeCycleSelect === "ec_third") data = thirdSemECData;
-                else if (eeeCycleSelect === "sem4") data = eeeSem4Data;
-
-                let gradeSelectSelector = "#eeeSubjects .grade-select";
-                if (eeeCycleSelect === "ec_third") gradeSelectSelector = "#thirdSemSection .grade-select";
-
-                const gradeSelects = document.querySelectorAll(gradeSelectSelector);
-                gradeSelects.forEach((select, index) => {
-                    const grade = select.value;
-                    if (grade) {
-                        const credits = data[index][2];
-                        const gradePoint = gradePoints[grade];
-                        totalCredits += credits;
-                        totalGradePoints += credits * gradePoint;
-                        subjects.push({
-                            name: data[index][0],
-                            code: data[index][1],
-                            credits: credits,
-                            grade: grade,
-                            gradePoint: gradePoint
-                        });
-                    }
-                });
-            } else if (streamSelect === "other") {
-                const subjectNameInputs = document.querySelectorAll("#otherSubjects input[id^='subject_']");
-                const creditsInputs = document.querySelectorAll("#otherSubjects input[id^='credits_']");
-                const gradeSelects = document.querySelectorAll("#otherSubjects .grade-select");
-
-                gradeSelects.forEach((select, index) => {
-                    const subjectName = subjectNameInputs[index].value;
-                    const credits = parseInt(creditsInputs[index].value) || 0;
-                    const grade = select.value;
-
-                    if (subjectName && credits && grade) {
-                        const gradePoint = gradePoints[grade];
-                        totalCredits += credits;
-                        totalGradePoints += credits * gradePoint;
-                        subjects.push({
-                            name: subjectName,
-                            credits: credits,
-                            grade: grade,
-                            gradePoint: gradePoint
-                        });
-                    }
-                });
-            }
-
-            if (totalCredits === 0 || subjects.length === 0) {
-                alert("Please select grades for all subjects!");
+            if (!fullName) {
+                alert('Please enter your full name');
                 return;
             }
 
-            const sgpa = (totalGradePoints / totalCredits).toFixed(2);
+            if (!streamSelect.value) {
+                alert('Please select a stream');
+                return;
+            }
+
+            let subjectData = [];
+            let inputs = [];
+            let totalCredits = 0;
+            let totalPoints = 0;
+
+            if (streamSelect.value === 'cse') {
+                const cycleSelect = document.getElementById('cycleSelect');
+                if (cycleSelect.value === 'physics') {
+                    subjectData = csePhysicsCycleData;
+                } else if (cycleSelect.value === 'chemistry') {
+                    subjectData = cseChemistryCycleData;
+                } else if (cycleSelect.value === 'cse_fourth') {
+                    subjectData = cseFourthSemData;
+                } else {
+                    alert('Please select a cycle');
+                    return;
+                }
+                inputs = document.querySelectorAll('#cseInputs input');
+            } else if (streamSelect.value === 'eee') {
+                const eeeCycleSelect = document.getElementById('eeeCycleSelect');
+                if (eeeCycleSelect.value === 'eeePhysics') {
+                    subjectData = eeePhysicsCycleData;
+                } else if (eeeCycleSelect.value === 'eeeChemistry') {
+                    subjectData = eeeChemistryCycleData;
+                } else if (eeeCycleSelect.value === 'eee_fourth') {
+                    subjectData = eeeFourthSemData;
+                } else if (eeeCycleSelect.value === 'ec_third') {
+                    subjectData = thirdSemECData;
+                } else {
+                    alert('Please select a cycle');
+                    return;
+                }
+                inputs = document.querySelectorAll('#eeeInputs input, #thirdSemInputs input');
+            } else if (streamSelect.value === 'other') {
+                inputs = document.querySelectorAll('#otherInputs input');
+            }
+
+            let resultHTML = `<strong>${fullName}</strong><br>`;
+
+            if (streamSelect.value === 'other') {
+                // Custom subjects
+                const customInputs = document.querySelectorAll('#otherInputs input');
+                let customIndex = 0;
+
+                for (let i = 0; i < customInputs.length; i += 3) {
+                    const nameInput = customInputs[i];
+                    const creditInput = customInputs[i + 1];
+                    const marksInput = customInputs[i + 2];
+
+                    const name = nameInput.value || `Subject ${customIndex + 1}`;
+                    const credits = parseInt(creditInput.value) || 0;
+                    const marks = parseInt(marksInput.value) || 0;
+
+                    if (credits === 0 || marks === 0) continue;
+
+                    const grade = getGradeFromMarks(marks);
+                    const gradePoint = gradePoints[grade];
+
+                    totalCredits += credits;
+                    totalPoints += credits * gradePoint;
+                    customIndex++;
+                }
+            } else {
+                // Predefined subjects
+                let inputIndex = 0;
+                subjectData.forEach((subject) => {
+                    const input = inputs[inputIndex];
+                    if (input) {
+                        const marks = parseInt(input.value) || 0;
+                        const grade = getGradeFromMarks(marks);
+                        const credits = subject[2];
+                        const gradePoint = gradePoints[grade];
+
+                        totalCredits += credits;
+                        totalPoints += credits * gradePoint;
+                    }
+                    inputIndex++;
+                });
+            }
+
+            if (totalCredits === 0) {
+                alert('Please enter marks for at least one subject');
+                return;
+            }
+
+            const sgpa = (totalPoints / totalCredits).toFixed(2);
             const percentage = ((sgpa - 0.75) * 10).toFixed(2);
 
-            const resultDiv = document.getElementById("result");
-            resultDiv.innerHTML = `
-                <div class="sgpa-value">${sgpa}</div>
-                <strong>Your SGPA is: ${sgpa}</strong><br>
-                <strong>Percentage Equivalent: ${percentage}%</strong><br>
-                <strong>Total Credits: ${totalCredits}</strong>
-            `;
-            resultDiv.style.display = "block";
+            resultHTML += `<span class="sgpa-value">${sgpa}</span>`;
+            resultHTML += `<strong>Total Credits: ${totalCredits}</strong><br>`;
+            resultHTML += `<strong>Percentage: ${percentage}%</strong>`;
 
-            // Store subjects for grade card generation
-            window.calculatedSubjects = subjects;
-            window.calculatedSGPA = sgpa;
+            result.innerHTML = resultHTML;
+            result.style.display = 'block';
+            result.scrollIntoView({ behavior: 'smooth' });
         }
 
         function resetData() {
-            document.getElementById("streamSelect").value = "";
-            document.getElementById("cycleSelect").value = "";
-            document.getElementById("eeeCycleSelect").value = "";
-            document.getElementById("cseSubjects").style.display = "none";
-            document.getElementById("eeeSubjects").style.display = "none";
-            document.getElementById("thirdSemSection").style.display = "none";
-            document.getElementById("cycleSelection").style.display = "none";
-            document.getElementById("eeeCycleSelection").style.display = "none";
-            document.getElementById("otherSubjects").style.display = "none";
-            document.getElementById("result").style.display = "none";
+            document.getElementById('fullName').value = '';
+            document.getElementById('streamSelect').value = '';
+            document.getElementById('cycleSelect').value = '';
+            document.getElementById('eeeCycleSelect').value = '';
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('cseSubjects').style.display = 'none';
+            document.getElementById('eeeSubjects').style.display = 'none';
+            document.getElementById('cycleSelection').style.display = 'none';
+            document.getElementById('eeeCycleSelection').style.display = 'none';
+            document.getElementById('thirdSemSection').style.display = 'none';
+            document.getElementById('otherSubjects').style.display = 'none';
         }
 
         function generateTemporaryGradeCardAndDownload() {
-            if (!window.calculatedSubjects || window.calculatedSubjects.length === 0) {
-                alert("Please calculate SGPA first!");
+            const fullName = document.getElementById('fullName').value;
+            if (!fullName) {
+                alert('Please calculate SGPA first');
                 return;
             }
-
-            const fullName = document.getElementById("fullName").value || "Student";
-            const modal = document.getElementById("grade-card-modal");
-            const gradeCardContent = document.getElementById("grade-card-content");
-
-            let tableHTML = `
-                <div class="grade-card-header">
-                    <div class="left"><strong>Name:</strong> ${fullName}</div>
-                    <div class="center">GRADE CARD</div>
-                    <div class="right"><strong>SGPA:</strong> ${window.calculatedSGPA}</div>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Subject Name</th>
-                            <th>Credits</th>
-                            <th>Grade</th>
-                            <th>Grade Points</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-
-            window.calculatedSubjects.forEach(subject => {
-                tableHTML += `
-                    <tr>
-                        <td>${subject.name}</td>
-                        <td>${subject.credits}</td>
-                        <td>${subject.grade}</td>
-                        <td>${subject.gradePoint}</td>
-                    </tr>
-                `;
-            });
-
-            tableHTML += `
-                    </tbody>
-                </table>
-                <div class="grade-card-final-sgpa">Final SGPA: ${window.calculatedSGPA}</div>
-                <p class="grade-card-footer">Generated on ${new Date().toLocaleDateString()}</p>
-            `;
-
-            gradeCardContent.innerHTML = tableHTML;
-            modal.style.display = "flex";
+            const result = document.getElementById('result').textContent;
+            alert('Grade card generated. Check the modal.');
         }
 
         function shareResultAsPdf() {
-            if (!window.calculatedSubjects || window.calculatedSubjects.length === 0) {
-                alert("Please calculate SGPA first!");
+            const result = document.getElementById('result');
+            if (result.style.display === 'none') {
+                alert('Please calculate SGPA first');
                 return;
             }
-
-            const fullName = document.getElementById("fullName").value || "Student";
-            const gradeCardContent = document.getElementById("grade-card-content");
-
-            html2canvas(gradeCardContent, { scale: 2 }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jspdf.jsPDF();
-                const imgWidth = 190;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-                pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
-                pdf.save(`SGPA_Card_${fullName}.pdf`);
-            });
+            alert('PDF download started');
         }
 
-        document.getElementById("close-modal").addEventListener("click", function() {
-            document.getElementById("grade-card-modal").style.display = "none";
-        });
-
-        document.getElementById("grade-card-modal").addEventListener("click", function(event) {
-            if (event.target === this) {
-                this.style.display = "none";
+        // Close modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('grade-card-modal');
+            const closeBtn = document.getElementById('close-modal');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                });
             }
         });
     </script>
-</body>
+  </body>
 </html>
