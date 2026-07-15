@@ -756,8 +756,7 @@
   background-color: #218838 !important;
   box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
 }
-
-  </style>
+</style>
  <!-- Already existing -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -794,6 +793,7 @@
           <option value="">--Select--</option>
           <option value="physics">Physics Cycle</option>
           <option value="chemistry">Chemistry Cycle</option>
+          <option value="fourth_sem">Fourth Semester CSE (4th Sem)</option>
         </select>
       </div>
 
@@ -804,7 +804,8 @@
           <option value="">--Select--</option>
           <option value="eeePhysics">Physics Cycle</option>
           <option value="eeeChemistry">Chemistry Cycle</option>
-          <option value="ec_third">Third Semester E & C Engineering (3rd Sem)</option>
+          <option value="ec_third">Third Semester E & CE (3rd Sem)</option>
+          <option value="fourth_sem">Fourth Semester E & CE (4th Sem)</option>
         </select>
       </div>
 
@@ -1001,6 +1002,32 @@
             ["Physical Education", "BMNPHE309", 0]
         ];
 
+      const fourthSemCSEData = [
+    ["Analysis and Design of Algorithms", "BCSPCC401", 4],
+    ["Advanced Java", "BCSPCC402", 4],
+    ["Database Management Systems (DBMS)", "BCSPCC403", 4],
+    ["Mathematics", "BCSESC404X", 3],
+    ["Biology for Engineers", "BBTBIO405", 2],
+    ["Analysis and Design of Algorithms Lab", "BCSPCL406", 1],
+    ["Git Lab", "BCSAEC407X", 1],
+    ["Environmental Studies", "BHSENV408", 1],
+    ["Yoga", "BMNYOG409", 0]
+];
+
+
+const fourthSemECData = [
+    ["Electromagnetic Theory", "BECPCC401", 4],
+    ["Principles of Communication Systems", "BECPCC402", 4],
+    ["Control Systems", "BECPCC403", 4],
+    ["8051 Microcontroller", "BECESC404A", 3],
+    ["Biology for Engineers", "BBTBIO405", 2],
+    ["Communication Lab", "BECPCL406", 1],
+    ["8051 Microcontroller Lab", "BECAEC407A", 1],
+    ["Environmental Studies", "BHSENV408", 1],
+    ["Yoga", "BMNYOG409", 0]
+];
+
+
         let calculatedSGPA = "N/A";
         let subjectResults = [];
 
@@ -1051,6 +1078,11 @@
                 fillInputs("thirdSemInputs", thirdSemECData);
                 document.getElementById("thirdSemSection").style.display = "block";
             }
+
+            else if (cycle === "fourth_sem") {
+    fillInputs("thirdSemInputs", fourthSemCSEData);
+    document.getElementById("thirdSemSection").style.display = "block";
+}
             initializePageVisibility(); // Reset button visibility on cycle change
         }
 
@@ -1070,6 +1102,12 @@
                 fillInputs("thirdSemInputs", thirdSemECData);
                 document.getElementById("thirdSemSection").style.display = "block";
             }
+
+
+            else if (cycle === "fourth_sem") {
+    fillInputs("thirdSemInputs", fourthSemECData);
+    document.getElementById("thirdSemSection").style.display = "block";
+}
             initializePageVisibility(); // Reset button visibility on cycle change
         }
 
@@ -1188,7 +1226,7 @@
                     alert("Please select your Cycle (Physics / Chemistry / Third Semester) for CSE Stream.");
                     return false;
                 }
-                if (selectedCycle === "ec_third") {
+                if (selectedCycle === "ec_third" || selectedCycle === "fourth_sem")  {
                     marksInputs = document.querySelectorAll("#thirdSemInputs input[id$='_marks']");
                     activeSectionId = 'thirdSemSection';
                 } else {
@@ -1201,7 +1239,7 @@
                     alert("Please select your Cycle (Physics / Chemistry / Third Semester) for EEE Stream.");
                     return false;
                 }
-                if (selectedCycle === "ec_third") {
+               if (selectedCycle === "ec_third" || selectedCycle === "fourth_sem")  {
                     marksInputs = document.querySelectorAll("#thirdSemInputs input[id$='_marks']");
                     activeSectionId = 'thirdSemSection';
                 } else {
@@ -1598,4 +1636,3 @@
      crossorigin="anonymous"></script>
 </body>
 </html>
-
