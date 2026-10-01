@@ -804,8 +804,9 @@
           <option value="">--Select--</option>
           <option value="eeePhysics">Physics Cycle</option>
           <option value="eeeChemistry">Chemistry Cycle</option>
-          <option value="ec_third">Third Semester E & CE (3rd Sem)</option>
-          <option value="fourth_sem">Fourth Semester E & CE (4th Sem)</option>
+          <option value="ec_third">Third Semester ECE (3rd Sem)</option>
+          <option value="fourth_sem">Fourth Semester ECE (4th Sem)</option>
+          <option value="fifth_sem">Fifth Semester ECE (5th Sem)</option>
         </select>
       </div>
 
@@ -1028,6 +1029,20 @@ const fourthSemECData = [
 ];
 
 
+const fifthSemECData = [
+    ["Digital Communication", "BECPCC501", 4],
+    ["Digital Signal Processing", "BECPCC502", 4],
+    ["Technological Innovation and Management Entrepreneurship", "BECMAE503", 4],
+    ["Satellite & Optical Communication", "BECPEC504D", 3],
+    ["Research Methodology and IPR", "BHSRMI505", 2],
+    ["Mini Project", "BECPRJ506", 2],
+    ["Digital Communication Lab", "BECPCL507", 1],
+    ["LABVIEW Programming", "BECAEC508A", 1],
+    ["Career Competency Development", "BMNCCD509", 0]
+];
+
+
+
         let calculatedSGPA = "N/A";
         let subjectResults = [];
 
@@ -1083,33 +1098,56 @@ const fourthSemECData = [
     fillInputs("thirdSemInputs", fourthSemCSEData);
     document.getElementById("thirdSemSection").style.display = "block";
 }
+
+else if (cycle === "fifth_sem") {
+    fillInputs("thirdSemInputs", fifthSemECData);
+    document.getElementById("thirdSemSection").style.display = "block";
+}
+
             initializePageVisibility(); // Reset button visibility on cycle change
         }
 
         function handleEEECycleSelection() {
-            const cycle = document.getElementById("eeeCycleSelect").value;
-            document.getElementById("eeeSubjects").style.display = "none";
-            document.getElementById("thirdSemSection").style.display = "none";
+    const cycle = document.getElementById("eeeCycleSelect").value;
 
-            if (cycle === "eeePhysics") {
-                fillInputs("eeeInputs", eeePhysicsCycleData);
-                document.getElementById("eeeSubjects").style.display = "block";
-            } else if (cycle === "eeeChemistry") {
-                fillInputs("eeeInputs", eeeChemistryCycleData);
-                document.getElementById("eeeSubjects").style.display = "block";
-            } else if (cycle === "ec_third") {
-                // populate third semester subjects for EC (shows inputs to enter marks)
-                fillInputs("thirdSemInputs", thirdSemECData);
-                document.getElementById("thirdSemSection").style.display = "block";
-            }
+    // Hide all subject sections first
+    document.getElementById("eeeSubjects").style.display = "none";
+    document.getElementById("thirdSemSection").style.display = "none";
 
+    // Clear old subjects
+    document.getElementById("eeeInputs").innerHTML = "";
+    document.getElementById("thirdSemInputs").innerHTML = "";
 
-            else if (cycle === "fourth_sem") {
-    fillInputs("thirdSemInputs", fourthSemECData);
-    document.getElementById("thirdSemSection").style.display = "block";
+    if (cycle === "eeePhysics") {
+
+        fillInputs("eeeInputs", eeePhysicsCycleData);
+        document.getElementById("eeeSubjects").style.display = "block";
+
+    } else if (cycle === "eeeChemistry") {
+
+        fillInputs("eeeInputs", eeeChemistryCycleData);
+        document.getElementById("eeeSubjects").style.display = "block";
+
+    } else if (cycle === "ec_third") {
+
+        fillInputs("thirdSemInputs", thirdSemECData);
+        document.getElementById("thirdSemSection").style.display = "block";
+
+    } else if (cycle === "fourth_sem") {
+
+        fillInputs("thirdSemInputs", fourthSemECData);
+        document.getElementById("thirdSemSection").style.display = "block";
+
+    } else if (cycle === "fifth_sem") {
+
+        // 5TH SEMESTER ECE ONLY
+        fillInputs("thirdSemInputs", fifthSemECData);
+        document.getElementById("thirdSemSection").style.display = "block";
+    }
+
+    initializePageVisibility();
 }
-            initializePageVisibility(); // Reset button visibility on cycle change
-        }
+
 
         // Generic function to fill inputs for a given container and subject data
         // Marks input now restricted to 0-100 (step 1)
@@ -1226,7 +1264,7 @@ const fourthSemECData = [
                     alert("Please select your Cycle (Physics / Chemistry / Third Semester) for CSE Stream.");
                     return false;
                 }
-                if (selectedCycle === "ec_third" || selectedCycle === "fourth_sem")  {
+                if (selectedCycle === "ec_third" || selectedCycle === "fourth_sem" ||  selectedCycle === "fifth_sem")  {
                     marksInputs = document.querySelectorAll("#thirdSemInputs input[id$='_marks']");
                     activeSectionId = 'thirdSemSection';
                 } else {
@@ -1239,7 +1277,8 @@ const fourthSemECData = [
                     alert("Please select your Cycle (Physics / Chemistry / Third Semester) for EEE Stream.");
                     return false;
                 }
-               if (selectedCycle === "ec_third" || selectedCycle === "fourth_sem")  {
+               if (selectedCycle === "ec_third" || selectedCycle === "fourth_sem"||
+    selectedCycle === "fifth_sem")  {
                     marksInputs = document.querySelectorAll("#thirdSemInputs input[id$='_marks']");
                     activeSectionId = 'thirdSemSection';
                 } else {
