@@ -1,89 +1,58 @@
 # 🎓 SGPA & CGPA Calculator
 
-<p align="center">
-  <img src="./icon-5123.png" alt="SGPA Calculator Logo" width="120">
-</p>
-
-<h3 align="center">A simple and powerful SGPA & CGPA Calculator for engineering students</h3>
-
-<p align="center">
-  Calculate your SGPA, generate grade cards, calculate CGPA, and download your results — all in one place.
-</p>
+> A simple, fast, and student-friendly web application for calculating **SGPA and CGPA**.
 
 <p align="center">
   <a href="https://abhishekkb-work.github.io/sgpacalculator-abhi/">
-    <strong>🚀 Try Live Demo</strong>
+    <img src="https://img.shields.io/badge/🚀_Live_Demo-Visit_Website-2ea44f?style=for-the-badge" alt="Live Demo">
   </a>
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
 </p>
 
 ---
 
-## 🌐 Live Demo
+## 🌐 Live Website
 
-🔗 **Website:**  
-https://abhishekkb-work.github.io/sgpacalculator-abhi/
+### 👉 [Open SGPA & CGPA Calculator](https://abhishekkb-work.github.io/sgpacalculator-abhi/)
 
----
-
-## 📸 Screenshots
-
-<p align="center">
-  <img src="./sgpa-by-abhi-homepage.jpg" width="45%" alt="Homepage">
-  <img src="./sgpa-input-form.jpg" width="45%" alt="SGPA Input Form">
-</p>
-
-<p align="center">
-  <img src="./sgpa-result-display.jpeg.jpg" width="45%" alt="SGPA Result">
-  <img src="./abhi-sgpa-mobile-version.jpg" width="45%" alt="Mobile Version">
-</p>
+Calculate your semester SGPA, generate a grade card, calculate CGPA, and download your results directly from your browser.
 
 ---
 
 ## ✨ Features
 
-### 📊 SGPA Calculator
+| Feature | Description |
+|---|---|
+| 📊 **SGPA Calculator** | Calculate semester SGPA using marks and credits |
+| 🎓 **Branch Support** | Predefined subjects for supported engineering streams |
+| 📝 **Custom Subjects** | Add subjects manually when required |
+| 🧮 **Automatic Grades** | Automatically determine grade and grade points |
+| 🧾 **Grade Card** | Generate a temporary semester grade card |
+| 📄 **PDF Export** | Download or share the generated grade card |
+| 📈 **CGPA Calculator** | Calculate overall CGPA using semester SGPA values |
+| 📱 **Responsive UI** | Works across mobile, tablet, and desktop |
+| 📲 **PWA Support** | Includes manifest and service-worker support |
 
-Calculate your semester SGPA based on:
+---
 
-- Subject marks
-- Subject credits
-- Grade points
-- Letter grades
+## 🎯 What Can You Calculate?
 
-The calculator automatically calculates the credit-weighted SGPA.
+### SGPA
 
-### 🎓 VTU-Oriented Subject Support
+Enter the marks and credits for your subjects and the application calculates the credit-weighted SGPA automatically.
 
-The application includes predefined subjects and credits for supported engineering streams and semesters.
+### CGPA
 
-Supported options include:
+Enter your semester SGPA values to calculate your overall CGPA.
 
-- Computer Science & Engineering
-- Electronics & Communication
-- Electrical & Electronics
-- Physics Cycle
-- Chemistry Cycle
-- Semester-specific subjects
+### Grade Card
 
-### 📝 Custom Subjects
+After calculating SGPA, you can generate a temporary grade card containing:
 
-Don't see your subject?
-
-You can add your own:
-
-- Subject name
-- Marks
-- Credits
-
-This makes the calculator useful even when your subjects aren't included in the predefined list.
-
-### 🧾 Grade Card
-
-After calculating your SGPA, you can generate a temporary grade card containing:
-
-- Student name
-- Branch / stream
-- Subject details
+- Student details
+- Subject names
 - Marks
 - Credits
 - Letter grades
@@ -91,53 +60,11 @@ After calculating your SGPA, you can generate a temporary grade card containing:
 - SGPA
 - Date and time
 
-### 📄 PDF Download & Sharing
-
-Generate your SGPA grade card as a PDF and:
-
-- Download it
-- Share it
-- Save it for future reference
-
-### 📈 CGPA Calculator
-
-Calculate your overall CGPA by entering your semester SGPA values.
-
-You can:
-
-- Add multiple semesters
-- Enter semester SGPA
-- Calculate overall CGPA
-- Generate a CGPA report
-
-### 📱 Responsive Design
-
-The website is designed to work on:
-
-- 📱 Mobile phones
-- 💻 Laptops
-- 🖥️ Desktop computers
-- 📟 Tablets
-
-### 🌙 Modern UI
-
-The project includes a clean and student-friendly interface with responsive layouts and visual elements designed for quick calculations.
-
-### 📲 PWA Support
-
-The project includes Progressive Web App components such as:
-
-- Web App Manifest
-- Application icons
-- Service Worker
-
-This provides support for installing the application as a web app on compatible browsers.
-
 ---
 
 ## 🧮 SGPA Formula
 
-SGPA is calculated using the credit-weighted formula:
+The calculator uses the credit-weighted SGPA formula:
 
 ```text
 SGPA = Σ(Credit × Grade Point) / Σ(Credit)
